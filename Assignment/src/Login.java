@@ -21,5 +21,27 @@ public class Login{
         System.out.println("[1] Login as STAFF");
         System.out.println("[2] Login as CUSTOMER");
         System.out.println("############################\n");
+        
+        #-------------------------------------------------
+        
+        #user input to access either staff mode or customer mode
+        int choice = 0;
+        choice = sc.nextInt();
+        switch(choice){
+            case 1:
+                System.out.println("Signing in as STAFF");
+                /*
+                insert your code here to import StaffLogin
+                */
+                break;
+            case 2:
+                System.out.println("Signing in as CUSTOMER");
+                /*
+                insert you code here to import Customer Interface
+                */
+                break;
+        }
+        
+        #---------------------------------------------------
     }
 }
