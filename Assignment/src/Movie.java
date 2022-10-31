@@ -31,8 +31,8 @@ public class Movie {
 	public void assignStatus(String Status) {
 		this.ShowStatus = Status;
 	}
-	public void assignSyn(String Syns) {
-		this.Synopsis = Syns;
+	public void assignSyn(String Synopsis) {
+		this.Synopsis = Synopsis;
 	}
 	public void assignDirect(String Director) {
 		this.Director = Director;
