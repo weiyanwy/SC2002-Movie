@@ -25,6 +25,7 @@ public class Movie {
 	
 	public void assignTitle(String Movietitle) {
 		this.title = Movietitle;
+		System.out.println("hello");
 	}
 	public void assignStatus(String Status) {
 		this.ShowStatus = Status;
