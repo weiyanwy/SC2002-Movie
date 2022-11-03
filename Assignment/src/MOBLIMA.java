@@ -60,10 +60,6 @@ public class MOBLIMA {
 					System.out.println("Order History");
 					break;
 				##############################
-				case 5:					//Staff login
-					Ops.runAdminLogin();
-					break;
-				##############################
 				case 0:					//Exit application
 					System.out.println("Thanks for using MOBLIMA");
 					break;
