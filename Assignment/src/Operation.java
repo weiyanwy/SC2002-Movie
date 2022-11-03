@@ -1,14 +1,18 @@
 import java.util.Scanner;
 import java.util.*;
 public class Operation {
-
+	
+	#-----------------------------
+	//initialisation of relevant things
 	private Movie[] MovieLists = new Movie[30];
 	public int Size=0;
 	private Cineplex[] cinemalist;
 	private int CinemaSize;
 	StaffLogin Staff = new StaffLogin();;
 	Scanner sc = new Scanner(System.in);
-
+	#-----------------------------
+	
+	//functions to write
 	public void viewMovie() {
 		int choice=1;
 
@@ -142,6 +146,9 @@ public class Operation {
 			cinemalist[sel-1].runCineplexshowtime(this.Size);
 		}
 		
+		
+	}
+	public void booking(){
 		
 	}
 	public void ViewOrderHistory(){
