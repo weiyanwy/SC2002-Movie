@@ -10,7 +10,9 @@ public class Display {
 		System.out.println("\n");
 	}
 
-	public void maindisplay() {
+	public void Customerdisplay() {
+		System.out.println("Current mode: CUSTOMER");
+		System.out.println("\n");
 		System.out.println("*****Welcome*****\n"+
 				"*******TO********\n"+
 				"*****MOBILMA*****");
