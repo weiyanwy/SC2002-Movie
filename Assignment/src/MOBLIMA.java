@@ -4,12 +4,18 @@ public class MOBLIMA {
 	Display UI = new Display();
 	
 	public static void main(String[] args) {
+		
+		#---------------------------------
+		#initialisation of needed components
+			
 		Scanner sc = new Scanner(System.in);
 		Display UI = new Display();
 		Operation Ops = new Operation();
 		Movie movies = new Movie();
-		//create array of Movie to store
-		int choice =0;
+		
+		int choice = 0; 		//this variable is used to received input from the staff/user
+		
+		#---------------------------------
 		do {
 			UI.maindisplay();
 			System.out.print("What is your choice:  ");
