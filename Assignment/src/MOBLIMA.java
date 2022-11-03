@@ -16,6 +16,11 @@ public class MOBLIMA {
 		int choice = 0; 		//this variable is used to received input from the staff/user
 		
 		#---------------------------------
+			
+			
+		#---------------------------------
+			
+		#the main code at the start of everything
 		do {
 			UI.maindisplay();
 			System.out.print("What is your choice:  ");
