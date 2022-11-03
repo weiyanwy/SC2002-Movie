@@ -1,8 +1,15 @@
 import java.util.Scanner;
 public class Cineplex {
+	
+	#------------------------
+	//initiate relevant variables
+		
 	private String name;
 	private Movie[] movielist;
 	Scanner sc = new Scanner(System.in);
+	
+	#------------------------
+	//constructors of the Cinema
 	public void setmovielist(Movie[] list) {
 		this.movielist=list;
 	}
