@@ -32,6 +32,44 @@ public class MOBLIMA {
 		case 1:
 		System.out.println("Login as CUSTOMER");
 		//op.runCusLogin();			//this have not been implemented yet
+		
+				
+		do {
+			try {
+			UI.maindisplay();
+			System.out.print("What is your choice:  ");
+			choice= Integer.parseInt(sc.nextLine());
+			//SeatsLayOut hi= new SeatsLayOut();
+			
+			switch(choice) {
+				case 1:
+					Ops.viewMovie();
+					break;
+				case 2:
+					Ops.SearchMovie();
+					break;
+				case 3:
+					Ops.runCinema();
+					break;
+					//System.out.println("View Show Time and Cinema");
+				case 4:
+					System.out.println("Order History");
+					break;
+				case 5:
+					Ops.runAdminLogin();
+					break;
+				case 0:
+					System.out.println("Thanks for using MOBLIMA");
+					break;
+				default:
+					System.out.println("Wrong input");
+					break;
+			}}
+			catch(Exception e) {
+				System.out.println("Invalid Input");
+			}
+			
+		}while(choice!=0);
 		break;
 		case 2:
 		System.out.println("Login as STAFF");
