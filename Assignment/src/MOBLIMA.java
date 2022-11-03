@@ -60,7 +60,7 @@ public class MOBLIMA {
 					System.out.println("Order History");
 					break;
 				##############################
-				case 0:					//Exit application
+				case 5:					//Exit application
 					System.out.println("Thanks for using MOBLIMA");
 					break;
 				default:
@@ -71,7 +71,7 @@ public class MOBLIMA {
 				System.out.println("Invalid Input");
 			}
 			
-		}while(choice!=0);
+		}while(choice!=5);
 		break;
 		case 2:
 		System.out.println("Login as STAFF");
