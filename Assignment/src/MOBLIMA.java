@@ -42,23 +42,29 @@ public class MOBLIMA {
 			//SeatsLayOut hi= new SeatsLayOut();
 			
 			switch(choice) {
+				#############################
 				case 1:
-					Ops.viewMovie();
+					Ops.viewMovie();		//view movie listing
 					break;
+				#############################
 				case 2:
-					Ops.SearchMovie();
+					Ops.SearchMovie();		//search movie
 					break;
+				#############################
 				case 3:
-					Ops.runCinema();
+					Ops.runCinema();		//View Show Time and Cinema
 					break;
 					//System.out.println("View Show Time and Cinema");
-				case 4:
+				##############################
+				case 4:					//View order history
 					System.out.println("Order History");
 					break;
-				case 5:
+				##############################
+				case 5:					//Staff login
 					Ops.runAdminLogin();
 					break;
-				case 0:
+				##############################
+				case 0:					//Exit application
 					System.out.println("Thanks for using MOBLIMA");
 					break;
 				default:
