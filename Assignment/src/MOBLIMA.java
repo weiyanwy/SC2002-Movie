@@ -5,6 +5,9 @@ public class MOBLIMA {
 	Display UI = new Display();
 
 	public static void main(String[] args)  {
+		
+		+---------------------------------
+		// initialisation
 		Scanner sc = new Scanner(System.in);
 		Display UI = new Display();
 		Operation Ops = new Operation();
@@ -12,10 +15,12 @@ public class MOBLIMA {
 		SeatsLayOut hi= new SeatsLayOut();
 		Showtime time= new Showtime();
 		Cineplex[] cinema;
+		
 		//SystemConfig config= new SystemConfig();
 		//create array of Movie to store
-		int choice = 1;
-		int check;
+		
+		int choice = 1;				//variable to check function input
+		int check;				// variable to check ???
 		do {
 			try {
 			UI.maindisplay();
