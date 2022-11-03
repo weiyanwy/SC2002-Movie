@@ -2,12 +2,12 @@
 public class Display {
 	
 	public void logindisplay(){
-		System.out.println("*****WELCOME TO MOBLIMA*****\n");
-		System.out.println("\n");
-		System.out.println("Please login choosing either of this mode:\n");
-		System.out.println("[1] CUSTOMER MODE");
-		System.out.println("[2] STAFF MODE");
-		System.out.println("[3] EXIT THE APP");
+		System.out.println("*****WELCOME TO MOBLIMA*****\n");			//this part is used for display of login
+		System.out.println("\n");						//
+		System.out.println("Please login choosing either of this mode:\n");	//updated 11/3
+		System.out.println("[1] CUSTOMER MODE");				//
+		System.out.println("[2] STAFF MODE");					//
+		System.out.println("[3] EXIT THE APP");					//
 	}
 	
 	public void maindisplay() {
