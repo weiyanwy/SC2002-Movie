@@ -1,5 +1,14 @@
 
 public class Display {
+	
+	public void loginDisplay(){
+		System.out.println("####WELCOME TO MOBLIMA####\n");
+		System.out.println("\n");
+		System.out.println("Please choose number as mode of login\n");
+		System.out.println("[1] Login as STAFF\n");
+		System.out.println("[2] Login as CUSTOMER\n");
+		System.out.println("\n");
+	}
 
 	public void maindisplay() {
 		System.out.println("*****Welcome*****\n"+
