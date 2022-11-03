@@ -30,11 +30,11 @@ public class MOBLIMA {
 
 		switch(choice){
 		case 1:
-		System.out.println("Login as STAFF");
+		System.out.println("Login as CUSTOMER");
 		//op.runCusLogin();			//this have not been implemented yet
 		break;
 		case 2:
-		System.out.println("Login as CUSTOMER");
+		System.out.println("Login as STAFF");
 		Ops.runAdminLogin();			//runAdminLogin implemented in StaffMode and StaffLogin
 		break;
 
