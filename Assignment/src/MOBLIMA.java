@@ -21,6 +21,26 @@ public class MOBLIMA {
 		
 		int choice = 1;				//variable to check function input
 		int check;				// variable to check ???
+		+----------------------------------
+			
+		// fucntions to apply
+		//login function
+		UI.loginDisplay();
+		choice = Integer.parseInt(sc.nextLine());
+
+		switch(choice){
+		case 1:
+		System.out.println("Login as STAFF");
+		//op.runCusLogin();			//this have not been implemented yet
+		break;
+		case 2:
+		System.out.println("Login as CUSTOMER");
+		Ops.runAdminLogin();			//runAdminLogin implemented in StaffMode and StaffLogin
+		break;
+
+		}
+		
+		
 		do {
 			try {
 			UI.maindisplay();
