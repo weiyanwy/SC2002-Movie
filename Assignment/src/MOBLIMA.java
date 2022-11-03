@@ -20,7 +20,18 @@ public class MOBLIMA {
 			
 		#---------------------------------
 			
-		#the main code at the start of everything
+		#initialise login mode
+		do{
+			UI.logindisplay();
+			switch(choice){
+				case 1:
+					break;
+				case 2: 
+					break;
+				case 3:
+					break;
+				default:
+					break;
 		do {
 			UI.maindisplay();
 			System.out.print("What is your choice:  ");
