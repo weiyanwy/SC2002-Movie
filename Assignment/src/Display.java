@@ -20,8 +20,7 @@ public class Display {
 		System.out.println("2: Search Movie");
 		System.out.println("3: View Show Time and Cinema");
 		System.out.println("4: View Order History");
-		System.out.println("5: Staff Login");
-		System.out.println("6: Exit Application");
+		System.out.println("5: Exit Application");
 		System.out.println("Enter Choice:");
 	}
 	public void staffdisplay() {
