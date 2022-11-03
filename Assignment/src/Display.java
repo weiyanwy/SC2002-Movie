@@ -7,6 +7,7 @@ public class Display {
 		System.out.println("Please login choosing either of this mode:\n");
 		System.out.println("[1] CUSTOMER MODE");
 		System.out.println("[2] STAFF MODE");
+		System.out.println("[3] EXIT THE APP");
 	}
 	
 	public void maindisplay() {
