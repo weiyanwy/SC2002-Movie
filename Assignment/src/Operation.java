@@ -172,18 +172,36 @@ public class Operation {
 	public int target = 0;
 	target = Op.SearchMovie()						//
 	if( target == -1 ){							//the movie is not found 
-		System.out.println("The movie you search for is not found");	//
-		System.out.println("Returning to CUSTOMER menu");		//
+		System.out.println("The movie you search for is not found\n");	//
+		System.out.println("Returning to CUSTOMER menu\n");		//
 		return;								//returning to CUSTOMER menu
-	} else{
-		Movie[target].runShowtime();
+	} else{									//
+		Movie[target].runShowtime();					//display timeslots for customers to pick
 	}	
 	/////////STEP 1&2&3 DONE///////////////////////////
+	#----------------------	
+	////////////////STEP 4&5///////////////////////////
+	//List of variables used:
+	//choice: user input to choose timeslot
+	//Movie[target].ShowSize
 		
-	////////////////STEP 4/////////////////////////////
+	System.out.println("Please indicate your desired timeslot: ");
+	choice = Integer.parseInt(sc.nextLine());
+	if(choice<1 || choice> (Movie[target].ShowSize +1) ){			//ill format input
+		System.out.println("Invalid timeslot\n");			//
+		System.out.println("Returning to CUSTOMER menu\n");		//
+		return;								//returning to CUSTOMER menu
+	} else{
+		/* insert code to choose position here
+		remember to take care of how the positions are marked
+		*/
+	}
 	
+	////////////STEP 4&5 DONE//////////////////////////
+	#----------------------
+	////////////STEP 6/////////////////////////////////
 	
-	////////////STEP 4 DONE////////////////////////////
+	////////////STEP 6 DONE////////////////////////////
 		
 	#############################################################################################################################
 	
