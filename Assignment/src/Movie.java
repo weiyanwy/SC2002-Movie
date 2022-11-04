@@ -113,7 +113,7 @@ public class Movie {
 		// get reviews
 
 	}
-	#----------------------------------------------------------------------------
+	#################################################################################################
 	//this function is to display showtime when
 	//booking ticket, because they need to see the available time slots
 		
@@ -128,7 +128,7 @@ public class Movie {
 		}
 	}
 		
-	#----------------------------------------------------------------------------
+	#################################################################################################
 	public int getShowlistSize() {
 		return this.ShowSize;
 	}
