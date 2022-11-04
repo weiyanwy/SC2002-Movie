@@ -1,11 +1,33 @@
+/*
+Title: Move
+Use: create object movies with many variables to be taken into account
+
+Important variables: 
+title (used for searching and booking)
+showStatus (affect whether it can be booked or not)
+ShowTime (extremely crucial, as it contains other variables within)
+ShowSize (following variable to ShowTime)
+
+-----------------------
+Relevant files:
+Very crucial files to care about!!!
+*/
 
 import java.util.Scanner;
 
 public class Movie {
-	private String title;
+	#-----------------------------
+	//Generating movies' variables
+	
+	////////////IMPORTANT VARIABLES////////////////
+	enum status {Coming Soon, Preview, Now Showing, End of Showing}
+	private String title;						//title of movie
+	private status ShowStatus;					//status of movie (defined in enum above)
+	private Showtime[] time= new Showtime[100];			//slots of movies
+	private int ShowSize =0;					//how many slots of movies have been created
+	////////////NOT IMPORTANT VARIABLES////////////
 	private String Synopsis;
 	private String Director;
-	private String ShowStatus;
 	private String MainCast;
 	private int numvotes;
 	private float rating;
@@ -15,15 +37,14 @@ public class Movie {
 	private int totalsales;
 	private String[] reviews = new String[10];
 	///
-	private Showtime[] time= new Showtime[100];
-	private int ShowSize =0;
 	public int i = 0; 		//iterator variable
-	////
-
 	private int count=0;
 	
 	Scanner sc = new Scanner(System.in);
+	#-----------------------------
 	
+	###########################################################################################
+	//FUNCTIONS START HERE
 	public void assignTitle(String Movietitle) {
 		this.title = Movietitle;
 		System.out.println("hello");
