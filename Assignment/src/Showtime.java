@@ -3,6 +3,9 @@ import java.util.Calendar;
 import java.util.Scanner;
 import java.text.SimpleDateFormat;
 public class Showtime {
+	
+	#----------------------------------------
+	//Generate relevant variables
 	private Calendar time = Calendar.getInstance();
 	private int year;						//year of showing
 	private int month;						//month of slot
@@ -15,6 +18,10 @@ public class Showtime {
 	public is3D = False;						//check whether this slot shows 3D mode
 	Scanner sc = new Scanner(System.in);
 	SimpleDateFormat dataform = new SimpleDateFormat("MM/dd HH:mm");
+	#-----------------------------------------
+	
+	///////////////////////////////////////////////////////////////////////
+	//FUNCTION STARTS HERE
 	public void setshow() {
 		boolean check=true;
 		do {
@@ -87,6 +94,9 @@ public class Showtime {
 			}
 		}while(check);
 	}
+	
+	/////////////////////////////////////////////////////////////////
+	//FUNCTIONS THAT SIMPLY RETURN VALUE
 	public String getvenue() {
 		return this.VenueHall;
 	}
@@ -105,11 +115,12 @@ public class Showtime {
 	public int getMinute() {
 		return time.get(Calendar.MINUTE);
 	}
-
+	public boolean get3D(){						//this function returns whether this slot is 3D
+		return this.is3D;
+	}
 	public String gettime() {
-		
 		return dataform.format(time.getTime());
-		}
+	}
 	public void printSeatStatus() {
 		layout.printSeatStatus();
 	}
