@@ -159,10 +159,10 @@ public class Operation {
 	//Step 2: search film
 	//Step 3: if succcessful, extract list of showtime
 	//Step 4: choose showtime
-	//step 5: choose position
-	//step 6: if successful, indicate name, email, phone number,
+	//step 5: choose position (step 5.5: print out availability of seats)
+	//step 6: if successful, indicate name, email, phone number
 	//step 7: print out price to pay (assume payment done)
-	//step 8: generate transaction id
+	//step 8: generate transaction id (format XXX-YYYYMMDD-hhmm)
 	#----------------------
 		
 	///////////////STEP 1 & 2 & 3////////////////////////
@@ -210,7 +210,14 @@ public class Operation {
 	////////////STEP 7 DONE////////////////////////////
 	+----------------------
 	////////////STEP 8/////////////////////////////////
+	//List of variables used:
+	//string transID = null;
+	string transID = null;
 	
+	//transID = nameOfCinema+ real transaction time;
+	System.out.println("Your transaction ID is: "+ transID);
+	System.out.println("Please save the transaction ID for future reference");
+		
 	////////////STEP 8 DONE////////////////////////////
 	
 		
