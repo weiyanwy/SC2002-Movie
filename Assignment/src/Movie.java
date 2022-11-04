@@ -18,16 +18,17 @@ Very crucial files to care about!!!
 import java.util.Scanner;
 
 public class Movie {
-	#-----------------------------
+	//#-----------------------------
 	//Generating movies' variables
 	
 	////////////IMPORTANT VARIABLES////////////////
-	enum status {Coming Soon, Preview, Now Showing, End of Showing}
+	public String[] movieStatus={"Coming Soon", "Preview", "Now Showing", "End of Showing"};
+	enum status {ComingSoon, Preview, NowShowing, EndofShowing}
 	private String title;						//title of movie
 	private status ShowStatus;					//status of movie (defined in enum above) (should be reviewed in the future)
 	private Showtime[] time= new Showtime[100];			//slots of movies
 	private int ShowSize =0;					//how many slots of movies have been created
-	public isBlock = False;						//check whether this movie is a blockbuster
+	public boolean isBlock = false;						//check whether this movie is a blockbuster
 	//public is3D = False;						//check whether this movie is a 3D
 	////////////NOT IMPORTANT VARIABLES////////////
 	private String Synopsis;
@@ -41,20 +42,35 @@ public class Movie {
 	private int totalsales;
 	private String[] reviews = new String[10];
 	///
-	public int i = 0; 		//iterator variable
-	private int count=0;
+	private int Reviewcount=0;
 	
 	Scanner sc = new Scanner(System.in);
-	#-----------------------------
+	//#-----------------------------
 	
-	###########################################################################################
+	//###########################################################################################
 	//FUNCTIONS START HERE
 	public void assignTitle(String Movietitle) {
 		this.title = Movietitle;
 		System.out.println("hello");
 	}
-	public void assignStatus(status Status) {			//this function needs review
-		this.ShowStatus = Status;				//related to enum def
+	public void assignStatus() {//this function needs review
+		int x;
+		System.out.println("Select Movie Status 1: Coming Soon, 2:Preview, 3:Now Showing, 4: End of Showing");
+		x = Integer.parseInt(sc.nextLine());
+		switch(x){
+			case 1:
+				this.ShowStatus=status.ComingSoon;
+				break;
+			case 2:
+				this.ShowStatus=status.Preview;
+				break;
+			case 3:
+				this.ShowStatus=status.NowShowing;
+				break;
+			case 4:
+				this.ShowStatus=status.EndofShowing;
+				break;
+			}
 	}
 	public void assignSyn(String Syns) {
 		this.Synopsis = Syns;
@@ -76,8 +92,8 @@ public class Movie {
 		this.totalsales= sales;
 	}
 	public void updateReview(String Review) {
-		reviews[this.count]= Review;
-		this.count+=1;
+		reviews[this.Reviewcount]= Review;
+		this.Reviewcount+=1;
 	}
 	public void assignGenre(String Genre) {
 		this.Genre=Genre;
@@ -89,7 +105,7 @@ public class Movie {
 		this.MovieRestriction = Restrict;
 	}
 	public void viewReviews() {
-		for (int x = 0; x<this.count; x++) {
+		for (int x = 0; x<this.Reviewcount; x++) {
 			System.out.println("Review #"+ (x+1) +" "+ this.reviews[x]);
 		}
 	}
@@ -97,9 +113,10 @@ public class Movie {
 	public String getTitle() {
 		return this.title;
 	}
-	public String getStatus() {
+	public status getstatus(){
 		return this.ShowStatus;
 	}
+
 	public String getSynopsis() {
 		return this.Synopsis;
 	}
@@ -138,7 +155,7 @@ public class Movie {
 		// get reviews
 
 	}
-	#################################################################################################
+	//#################################################################################################
 	//this function is to display showtime when
 	//booking ticket, because they need to see the available time slots
 		
@@ -146,14 +163,13 @@ public class Movie {
 	//time[i] = variable containing ShowTime array
 	//time[i] includes (year, month, date/time.minute)
 	public void runShowtime(){
-		for(i = 0; i<this.ShowSize;i++){
-			System.out.print("Slot "+(i+1)+":");
-			System.out.print("Day :"+time[i].year+ time[i].month + time[i].date);
-			System.out.print("Time :"+ time[i].hour+ time[i].minute);
+		for(int i = 0; i<this.ShowSize;i++){
+			//gettime print show time HH/MM/ time
+			System.out.print("Slot "+(i+1)+":" +time[i].gettime());
 		}
 	}
 		
-	#################################################################################################
+	//#################################################################################################
 	public int getShowlistSize() {
 		return this.ShowSize;
 	}
@@ -163,6 +179,23 @@ public class Movie {
 		temp.setshow();
 		this.time[ShowSize]=temp;
 		this.ShowSize++;
+	}
+	public void removeshowtime(){
+
+		int remove;
+		runShowtime();
+		System.out.println("Enter Index of Show time to be removed:");
+		remove=Integer.parseInt(sc.nextLine());
+		if(remove<0 && remove>ShowSize)
+			System.out.println("Removal was Unsuccessful");
+		else{
+			for(int loop=remove-1; loop<this.ShowSize; loop++){
+				//shift all elements forward
+				this.time[loop] = this.time[loop+1];
+			}
+			System.out.println("Removal was Successful");
+			this.ShowSize--;
+		}
 	}
 	public void updateshowtime() {
 		int select;
@@ -196,7 +229,7 @@ public class Movie {
 	public void printShowtime() {
 		System.out.println("Movie title: "+this.title);
 		for(int x=0;x<ShowSize;x++) {
-			System.out.println("#" + (x+1) +": " + this.time[x].gettime() + "  Type: "+time[x].gettype());
+			System.out.println("#" + (x+1) +": " + this.time[x].gettime());// + "  Type: "+time[x].gettype());
 		}
 	}
 	public void printSeatStatus(int x) {

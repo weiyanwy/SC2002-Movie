@@ -1,10 +1,10 @@
-import java.util.Date;
+
 import java.util.Calendar;
 import java.util.Scanner;
 import java.text.SimpleDateFormat;
 public class Showtime {
 	
-	#----------------------------------------
+	//#----------------------------------------
 	//Generate relevant variables
 	private Calendar time = Calendar.getInstance();
 	private int year;						//year of showing
@@ -12,16 +12,16 @@ public class Showtime {
 	private int date;						//day of slot
 	private int hour;						//hour of slot
 	private int minute;						//minute of slot
-	private SeatsLayOut arrangement= new SeatsLayOut();
+	
 	private String VenueHall;
 	private SeatsLayOut layout=new SeatsLayOut();
-	public is3D = False;						//check whether this slot shows 3D mode
+	public boolean is3D = false;						//check whether this slot shows 3D mode
 	
 	boolean check=true;
 	public	int sel = 0;
 	Scanner sc = new Scanner(System.in);
 	SimpleDateFormat dataform = new SimpleDateFormat("MM/dd HH:mm");
-	#-----------------------------------------
+	//#-----------------------------------------
 	
 	///////////////////////////////////////////////////////////////////////
 	//FUNCTION STARTS HERE
@@ -33,7 +33,7 @@ public class Showtime {
 				set3D();				//setup whether it is 3D
 				//updatetype();		
 				setvenue();				//setup which cinema to put in
-				this.layout.run();
+				this.layout.SetSeatLayout();
 				break;
 			}
 			catch(Exception a) {
@@ -63,7 +63,7 @@ public class Showtime {
 				System.out.println("Enter Hour of day (24hr format)");
 				this.hour = Integer.parseInt(sc.nextLine());
 				System.out.println("Enter mintue of day");
-				this.minute=Integer.parseInt(sc.nextLine());;
+				this.minute=Integer.parseInt(sc.nextLine());
 				time.set(Calendar.getInstance().get(Calendar.YEAR), month, date, hour, minute);
 				break;
 			}
@@ -118,11 +118,11 @@ public class Showtime {
 			sel=Integer.parseInt(sc.nextLine());
 			switch(sel) {
 			case(1):
-				this.is3D = True;
+				this.is3D = true;
 				check=false;
 				break;
 			case(2):
-				this.is3D = False;
+				this.is3D = false;
 				check=false;
 				break;
 			default:
@@ -139,9 +139,7 @@ public class Showtime {
 	public String getvenue() {
 		return this.VenueHall;
 	}
-	public showtype gettype() {
-		return this.Type;
-	}
+
 	public int getmonth() {
 		return time.get(Calendar.MONTH);
 	}
@@ -166,5 +164,8 @@ public class Showtime {
 	public void printlayout() {
 		//print seat layout
 		layout.printlayout();
+	}
+	public void BookSeats(Showtime show, String CinemaName, String MovieTitle) {
+		layout.selectseat(show, CinemaName, MovieTitle);
 	}
 }

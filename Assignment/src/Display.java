@@ -5,8 +5,8 @@ public class Display {
 		System.out.println("####WELCOME TO MOBLIMA####\n");
 		System.out.println("\n");
 		System.out.println("Please choose number as mode of login\n");
-		System.out.println("[1] Login as STAFF\n");
-		System.out.println("[2] Login as CUSTOMER\n");
+		System.out.println("[1] Login as CUSTOMER\n");
+		System.out.println("[2] Login as STAFF\n");
 		System.out.println("\n");
 	}
 

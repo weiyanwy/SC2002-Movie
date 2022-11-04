@@ -95,23 +95,26 @@ public class CinemaSettings {
 				//System.out.println("Enter Choice:");
 				choice=Integer.parseInt(sc.nextLine());
 				switch(choice) {
-				case(1):
-					//call Add time function
-					this.movielist[selectmovie-1].assignShowtime();
-					this.movielist[selectmovie-1].printShowtime();
-					break;
-				case(2):
-					this.movielist[selectmovie-1].updateshowtime();
-					break;
-					//call Update time function
-				case(3):
-					//update layout
-					break;
-				case(0):
-					System.out.println("Exiting....");
-					break;
-				default:
-					System.out.println("Invalid Input");
+					case(1):
+						//call Add time function
+						this.movielist[selectmovie-1].assignShowtime();
+						this.movielist[selectmovie-1].printShowtime();
+						break;
+					case(2):
+						this.movielist[selectmovie-1].updateshowtime();
+						break;
+						//call Update time function
+					case(3):
+						this.movielist[selectmovie-1].removeshowtime();
+						break;
+					case(4):
+						//update layout
+						break;
+					case(0):
+						System.out.println("Exiting....");
+						break;
+					default:
+						System.out.println("Invalid Input");
 				}
 				
 			}

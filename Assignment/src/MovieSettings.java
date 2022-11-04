@@ -5,7 +5,7 @@ public class MovieSettings {
 		private Movie[] MovieList= new Movie[30]; //Create tempList to store and return
 		Scanner sc = new Scanner(System.in);
 		Display UI = new Display(); //display UI messages
-		
+		enum status {ComingSoon, Preview, NowShowing, EndofShowing};
 		int choice;
 		//UI.staffdisplay();
 	public Movie[] runmoviesetting(Movie[] movielist, int size) {
@@ -19,8 +19,9 @@ public class MovieSettings {
 			switch(choice) {
 				case(1):
 					System.out.println("*****Create Movie******");
-					this.MovieList[Size]= CreateMovie();
-					Size= Size+1;
+					this.MovieList[Size]= CreateMovie(); //run create movie method
+					Size= Size+1; //increment movielist size
+					sortMovie(); //Show movie by status
 					break;
 				case(2):
 					UpdateMovie();
@@ -55,6 +56,7 @@ public class MovieSettings {
 	public int returnlistsize() {
 		return this.Size;
 	}
+
 	public Movie CreateMovie() {
 		Movie temp= new Movie();
 		String Input;
@@ -70,7 +72,7 @@ public class MovieSettings {
 		//temp.assignDirect(Input=sc.nextLine());
 		//System.out.println("Enter Movie Main Cast: ");
 		//temp.assignCast(Input=sc.nextLine());
-		//System.out.println("Enter Movie Restriction (PG13,NC16,M18,TBC):");
+		//System.out.println("Enter Movie Restriction (PG13,NC16,M18,TBC):"); -edit to enum
 		//temp.assignRestrict(Input=sc.nextLine());
 		//System.out.println("Enter Movie Genre:");
 		//temp.assignGenre(Input=sc.nextLine());
@@ -83,6 +85,36 @@ public class MovieSettings {
 		//System.out.println("Enter Movie Sales");
 		//temp.assignSales(a=sc.nextInt());
 		return temp;
+	}
+	//Sort movie by status NowShowing, End of Show,Preview, Coming Soon)
+	public void sortMovie(){
+		Movie temp;
+		for(int i=1; i<Size; i++)
+		{
+			for(int j=i; j>0; j--)
+			{
+				if(checkprority(MovieList[j])> checkprority(MovieList[j-1]))
+				{
+					//check element right is smaller than left
+					temp = MovieList[j];
+					MovieList[j] = MovieList[j-1];
+					MovieList[j-1] = temp;
+				}
+				else
+					break;
+			}
+		}
+	}
+	//assign priority to Now showing, preview, coming soon, end of show
+	public int checkprority(Movie movie){
+		if(movie.getstatus().equals(status.NowShowing))
+			return 4;
+		else if(movie.getstatus().equals(status.Preview))
+			return 3;
+		else if(movie.getstatus().equals(status.ComingSoon))
+			return 2;
+		else
+			return 1;
 	}
 	public void UpdateMovie(){
 		int choice, sel, updateInt;
@@ -192,14 +224,12 @@ public class MovieSettings {
 			System.out.println("Removal was Successful");
 			this.Size--;
 		}
-
-
 	}
 	public void MovieRanking() {
 		Movie temp1;
 		
 		//copy the content of the original Seat to tempSeat
-	
+		//Sort TOP 5 rating
 	
 		System.out.println("Before");
 		for(int a=0; a<Size; a++) {

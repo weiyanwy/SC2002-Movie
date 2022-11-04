@@ -2,33 +2,37 @@
 public class Seat {
 	private int seatID;
 	private boolean IsOccupied;
-	private boolean ReserveSeat;
+	private SeatType type;
+	enum SeatType{
+		Standard,
+		Luxury
+	}
 	
 	public void setID(int seatID) {
 		this.seatID= seatID;
 		this.IsOccupied=false;
-		this.ReserveSeat=false;
+		SetSeatStandard();
+
+	}
+	public void SetSeatStandard(){
+		this.type=SeatType.Standard;
+	}
+	public void SetSeatLux(){
+		this.type=SeatType.Luxury;
 	}
 	public int getID() {
 		return this.seatID;
 	}
-	public void BookSeat() {
+	public void SelectSeat() {
 		this.IsOccupied=true;
 	}
-	public void SelectSeat() {
-		this.ReserveSeat=true;
-	}
 	public void UnSelectSeat() {
-		this.ReserveSeat=false;
+		this.IsOccupied=false;
 	}
 	public String GetSeatStatus() {
-		if(this.ReserveSeat)
-			return "X";
-		else {
 		if(this.IsOccupied)
 			return "O";
 		else
 			return "A";
-	}
 	}
 }

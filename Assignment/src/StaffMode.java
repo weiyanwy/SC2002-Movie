@@ -62,5 +62,8 @@ public class StaffMode {
 			System.out.println("Movie#"+(loop+1)+" "+ data[loop].getTitle());
 			loop++;
 		}
-	}}
+	}
+
+
+}
 
