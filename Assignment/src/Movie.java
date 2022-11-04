@@ -7,6 +7,8 @@ title (used for searching and booking)
 showStatus (affect whether it can be booked or not)
 ShowTime (extremely crucial, as it contains other variables within)
 ShowSize (following variable to ShowTime)
+isBlock (this affects the price)
+is3D (this also affects the price, both isBlock and this variable can be referred from the guide)
 
 -----------------------
 Relevant files:
@@ -25,6 +27,8 @@ public class Movie {
 	private status ShowStatus;					//status of movie (defined in enum above)
 	private Showtime[] time= new Showtime[100];			//slots of movies
 	private int ShowSize =0;					//how many slots of movies have been created
+	public isBlock = False;						//check whether this movie is a blockbuster
+	//public is3D = False;						//check whether this movie is a 3D
 	////////////NOT IMPORTANT VARIABLES////////////
 	private String Synopsis;
 	private String Director;
