@@ -6,6 +6,8 @@ The price of tickets is affected by:
 Weekend (denoting Fri, Sat, Sun)
 Public Holiday
 Type of Cinema (Economic -> Normal -> Luxury)
+Type of Movie (2D or 3D, Blockbuster)
+Age (Adult, Senior >=65, Kids)
 7% GST
 -----------------------
 Relevant files: Operation
