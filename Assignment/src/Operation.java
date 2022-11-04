@@ -13,11 +13,10 @@ public class Operation {
 	Operation Op = new Operation();			//Constructor of Operator
 	Scanner sc = new Scanner(System.in);		//Scanner
 	#-----------------------------
-	
+	int choice = 1;					//dummy variable to insert input
+		
 	//functions to write
 	public void viewMovie() {
-		int choice=1;
-
 		do {
 			try {
 			// size if list is empty
@@ -164,7 +163,7 @@ public class Operation {
 	//step 6: if successful, indicate name, email, phone number
 	#----------------------
 		
-	///////////////STEP 1 & 2////////////////////////
+	///////////////STEP 1 & 2 & 3////////////////////////
 	//List of variable used: 
 	//SearchMovie(); (finding the target movie)
 	//target = containing the value of SearchMovie return
@@ -179,7 +178,12 @@ public class Operation {
 	} else{
 		Movie[target].runShowtime();
 	}	
-	/////////STEP 1&2 DONE///////////////////////////
+	/////////STEP 1&2&3 DONE///////////////////////////
+		
+	////////////////STEP 4/////////////////////////////
+	
+	
+	////////////STEP 4 DONE////////////////////////////
 		
 	#############################################################################################################################
 	
