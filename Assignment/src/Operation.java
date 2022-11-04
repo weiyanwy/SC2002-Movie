@@ -7,6 +7,7 @@ public class Operation {
 	private Movie[] MovieLists = new Movie[30];	//List of Movies, imported in arrays
 	public int Size=0;
 	
+	Pricing price = new Pricing()			//Pricing object
 	private Cineplex[] cinemalist;			//Cinema list
 	private int CinemaSize;				//
 	StaffLogin Staff = new StaffLogin();		//Initiate Staff here
