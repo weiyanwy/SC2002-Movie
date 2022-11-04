@@ -16,6 +16,9 @@ public class Showtime {
 	private String VenueHall;
 	private SeatsLayOut layout=new SeatsLayOut();
 	public is3D = False;						//check whether this slot shows 3D mode
+	
+	boolean check=true;
+	public	int sel = 0;
 	Scanner sc = new Scanner(System.in);
 	SimpleDateFormat dataform = new SimpleDateFormat("MM/dd HH:mm");
 	#-----------------------------------------
@@ -26,9 +29,10 @@ public class Showtime {
 		boolean check=true;
 		do {
 			try {
-				updatetime();
-				updatetype();
-				setvenue();
+				updatetime();				//setup time of slot
+				set3D();				//setup whether it is 3D
+				//updatetype();		
+				setvenue();				//setup which cinema to put in
 				this.layout.run();
 				break;
 			}
@@ -37,12 +41,16 @@ public class Showtime {
 			}
 		}while(check);
 	}
+	//////////////////////////////////////////////////////////////////////////////
+	//This function chooses the venue of the slot
 	public void setvenue() {
 		String venue;
 		System.out.println("Enter venue hall:");
 		venue=sc.nextLine();
 		this.VenueHall=venue;
 	}
+	///////////////////////////////////////////////////////////////////////////////
+	//This function declares time of the slot
 	public void updatetime() {
 		boolean check=true;
 		do {
@@ -64,13 +72,12 @@ public class Showtime {
 			}
 		}while(check!=false);
 	}
+	////////////////////////////////////////////////////////////////////////////////
 	
 	//////////////////this block can be used for future reference/////////////////
 	/* 
 	public void updatetype() {
 		System.out.println("Enter Show Type (1:Standard, 2:IMAX, 3:Preview):");
-		boolean check=true;
-		int sel;
 		do {
 			try {
 			System.out.println("Enter Choice:");
@@ -99,9 +106,33 @@ public class Showtime {
 	}
 	*/
 	//////////////////////////////////////////////////////////////////
-	
-	public void set3D(boolean is3D){
-		this.is3D = is3D;
+	//This function set whether the timeslot has 3D mode
+	public void set3D(){
+		
+		System.out.println("Enter whether this slot is shown in 3D\n");
+		System.out.println("[1] Yes");
+		System.out.println("[2] No");
+		do {
+			try {
+			System.out.println("Enter Choice:");
+			sel=Integer.parseInt(sc.nextLine());
+			switch(sel) {
+			case(1):
+				this.is3D = True;
+				check=false;
+				break;
+			case(2):
+				this.is3D = False;
+				check=false;
+				break;
+			default:
+				System.out.println("Invalid Input");
+			}
+			}
+			catch(Exception e) {
+				System.out.println("Invalid Input");
+			}
+		}while(check);
 	}
 	/////////////////////////////////////////////////////////////////
 	//FUNCTIONS THAT SIMPLY RETURN VALUE
