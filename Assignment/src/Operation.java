@@ -207,6 +207,16 @@ public class Operation {
 	////////////STEP 6 DONE////////////////////////////
 	+----------------------
 	////////////STEP 7/////////////////////////////////
+	//List of variables used:
+	//price object with function priceCalc
+	//template priceCalc(age, day, hour, isBlock, is3D, isLuxury)
+	
+	float totalPrice = 0.0;
+	//totalPrice = price.priceCalc(age, day, hour, isBlock, is3D, isLuxury);
+	
+	System.out.println("You have booked the seat successfully");
+	System.out.printf("The amount of money to pay is %4.2f", totalPrice);
+	System.out.println("Thank you for booking");
 	
 	////////////STEP 7 DONE////////////////////////////
 	+----------------------
