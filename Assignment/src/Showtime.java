@@ -64,6 +64,9 @@ public class Showtime {
 			}
 		}while(check!=false);
 	}
+	
+	//////////////////this block can be used for future reference/////////////////
+	/* 
 	public void updatetype() {
 		System.out.println("Enter Show Type (1:Standard, 2:IMAX, 3:Preview):");
 		boolean check=true;
@@ -94,7 +97,12 @@ public class Showtime {
 			}
 		}while(check);
 	}
+	*/
+	//////////////////////////////////////////////////////////////////
 	
+	public void set3D(boolean is3D){
+		this.is3D = is3D;
+	}
 	/////////////////////////////////////////////////////////////////
 	//FUNCTIONS THAT SIMPLY RETURN VALUE
 	public String getvenue() {
