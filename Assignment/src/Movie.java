@@ -24,7 +24,7 @@ public class Movie {
 	////////////IMPORTANT VARIABLES////////////////
 	enum status {Coming Soon, Preview, Now Showing, End of Showing}
 	private String title;						//title of movie
-	private status ShowStatus;					//status of movie (defined in enum above)
+	private status ShowStatus;					//status of movie (defined in enum above) (should be reviewed in the future)
 	private Showtime[] time= new Showtime[100];			//slots of movies
 	private int ShowSize =0;					//how many slots of movies have been created
 	public isBlock = False;						//check whether this movie is a blockbuster
@@ -53,8 +53,8 @@ public class Movie {
 		this.title = Movietitle;
 		System.out.println("hello");
 	}
-	public void assignStatus(String Status) {
-		this.ShowStatus = Status;
+	public void assignStatus(status Status) {			//this function needs review
+		this.ShowStatus = Status;				//related to enum def
 	}
 	public void assignSyn(String Syns) {
 		this.Synopsis = Syns;
