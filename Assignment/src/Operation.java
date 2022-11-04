@@ -160,7 +160,9 @@ public class Operation {
 	//Step 3: if succcessful, extract list of showtime
 	//Step 4: choose showtime
 	//step 5: choose position
-	//step 6: if successful, indicate name, email, phone number
+	//step 6: if successful, indicate name, email, phone number,
+	//step 7: print out price to pay (assume payment done)
+	//step 8: generate transaction id
 	#----------------------
 		
 	///////////////STEP 1 & 2 & 3////////////////////////
@@ -202,6 +204,15 @@ public class Operation {
 	////////////STEP 6/////////////////////////////////
 	
 	////////////STEP 6 DONE////////////////////////////
+	+----------------------
+	////////////STEP 7/////////////////////////////////
+	
+	////////////STEP 7 DONE////////////////////////////
+	+----------------------
+	////////////STEP 8/////////////////////////////////
+	
+	////////////STEP 8 DONE////////////////////////////
+	
 		
 	#############################################################################################################################
 	
