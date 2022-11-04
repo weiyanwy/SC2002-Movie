@@ -4,12 +4,14 @@ public class Operation {
 	
 	#-----------------------------
 	//initialisation of relevant things
-	private Movie[] MovieLists = new Movie[30];
+	private Movie[] MovieLists = new Movie[30];	//List of Movies, imported in arrays
 	public int Size=0;
-	private Cineplex[] cinemalist;
-	private int CinemaSize;
-	StaffLogin Staff = new StaffLogin();;
-	Scanner sc = new Scanner(System.in);
+	
+	private Cineplex[] cinemalist;			//Cinema list
+	private int CinemaSize;				//
+	StaffLogin Staff = new StaffLogin();		//Initiate Staff here
+	Operation Op = new Operation();			//Constructor of Operator
+	Scanner sc = new Scanner(System.in);		//Scanner
 	#-----------------------------
 	
 	//functions to write
@@ -112,7 +114,7 @@ public class Operation {
 		return this.MovieLists;
 	}
 	// search position of movie
-	public void SearchMovie() {
+	public int SearchMovie() {
 
 		String title;
 		int count=0;
@@ -123,11 +125,12 @@ public class Operation {
 			if(this.MovieLists[count].getTitle().toLowerCase().equals(title.toLowerCase())) {
 				System.out.println("Movie Found");
 				this.MovieLists[count].rundetails();
-				break;
+				return i;
 			}
 			count++;
 		}
 		System.out.println("Movie Not Found");
+		return -1;
 	}
 	public void runCinema() {
 		int sel;
@@ -148,6 +151,8 @@ public class Operation {
 		
 		
 	}
+	##############################################################################################################################
+		
 	public void booking(){
 	#----------------------
 	//Steps to implement this part
@@ -158,6 +163,25 @@ public class Operation {
 	//step 5: choose position
 	//step 6: if successful, indicate name, email, phone number
 	#----------------------
+		
+	///////////////STEP 1 & 2////////////////////////
+	//List of variable used: 
+	//SearchMovie(); (finding the target movie)
+	//target = containing the value of SearchMovie return
+	//Movie[i].runShowtime(); (to help Customer choose timeslot)
+		
+	public int target = 0;
+	target = Op.SearchMovie()						//
+	if( target == -1 ){							//the movie is not found 
+		System.out.println("The movie you search for is not found");	//
+		System.out.println("Returning to CUSTOMER menu");		//
+		return;								//returning to CUSTOMER menu
+	} else{
+		Movie[target].runShowtime();
+	}	
+	/////////STEP 1&2 DONE///////////////////////////
+		
+	#############################################################################################################################
 	
 	}
 	public void ViewOrderHistory(){
