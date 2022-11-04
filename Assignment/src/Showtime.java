@@ -4,14 +4,15 @@ import java.util.Scanner;
 import java.text.SimpleDateFormat;
 public class Showtime {
 	private Calendar time = Calendar.getInstance();
-	private int year;
-	private int month;
-	private int date;
-	private int hour;
-	private int minute;
+	private int year;						//year of showing
+	private int month;						//month of slot
+	private int date;						//day of slot
+	private int hour;						//hour of slot
+	private int minute;						//minute of slot
 	private SeatsLayOut arrangement= new SeatsLayOut();
 	private String VenueHall;
 	private SeatsLayOut layout=new SeatsLayOut();
+	public is3D = False;						//check whether this slot shows 3D mode
 	Scanner sc = new Scanner(System.in);
 	SimpleDateFormat dataform = new SimpleDateFormat("MM/dd HH:mm");
 	public void setshow() {
