@@ -9,15 +9,9 @@ public class Showtime {
 	private int date;
 	private int hour;
 	private int minute;
-	private showtype Type;
 	private SeatsLayOut arrangement= new SeatsLayOut();
 	private String VenueHall;
 	private SeatsLayOut layout=new SeatsLayOut();
-	enum showtype {
-		    STANDARD,
-		    IMAX,
-		    PREVIEW
-		  }
 	Scanner sc = new Scanner(System.in);
 	SimpleDateFormat dataform = new SimpleDateFormat("MM/dd HH:mm");
 	public void setshow() {
