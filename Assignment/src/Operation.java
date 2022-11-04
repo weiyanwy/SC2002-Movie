@@ -149,7 +149,16 @@ public class Operation {
 		
 	}
 	public void booking(){
-		
+	#----------------------
+	//Steps to implement this part
+	//Step 1: booking is composed of showtime
+	//Step 2: search film
+	//Step 3: if succcessful, extract list of showtime
+	//Step 4: choose showtime
+	//step 5: choose position
+	//step 6: if successful, indicate name, email, phone number
+	#----------------------
+	
 	}
 	public void ViewOrderHistory(){
 	}
