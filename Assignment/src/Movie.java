@@ -17,6 +17,7 @@ public class Movie {
 	///
 	private Showtime[] time= new Showtime[100];
 	private int ShowSize =0;
+	public int i = 0; 		//iterator variable
 	////
 
 	private int count=0;
@@ -112,6 +113,22 @@ public class Movie {
 		// get reviews
 
 	}
+	#----------------------------------------------------------------------------
+	//this function is to display showtime when
+	//booking ticket, because they need to see the available time slots
+		
+	//variables relating to this function
+	//time[i] = variable containing ShowTime array
+	//time[i] includes (year, month, date/time.minute)
+	public void runShowtime(){
+		for(i = 0; i<this.ShowSize;i++){
+			System.out.print("Slot "+(i+1)+":");
+			System.out.print("Day :"+time[i].year+ time[i].month + time[i].date);
+			System.out.print("Time :"+ time[i].hour+ time[i].minute);
+		}
+	}
+		
+	#----------------------------------------------------------------------------
 	public int getShowlistSize() {
 		return this.ShowSize;
 	}
