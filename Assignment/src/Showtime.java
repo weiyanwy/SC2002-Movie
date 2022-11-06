@@ -1,19 +1,20 @@
 
+import java.util.Date;
 import java.util.Calendar;
 import java.util.Scanner;
 import java.text.SimpleDateFormat;
+
 public class Showtime {
-	
-	//#----------------------------------------
-	//Generate relevant variables
-	private Calendar time = Calendar.getInstance();
-	private int year;						//year of showing
-	private int month;						//month of slot
-	private int date;						//day of slot
-	private int hour;						//hour of slot
-	private int minute;						//minute of slot
-	
-	private String VenueHall;
+	//####################################################
+	//
+	// PART 1: INITIATE VARIABLES
+	public Calendar time = Calendar.getInstance();
+	public int year;						//year of showing
+	public int month;						//month of slot
+	public int date;						//day of slot
+	public int hour;						//hour of slot
+	public int minute;						//minute of slot
+	private SeatsLayOut arrangement= new SeatsLayOut();
 	private SeatsLayOut layout=new SeatsLayOut();
 	public boolean is3D = false;						//check whether this slot shows 3D mode
 	
@@ -21,36 +22,13 @@ public class Showtime {
 	public	int sel = 0;
 	Scanner sc = new Scanner(System.in);
 	SimpleDateFormat dataform = new SimpleDateFormat("MM/dd HH:mm");
-	//#-----------------------------------------
+	//-----------------------------------------
+	//#####################################################
+	// PART 2: CONSTRUCTOR OF THE OBJECT
 	
-	///////////////////////////////////////////////////////////////////////
-	//FUNCTION STARTS HERE
-	public void setshow() {
-		boolean check=true;
-		do {
-			try {
-				updatetime();				//setup time of slot
-				set3D();				//setup whether it is 3D
-				//updatetype();		
-				setvenue();				//setup which cinema to put in
-				this.layout.SetSeatLayout();
-				break;
-			}
-			catch(Exception a) {
-				System.out.println("Invalid input");
-			}
-		}while(check);
-	}
-	//////////////////////////////////////////////////////////////////////////////
-	//This function chooses the venue of the slot
-	public void setvenue() {
-		String venue;
-		System.out.println("Enter venue hall:");
-		venue=sc.nextLine();
-		this.VenueHall=venue;
-	}
-	///////////////////////////////////////////////////////////////////////////////
-	//This function declares time of the slot
+	//////////// SETTERS
+	
+	// set time of timeslot
 	public void updatetime() {
 		boolean check=true;
 		do {
@@ -63,7 +41,7 @@ public class Showtime {
 				System.out.println("Enter Hour of day (24hr format)");
 				this.hour = Integer.parseInt(sc.nextLine());
 				System.out.println("Enter mintue of day");
-				this.minute=Integer.parseInt(sc.nextLine());
+				this.minute=Integer.parseInt(sc.nextLine());;
 				time.set(Calendar.getInstance().get(Calendar.YEAR), month, date, hour, minute);
 				break;
 			}
@@ -72,7 +50,85 @@ public class Showtime {
 			}
 		}while(check!=false);
 	}
-	////////////////////////////////////////////////////////////////////////////////
+	
+	//////////////////////////////////////////////////////////////////
+	//This function set whether the timeslot has 3D mode
+	public void set3D(){
+	
+	System.out.println("Enter whether this slot is shown in 3D\n");
+	System.out.println("[1] Yes");
+	System.out.println("[2] No");
+	do {
+	try {
+	System.out.println("Enter Choice:");
+	sel=Integer.parseInt(sc.nextLine());
+	switch(sel) {
+	case(1):
+	this.is3D = true;
+	check=false;
+	break;
+	case(2):
+	this.is3D = false;
+	check=false;
+	break;
+	default:
+	System.out.println("Invalid Input");
+	}
+	}
+	catch(Exception e) {
+	System.out.println("Invalid Input");
+	}
+	}while(check);
+	}
+	
+	
+	//////////////////////////////////////
+	// GETTERS
+	
+	public int getmonth() {
+	return time.get(Calendar.MONTH);		//function returns time
+	}											//
+	public int getDate() {						//
+	return time.get(Calendar.DATE);			//
+	}											//
+	public int getHour() {						//
+	return time.get(Calendar.HOUR);			//
+	}											//
+	public int getMinute() {					//
+	return time.get(Calendar.MINUTE);		//
+	}											//
+	public boolean get3D(){						//this function returns whether this slot is 3D
+	return this.is3D;						//
+	}											//
+	public String getTime() {					//
+	return dataform.format(time.getTime());	//
+	}											//
+	public void printSeatStatus() {				//
+	layout.printSeatStatus();				//
+	}											//
+	public void printlayout() {					//
+	//print seat layout						//
+	layout.printlayout();					//
+	}
+	
+	//#################################################
+	//
+	// PART 3: FUNCTIONS
+	public void setShow() {
+	boolean check=true;
+	do {
+	try {
+		updatetime();										//setup time of slot
+		set3D();											//setup whether it is 3D	
+		this.layout.run();
+		//updaterun();
+		break;
+	}
+		catch(Exception a) {
+			System.out.println("Invalid input");
+	}
+	}while(check);
+	}
 	
 	//////////////////this block can be used for future reference/////////////////
 	/* 
@@ -105,67 +161,5 @@ public class Showtime {
 		}while(check);
 	}
 	*/
-	//////////////////////////////////////////////////////////////////
-	//This function set whether the timeslot has 3D mode
-	public void set3D(){
-		
-		System.out.println("Enter whether this slot is shown in 3D\n");
-		System.out.println("[1] Yes");
-		System.out.println("[2] No");
-		do {
-			try {
-			System.out.println("Enter Choice:");
-			sel=Integer.parseInt(sc.nextLine());
-			switch(sel) {
-			case(1):
-				this.is3D = true;
-				check=false;
-				break;
-			case(2):
-				this.is3D = false;
-				check=false;
-				break;
-			default:
-				System.out.println("Invalid Input");
-			}
-			}
-			catch(Exception e) {
-				System.out.println("Invalid Input");
-			}
-		}while(check);
-	}
-	/////////////////////////////////////////////////////////////////
-	//FUNCTIONS THAT SIMPLY RETURN VALUE
-	public String getvenue() {
-		return this.VenueHall;
-	}
-
-	public int getmonth() {
-		return time.get(Calendar.MONTH);
-	}
-	public int getDate() {
-		return time.get(Calendar.DATE);
-	}
-	public int getHour() {
-		return time.get(Calendar.HOUR);
-	}
-	public int getMinute() {
-		return time.get(Calendar.MINUTE);
-	}
-	public boolean get3D(){						//this function returns whether this slot is 3D
-		return this.is3D;
-	}
-	public String gettime() {
-		return dataform.format(time.getTime());
-	}
-	public void printSeatStatus() {
-		layout.printSeatStatus();
-	}
-	public void printlayout() {
-		//print seat layout
-		layout.printlayout();
-	}
-	public void BookSeats(Showtime show, String CinemaName, String MovieTitle) {
-		layout.selectseat(show, CinemaName, MovieTitle);
-	}
 }
+
