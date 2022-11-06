@@ -32,6 +32,9 @@ public class Cinema {
 		}
 		
 		//##################################################################
+		//
+		//PART 3: IMPORTANT FUNCTIONS
+		/*
 			public void runCineplexshowtime(int size) {
 				int choice=1;
 				do {
@@ -55,6 +58,7 @@ public class Cinema {
 					}
 				}while(choice!=0);
 			}
+	*/
 			/*
 			public void setMovieList(Movie[] list) {
 				this.movielist=list;
