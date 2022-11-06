@@ -12,7 +12,9 @@ public class Cinema {
 		//PART 1: INITIALIZE RELEVANT VARIABLES
 		//
 		//1.1: Initialize objects init
-		public String name;									//name of cinema
+		enum typeSeat {Standard, Luxury}
+		public String name;						//name of cinema
+		public typeSeat TypeSeat;
 		public Showtime[] ShowTimeList = new Showtime[100];
 		Scanner sc = new Scanner(System.in);
 
