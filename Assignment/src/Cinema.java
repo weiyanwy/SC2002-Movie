@@ -21,14 +21,30 @@ public class Cinema {
 		//PART 2: CONSTRUCTORS OF THE CLASS
 		//
 		
+		///////SETTERS
+		// set type seat
+		public void setTypeSeat() {
+			int Inp;
+			System.out.println("Indicate the TypeSeat of new cinema: ");
+			System.out.println("[1] Standard");
+			System.out.println("[2] Luxury");
+			Inp = sc.nextInt();
+			if(Inp ==1) this.TypeSeat = typeSeat.Standard;
+			if(Inp ==2) this.TypeSeat = typeSeat.Luxury;
+		}
+		// set name cinema
 		public void setNameCinema() {
 			String Inp;
 			System.out.println("Indicate the name of new cinema: ");
 			Inp = sc.nextLine();
 			this.name = Inp;
 		}
+		////////GETTERS
 		public String getNameCinema() {
 			return this.name;
+		}
+		public typeSeat getTypeSeat() {
+			return this.TypeSeat;
 		}
 		
 		//##################################################################
