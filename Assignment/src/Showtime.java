@@ -129,37 +129,5 @@ public class Showtime {
 	}
 	}while(check);
 	}
-	
-	//////////////////this block can be used for future reference/////////////////
-	/* 
-	public void updatetype() {
-		System.out.println("Enter Show Type (1:Standard, 2:IMAX, 3:Preview):");
-		do {
-			try {
-			System.out.println("Enter Choice:");
-			sel=Integer.parseInt(sc.nextLine());
-			switch(sel) {
-			case(1):
-				this.Type=showtype.STANDARD;
-				check=false;
-				break;
-			case(2):
-				this.Type=showtype.IMAX;
-				check=false;
-				break;
-			case(3):
-				this.Type=showtype.PREVIEW;
-				check=false;
-				break;
-			default:
-				System.out.println("Invalid Input");
-			}
-			}
-			catch(Exception e) {
-				System.out.println("Invalid Input");
-			}
-		}while(check);
-	}
-	*/
 }
 
