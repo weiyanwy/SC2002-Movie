@@ -2,18 +2,28 @@
 
 import java.util.Scanner;
 public class StaffMode {
-	private int Size; // Size of content in movielist
+	private int MovieListSize; // Size of content in movielist
 	private Movie[] MovieList= new Movie[30]; //Create tempList to store and return
+
+	//######## Create CINEPLEX SETTING CLASS
+	CineplexSetting CineplexSet=new CineplexSetting();
+	private Cineplex[] CineplexList;
+	private int Cineplexlistsize;
+	MovieSettings movieset = new MovieSettings();
+
+
 	Scanner sc = new Scanner(System.in);
 	Display UI = new Display(); //display UI messages
-	Cineplex[] CinemaList;
-	private int Cinemalistsize;
-	CinemaSettings cinema = new CinemaSettings();
-	MovieSettings movieset = new MovieSettings();
+
+
+
 	public void Adminmode(Movie[] movielist, int size){
 
 		this.MovieList=movielist;
-		this.Size= size;
+		this.MovieListSize= size;
+		String MovieDBAddress = " "; // add address
+		String CinemaDBAddress = " ";
+
 		int choice;
 		//UI.staffdisplay();
 		do {
@@ -22,12 +32,14 @@ public class StaffMode {
 			choice = Integer.parseInt(sc.nextLine());
 			switch(choice) {
 				case(1):
-					this.MovieList=movieset.runmoviesetting(movielist,Size);
-					this.Size=movieset.returnlistsize();
+					this.MovieList=movieset.runmoviesetting(MovieDBAddress, MovieListSize);
+					this.MovieListSize=movieset.returnlistsize();
 					break;
 				case(2):
-					cinema.runCinemaSetting(this.MovieList, this.Size);
-					CinemaList= cinema.returncinemalist();
+					CineplexSet.runCineplexSetting(MovieList,MovieListSize);
+					this.CineplexList = CineplexSet.returncineplexlist();
+					this.Cineplexlistsize= CineplexSet.returnCineplexListSize();
+
 					break;
 				case(0):
 					System.out.println("Exit Admin Mode");
@@ -42,11 +54,11 @@ public class StaffMode {
 		}while(choice != 0);
 
 	}
-	public Cineplex[] getCinemaList() {
-		return this.CinemaList;
+	public Cineplex[] getCineplexList() {
+		return this.CineplexList;
 	}
-	public int getCinemaSize() {
-		return this.Cinemalistsize=cinema.returnCinemaListSize();
+	public int getCineplexSize() {
+		return this.Cineplexlistsize=CineplexSet.returnCineplexListSize();
 	}
 
 	public Movie[] ReturnList() {

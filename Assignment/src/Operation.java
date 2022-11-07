@@ -8,8 +8,8 @@ public class Operation {
 	public int Size=0;
 
 	Pricing price = new Pricing();		//Pricing object
-	private Cineplex[] cinemalist;			//Cinema list
-	private int CinemaSize;				//
+	private Cineplex[] Cineplexlist;			//Cinema list
+	private int CineplexSize;				//
 	StaffLogin Staff = new StaffLogin();		//Initiate Staff here
 	 //Operation Op = new Operation();			//Constructor of Operator
 	Scanner sc = new Scanner(System.in);		//Scanner
@@ -59,20 +59,20 @@ public class Operation {
 		}while(choice!=0);
 	}
 
-	public void viewCinema() {
+	public void viewCineplex() {
 		int choice=1;
 
 		do {
 			try {
 				// size if list is empty
-				if(this.CinemaSize>0) {
+				if(this.CineplexSize>0) {
 					int y=0;
 					// Print movie listing
-					while(y<CinemaSize) {
-						System.out.println("Cinema: "+ (y+1) + " " + this.cinemalist[y].getname());
+					while(y<CineplexSize) {
+						System.out.println("Cinema: "+ (y+1) + " " + this.Cineplexlist[y].getName());
 						y++;
 					}
-					System.out.println("Choose which Cinema to view: ");
+					System.out.println("Choose which Cineplex to view: ");
 					System.out.println("Enter 0 to Exit:");
 					System.out.println("Enter choice: ");
 					choice=Integer.parseInt(sc.nextLine());
@@ -87,7 +87,7 @@ public class Operation {
 						System.out.println("Enter choice: ");
 						choice=Integer.parseInt(sc.nextLine());
 					}
-					cinemalist[choice-1].runCineplexshowtime(this.Size);
+					Cineplexlist[choice-1].(this.Size);
 				}
 				// print list empty
 				else {
@@ -105,8 +105,8 @@ public class Operation {
 		Staff.run(MovieLists,this.Size);
 		this.MovieLists = Staff.returnlist();
 		this.Size=Staff.returnSize();
-		this.cinemalist= Staff.returnCinemaList();
-		this.CinemaSize=Staff.returnCinema_Size();
+		this.Cineplexlist= Staff.returnCineplexList();
+		this.CineplexSize=Staff.returnCineplexSize();
 	}
 
 
@@ -134,10 +134,10 @@ public class Operation {
 	}
 	public void runCinema() {
 		int sel;
-		for(int x=1; x<=this.CinemaSize; x++) {
-			System.out.println("Cinema #"+x + " "+ cinemalist[x-1].getname());
+		for(int x=1; x<=this.CineplexSize; x++) {
+			System.out.println("Cinema #"+x + " "+ Cineplexlist[x-1].getName());
 		}
-		System.out.println("Enter Cinema Index to view");
+		System.out.println("Enter Cineplex Index to view");
 		System.out.println("Enter 0 to exit");
 		System.out.println("Enter Choice:");
 		sel=Integer.parseInt(sc.nextLine());
@@ -145,8 +145,8 @@ public class Operation {
 			System.out.println("Exiting...");
 
 		}
-		else if(sel>0 && sel<=this.CinemaSize) {
-			cinemalist[sel-1].runCineplexshowtime(this.Size);
+		else if(sel>0 && sel<=this.CineplexSize) {
+			Cineplexlist[sel-1].runCineplexshowtime(this.Size);
 		}
 
 

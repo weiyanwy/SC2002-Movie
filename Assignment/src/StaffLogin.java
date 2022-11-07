@@ -44,10 +44,10 @@ public class StaffLogin {
 	public int returnSize() {
 		return staff.ReturnSize();
 	}
-	public Cineplex[] returnCinemaList() {
-		return staff.getCinemaList();
+	public Cineplex[] returnCineplexList() {
+		return staff.getCineplexList();
 	}
-	public int returnCinema_Size() {
-		return staff.getCinemaSize();
+	public int returnCineplexSize() {
+		return staff.getCineplexSize();
 	}
 }

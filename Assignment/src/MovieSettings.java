@@ -1,27 +1,46 @@
 import java.util.Scanner;
+import java.io.IOException;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.List;
+import java.util.ArrayList;
 
 public class MovieSettings {
-		private int Size; // Size of content in movielist
-		private Movie[] MovieList= new Movie[30]; //Create tempList to store and return
+		private int MovieSize; // Size of content in movielist
+		private Movie[] MovieList; //Create tempList to store and return
 		Scanner sc = new Scanner(System.in);
 		Display UI = new Display(); //display UI messages
-		enum status {ComingSoon, Preview, NowShowing, EndofShowing};
+		MovieStatus status; //{ComingSoon, Preview, NowShowing, EndofShowing};
+
+
+		private MovieDBcontrol MovieDB;
+
 		int choice;
 		//UI.staffdisplay();
-	public Movie[] runmoviesetting(Movie[] movielist, int size) {
-			this.MovieList=movielist;
-			this.Size=size;
+	public Movie[] runmoviesetting(String MovieAddress, int size) {
+			this.MovieDB=new MovieDBcontrol(MovieAddress);
+			this.MovieList=MovieDB.GetMovieFromDB();
+			this.MovieSize=size;
 		do {
 			try {
 			UI.moviesettingdisplay();
-		
+//				System.out.println("******MOVIE SETTINGS*****");
+//				System.out.println("1: Create Movie");
+//				System.out.println("2: Update Movie");
+//				System.out.println("3: Remove Movie");
+//				System.out.println("4: Adjust Ranking");
+//				System.out.println("0: Exit");
+//				System.out.println("Enter Choice:");
 			choice = Integer.parseInt(sc.nextLine());
+
 			switch(choice) {
 				case(1):
 					System.out.println("*****Create Movie******");
-					this.MovieList[Size]= CreateMovie(); //run create movie method
-					Size= Size+1; //increment movielist size
-					sortMovie(); //Show movie by status
+					CreateMovie(); //run create movie method
+
+
 					break;
 				case(2):
 					UpdateMovie();
@@ -36,6 +55,7 @@ public class MovieSettings {
 					break;
 				case(0):
 					System.out.println("Exit Movie Settings");
+					MovieDB.UpdateMovietoDB(this.MovieList);
 					choice =0;
 					break;
 			default:
@@ -54,42 +74,99 @@ public class MovieSettings {
 
 	}
 	public int returnlistsize() {
-		return this.Size;
+		return this.MovieSize;
 	}
 
 	public Movie CreateMovie() {
-		Movie temp= new Movie();
+		Movie temp;
+		MovieStatus NewStatus;
+		MovieRestriction MovieRestrict;
 		String Input;
 		int a;
 		float b;
+		boolean check=true;
 		System.out.println("Enter Title:");
-		temp.assignTitle(Input=sc.nextLine());
-		//System.out.println("Enter Movie Show Status (Now Showing, Coming Soon, TBC)");
-		//temp.assignStatus(Input=sc.nextLine());
-		//System.out.println("Enter Movie Description: ");
-		//temp.assignSyn(Input=sc.nextLine());
-		//System.out.println("Enter Movie Director: ");
-		//temp.assignDirect(Input=sc.nextLine());
-		//System.out.println("Enter Movie Main Cast: ");
-		//temp.assignCast(Input=sc.nextLine());
-		//System.out.println("Enter Movie Restriction (PG13,NC16,M18,TBC):"); -edit to enum
-		//temp.assignRestrict(Input=sc.nextLine());
-		//System.out.println("Enter Movie Genre:");
-		//temp.assignGenre(Input=sc.nextLine());
-		//System.out.println("Enter Movie Run time");
-		//temp.assignRuntime(Input=sc.nextLine());
-		//System.out.println("Enter Movie total votes");
-		//temp.assignVotes(a=sc.nextInt());
-		//System.out.println("Enter Movie Rating");
-		//temp.assignRate(b=sc.nextFloat());
-		//System.out.println("Enter Movie Sales");
-		//temp.assignSales(a=sc.nextInt());
-		return temp;
+		String title=sc.nextLine();
+		System.out.println("Enter Movie Description: ");
+		String Description=sc.nextLine();
+		System.out.println("Enter Movie Show Status (1:Now Showing, 2:Coming Soon, 3:Preview, 4:End Of Showing)");
+		do{
+			int sel;
+			try{
+				sel=Integer.parseInt(sc.nextLine());
+			switch (sel) {
+				case 1:
+					NewStatus = MovieStatus.Now_Showing;
+					check = false;
+					break;
+				case 2:
+					NewStatus = MovieStatus.Coming_Soon;
+					check = false;
+					break;
+				case 3:
+					NewStatus = MovieStatus.Preview;
+					check = false;
+					break;
+				case 4:
+					NewStatus = MovieStatus.End_Of_Showing;
+					check = false;
+					break;
+				default:
+					System.out.println("Invalid Input");
+			}
+				}
+			catch(Exception e){
+				System.out.println("Invalid Input");
+			}
+		}while(check);
+
+		System.out.println("Enter Movie Director: ");
+		String Director =sc.nextLine();
+		System.out.println("Enter Movie Main Cast: ");
+		String MainCast = sc.nextLine();
+		System.out.println("Enter Movie Restriction (1: PG13,2: NC16,3: M18,4: R21):"); //-edit to enum
+		check=true;
+		do{
+			int sel;
+			try{
+				sel=Integer.parseInt(sc.nextLine());
+				switch (sel) {
+					case 1:
+						MovieRestrict= MovieRestriction.PG13;
+						check = false;
+						break;
+					case 2:
+						MovieRestrict= MovieRestriction.NC16
+						check = false;
+						break;
+					case 3:
+						MovieRestrict= MovieRestriction.M18;
+						check = false;
+						break;
+					case 4:
+						MovieRestrict= MovieRestriction.R21;
+						check = false;
+						break;
+					default:
+						System.out.println("Invalid Input");
+				}
+			}
+			catch(Exception e){
+				System.out.println("Invalid Input");
+			}
+		}while(check);
+		System.out.println("Enter Movie Genre:");
+		String Genre = sc.nextLine();
+		System.out.println("Enter Movie Run time in minutes");
+		int Runtime = Integer.parseInt(sc.nextLine());
+
+
+		return temp=new Movie(title, Description, Director, MainCast, Genre, Runtime, NewStatus, MovieRestrict);
 	}
 	//Sort movie by status NowShowing, End of Show,Preview, Coming Soon)
 	public void sortMovie(){
 		Movie temp;
-		for(int i=1; i<Size; i++)
+		for(int i=1; i<MovieSize; i++)
 		{
 			for(int j=i; j>0; j--)
 			{
@@ -107,11 +184,11 @@ public class MovieSettings {
 	}
 	//assign priority to Now showing, preview, coming soon, end of show
 	public int checkprority(Movie movie){
-		if(movie.getstatus().equals(status.NowShowing))
+		if(movie.getstatus().equals(MovieStatus.Now_Showing))
 			return 4;
-		else if(movie.getstatus().equals(status.Preview))
+		else if(movie.getstatus().equals(MovieStatus.Preview))
 			return 3;
-		else if(movie.getstatus().equals(status.ComingSoon))
+		else if(movie.getstatus().equals(MovieStatus.Coming_Soon))
 			return 2;
 		else
 			return 1;
@@ -126,7 +203,7 @@ public class MovieSettings {
 		System.out.println("Select Movie to update: ");
 		sel=Integer.parseInt(sc.nextLine());
 		
-		while(sel>this.Size) {
+		while(sel>this.MovieSize) {
 			System.out.println("Invalid Input");
 			System.out.println("Select Movie to update: ");
 			sel=Integer.parseInt(sc.nextLine());
@@ -193,14 +270,14 @@ public class MovieSettings {
 
 	}
 	public void printmovietitle() {
-		for(int x=0;x<this.Size;x++) {
+		for(int x=0;x<this.MovieSize;x++) {
 			System.out.println("Movie #"+(x+1)+" "+MovieList[x].getTitle());
 		}
 	}
 
 	public int searchMovie(String title) {
 		int count=0;
-		while(count<this.Size){
+		while(count<this.MovieSize){
 			if(this.MovieList[count].getTitle().equalsIgnoreCase(title)){
 				return count;
 			}
@@ -217,7 +294,7 @@ public class MovieSettings {
 		if(remove<0)
 			System.out.println("Removal was Unsuccessful");
 		else{
-			for(int loop=remove; loop<this.Size; loop++){
+			for(int loop=remove; loop<this.MovieSize; loop++){
 				//shift all elements forward
 				this.MovieList[loop] = this.MovieList[loop+1];
 			}
@@ -232,11 +309,11 @@ public class MovieSettings {
 		//Sort TOP 5 rating
 	
 		System.out.println("Before");
-		for(int a=0; a<Size; a++) {
+		for(int a=0; a<MovieSize; a++) {
 			System.out.println(MovieList[a].getTitle() + " rating" + MovieList[a].getRating() );
 		}
 		
-		for(int i=1; i<Size; i++)
+		for(int i=1; i<MovieSize; i++)
 		{
 			for(int j=i; j>0; j--)
 			{
@@ -252,7 +329,7 @@ public class MovieSettings {
 			}
 		}
 		System.out.println("After");
-		for(int a=0; a<Size; a++) {
+		for(int a=0; a<MovieSize; a++) {
 			System.out.println(MovieList[a].getTitle() + " rating" + MovieList[a].getRating() );
 		}
 		

@@ -55,9 +55,16 @@ public class Display {
 		System.out.println("11: Exit");
 		System.out.println("Enter Choice:");
 	}
-	
+	public void CineplexSettingDisplay(){
+		System.out.println("*****CINPLEX SETTING*****");
+		System.out.println("1: Create Cineplex");
+		System.out.println("2: Update Cineplex");
+		System.out.println("3: Remove Cineplex");
+		System.out.println("0: Exit");
+		System.out.println("Enter Choice:");
+	}
 	public void CinemaSettingdisplay() {
-		System.out.println("*****SYSTEM CONFIGURATION*****");
+		System.out.println("*****CINEMA SETTING*****");
 		System.out.println("1: Create Cinema");
 		System.out.println("2: Update Cinema");
 		System.out.println("3: Remove Cinema");

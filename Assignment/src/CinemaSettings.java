@@ -1,8 +1,10 @@
 import java.util.Scanner;
-public class CinemaSettings {
+
+
+public class CinemaSettings{
 	private Movie[] movielist;
 	private int ListSize;
-	private Cineplex[] Cinema = new Cineplex[30];
+	private ArrayList Cinemalist = new Cinema[30];
 	private int No_Cinema=0;
 	Display UI = new Display();
 	Scanner sc = new Scanner(System.in);
@@ -23,7 +25,7 @@ public class CinemaSettings {
 					break;
 				case(1):
 					//Call Create Cinema");
-					Cinema[No_Cinema]=createCinema(movielist);
+					Cinemalist[No_Cinema]=createCinema(movielist);
 					this.No_Cinema++;
 					break;
 				case(2):
@@ -46,9 +48,9 @@ public class CinemaSettings {
 		}while(sel!=0);
 	}
 	
-	public Cineplex createCinema(Movie[] movie) {
+	public Cinema createCinema(Movie[] movie) {
 		String name;
-		Cineplex temp = new Cineplex();
+		Cinema temp = new Cinema();
 		temp.setmovielist(movie);
 		System.out.println("Enter Cinema Name:");
 		name=sc.nextLine();
@@ -62,7 +64,7 @@ public class CinemaSettings {
 			try {
 				System.out.println("Select Cinema");
 				for(int x=0; x<this.No_Cinema;x++) {
-					System.out.println("#" +(x+1) + " " +Cinema[x].getname());
+					System.out.println("#" +(x+1) + " " +Cinemalist[x].getname());
 				}
 				System.out.println("Enter 0 to exit:");
 				sel=Integer.parseInt(sc.nextLine());
@@ -86,7 +88,7 @@ public class CinemaSettings {
 		
 		int selectmovie;
 		int choice =1;
-		Cinema[sel].printmovietitles(ListSize);
+		Cinemalist[sel].printmovietitles(ListSize);
 		System.out.println("Select Movie to update");
 		selectmovie= Integer.parseInt(sc.nextLine());
 		do {
@@ -124,10 +126,10 @@ public class CinemaSettings {
 		}while(choice!=0);
 	}
 	
-	public Cineplex[] returncinemalist() {
-		return this.Cinema;
+	public Cinema[] returncinemalist() {
+		return this.Cinemalist;
 	}
-	public int returnCinemaListSize() {
+	public int returnCinemaSize() {
 		return this.No_Cinema;
 	}
 }

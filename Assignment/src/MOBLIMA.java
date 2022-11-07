@@ -11,10 +11,10 @@ public class MOBLIMA {
 		Scanner sc = new Scanner(System.in);
 		Display UI = new Display();
 		Operation Ops = new Operation();
-		Movie[] movies;
+
 		SeatsLayOut hi= new SeatsLayOut();
 		Showtime time= new Showtime();
-		Cineplex[] cinema;
+
 		
 		//SystemConfig config= new SystemConfig();
 		//create array of Movie to store
