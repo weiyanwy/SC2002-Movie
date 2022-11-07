@@ -8,11 +8,11 @@ import java.io.ObjectOutputStream;
 
 
 /// Pass Movie data to database, read and write from database
-public class MovieDBcontrol {
+public class CineplexDBcontrol {
     //Store file Address
     private String FileAddress;
 
-    public ShowtimeDBcontrol(String FileAddress) {
+    public CineplexDBcontrol(String FileAddress) {
         this.FileAddress = FileAddress; //Input the directory where your .dat file is located
     }
 
@@ -24,7 +24,7 @@ public class MovieDBcontrol {
         this.FileAddress = fileAddress;
     }
 
-    public void InsertshowtimetoDB(String title, String Synopsis, String Director, String MainCast, String Genre,
+    public void InsertMovietoDB(String title, String Synopsis, String Director, String MainCast, String Genre,
                                 int runtime, MovieStatus status, MovieRestriction movierestrict) throws IOException, ClassNotFoundException {
 
         FileOutputStream fileout = new FileOutputStream(this.FileAddress);
@@ -42,7 +42,7 @@ public class MovieDBcontrol {
         }
     }
 
-    public Movie[] GetShowTimeFromDB() {
+    public Movie[] GetMovieFromDB() {
         Movie[] newtemp = null;
         FileInputStream fis = null;
         ObjectInputStream in = null;
@@ -60,7 +60,7 @@ public class MovieDBcontrol {
         return newtemp;
     }
     // replace the old file w new.
-    public void UpdateShowTimetoDB(Movie[] movielist) throws IOException, ClassNotFoundException{
+    public void UpdateMovietoDB(Movie[] movielist) throws IOException, ClassNotFoundException{
         FileOutputStream fileout = new FileOutputStream(this.FileAddress);
         ObjectOutputStream Objout = new ObjectOutputStream(fileout);
         try {

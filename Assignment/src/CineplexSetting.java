@@ -1,17 +1,18 @@
+import java.util.HashMap;
 import java.util.Scanner;
 
 
 public class CineplexSetting{
-    private Movie[] movielist;
     private int MovieListSize;
-    private Cineplex[] Cineplexlist = new Cineplex[30];
+    private Cineplex[] Cineplexlist = new Cineplex[3];
     private int No_Cineplex=0;
-
+    private HashMap<String, Cinema[]> CineplexCinema = new HashMap<>();
+    private CinemaSettings Cinemaset;
     Display UI = new Display();
     Scanner sc = new Scanner(System.in);
-    public void runCineplexSetting(Movie[] movielist, int size) {
-        this.movielist=movielist;
-        MovieListSize=size;
+    public void runCineplexSetting(int MovieListsize) {
+
+        MovieListSize=MovieListsize;
 
         int sel=1;
         do {
@@ -57,7 +58,7 @@ public class CineplexSetting{
         System.out.println("Enter Cinema Name:");
         name=sc.nextLine();
         //Create new Cineplex class in list
-        Cineplexlist[No_Cineplex] = new Cineplex(name, this.movielist, this.MovieListSize);
+        Cineplexlist[No_Cineplex] = new Cineplex(name);
         No_Cineplex++; //increment Cineplex count
     }
 
@@ -68,7 +69,7 @@ public class CineplexSetting{
                 printCinplexlist();
                 System.out.println("Select Cinema");
                 for(int x=0; x<this.No_Cineplex;x++) {
-                    System.out.println("#" +(x+1) + " " +Cineplexlist[x].getName());
+                    System.out.println("#" +(x+1) + " " +Cineplexlist[x].getCineplexName());
                 }
                 System.out.println("Enter 0 to exit:");
                 sel=Integer.parseInt(sc.nextLine());
@@ -98,7 +99,7 @@ public class CineplexSetting{
         choice=selectCineplex();
         // run function if user dw to exit
         if(choice!=-1) {
-            Cineplexlist[choice].runCinemaSetting();
+            Cinemaset.runCinemaSetting(Cineplexlist[choice].getCineplexName(), MovieListSize);
             // get new updated movielist n size
 
         }
@@ -108,6 +109,7 @@ public class CineplexSetting{
         int choice;
         choice=selectCineplex();
         if(choice!=-1){
+            Cinemaset.RemoveCinemafromCineplex(Cineplexlist[choice].getCineplexName());
             for(int x=choice; x<No_Cineplex; x++){
             // Shift data to the left
                 Cineplexlist[x]=Cineplexlist[x+1];
@@ -117,7 +119,7 @@ public class CineplexSetting{
     }}
     public void printCinplexlist(){
         for(int x=1; x<=No_Cineplex; x++){
-            System.out.println("#"+x+" "+ Cineplexlist[x-1].getName());
+            System.out.println("#"+x+" "+ Cineplexlist[x-1].getCineplexName());
         }
     }
     public Cineplex[] returncineplexlist() {

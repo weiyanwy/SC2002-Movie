@@ -1,4 +1,4 @@
-package MovieApp;
+
 /*
  * Title: CineplexSettings
  * Use: Provide 3 functions to be used, which are
@@ -7,7 +7,7 @@ package MovieApp;
  * Update Cineplex (in other words fix the cinemas)
  */
 import java.util.Scanner;
-
+import java.util.HashMap;
 public class CineplexSettings {
 	//#################################################################
 	//
@@ -17,7 +17,7 @@ public class CineplexSettings {
 	Display UI = new Display();
 	Scanner sc = new Scanner(System.in);
 	
-	public Cineplex[] CineplexList = new Cineplex[5];
+	public Cineplex[] CineplexList = new Cineplex[10];
 	public int plexSize = 0;
 	
 	//#################################################################
@@ -28,6 +28,11 @@ public class CineplexSettings {
 	//
 	//PART 3: FUNCTIONS
 	//-----------------------------------------
+
+	public void RunCinplexSetting(){
+		int sel
+
+	}
 	////CREATE CINEPLEX
 	public Cineplex createCineplex() {
 		Cineplex temp = new Cineplex();

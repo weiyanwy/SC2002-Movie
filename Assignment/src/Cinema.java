@@ -1,3 +1,4 @@
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Cinema {
@@ -7,7 +8,8 @@ public class Cinema {
 
     private String name;
     private Movie[] movielist;
-    private Booking bookticket = new Booking();
+
+    HashMap<String, <String, <String, Showtime[]>
     Scanner sc = new Scanner(System.in);
 
     //#------------------------

@@ -25,10 +25,9 @@ public class Movie implements Serializable {
 	//Generating movies' variables
 	
 	////////////IMPORTANT VARIABLES////////////////
-	public MovieStatus movieStatus;
-	enum status {ComingSoon, Preview, NowShowing, EndofShowing}
+
 	private String title;						//title of movie
-	private status ShowStatus;					//status of movie (defined in enum above) (should be reviewed in the future)
+	private MovieStatus ShowStatus;					//status of movie (defined in enum above) (should be reviewed in the future)
 	private Showtime[] time= new Showtime[100];			//slots of movies
 	private int ShowSize =0;					//how many slots of movies have been created
 	public boolean isBlock = false;						//check whether this movie is a blockbuster
@@ -36,14 +35,13 @@ public class Movie implements Serializable {
 	////////////NOT IMPORTANT VARIABLES////////////
 	private String Synopsis;
 	private String Director;
-	private ArrayList<String> MainCast;
-	private ArrayList<String> Genre;
+	private String MainCast;
+	private String Genre;
 	private float rating;
 	private MovieRestriction movieRestriction;
-	private ArrayList<String> Genre;
 
-	private String Runtime;
-	private int totalsales;
+
+	private int runtime;
 	private String[] reviews = new String[10];
 	///
 	private int Reviewcount=0;

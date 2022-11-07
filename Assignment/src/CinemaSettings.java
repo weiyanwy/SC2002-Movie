@@ -1,14 +1,16 @@
+import java.util.HashMap;
 import java.util.Scanner;
 
 
 public class CinemaSettings{
 	private Movie[] movielist;
 	private int ListSize;
-	private ArrayList Cinemalist = new Cinema[30];
+	private Cinema[] Cinemalist = new Cinema[30];
 	private int No_Cinema=0;
 	Display UI = new Display();
 	Scanner sc = new Scanner(System.in);
-	public void runCinemaSetting(Movie[] movielist, int size) {
+	private HashMap<String, Cinema> CineplexCinema = new HashMap<String, Cinema>();
+	public Cinema[] runCinemaSetting(String CineplexName, int size) {
 		this.movielist=movielist;
 		ListSize=size;
 		int sel=1;
@@ -25,7 +27,7 @@ public class CinemaSettings{
 					break;
 				case(1):
 					//Call Create Cinema");
-					Cinemalist[No_Cinema]=createCinema(movielist);
+					createCinema(movielist);
 					this.No_Cinema++;
 					break;
 				case(2):
@@ -46,6 +48,7 @@ public class CinemaSettings{
 				System.out.println("Invalid Choice");
 			}
 		}while(sel!=0);
+		return Cinemalist;
 	}
 	
 	public Cinema createCinema(Movie[] movie) {
@@ -125,7 +128,11 @@ public class CinemaSettings{
 			}
 		}while(choice!=0);
 	}
-	
+
+
+	public void RemoveCinemafromCineplex(String CineplexName){
+
+	}
 	public Cinema[] returncinemalist() {
 		return this.Cinemalist;
 	}
