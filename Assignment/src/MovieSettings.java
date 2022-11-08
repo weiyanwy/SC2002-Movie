@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class MovieSettings {
-private int Size; // Size of content in movielist
+	private int Size; // Size of content in movielist
 	private Movie[] MovieList= new Movie[30]; //Create tempList to store and return
 	Scanner sc = new Scanner(System.in);
 	Display UI = new Display(); //display UI messages
-	enum status {ComingSoon, Preview, NowShowing, EndofShowing};
+
 	int choice;
 	//UI.staffdisplay();
 	
@@ -111,11 +111,11 @@ public void sortMovie(){
 }
 //assign priority to Now showing, preview, coming soon, end of show
 public int checkprority(Movie movie){
-	if(movie.getStatus().equals(status.NowShowing))
+	if(movie.getstatus().equals(MovieStatus.Now_Showing))
 		return 4;
-	else if(movie.getStatus().equals(status.Preview))
+	else if(movie.getstatus().equals(MovieStatus.Preview))
 		return 3;
-	else if(movie.getStatus().equals(status.ComingSoon))
+	else if(movie.getstatus().equals(MovieStatus.Coming_Soon))
 		return 2;
 	else
 		return 1;
