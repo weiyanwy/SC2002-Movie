@@ -189,10 +189,8 @@ public class Movie implements Serializable {
 		return this.ShowSize;
 	}
 	
-	public void assignShowtime(){
-		Showtime temp = new Showtime();
-		temp.setshow();
-		this.time[ShowSize]=temp;
+	public void assignShowtime(Showtime showtime){
+		this.time[ShowSize]=showtime;
 		this.ShowSize++;
 	}
 	public void removeshowtime(){

@@ -5,13 +5,31 @@ import java.util.Scanner;
 public class CinemaSettings{
 	private Movie[] movielist;
 	private int ListSize;
+
 	private Cinema[] Cinemalist = new Cinema[30];
 	private int No_Cinema=0;
+
+	private MovieDBcontrol moviedata;
+
+	private ShowTimeSetting showset;
+
 	Display UI = new Display();
 	Scanner sc = new Scanner(System.in);
+
 	private HashMap<String, Cinema> CineplexCinema = new HashMap<String, Cinema>();
-	public Cinema[] runCinemaSetting(String CineplexName, int size) {
-		this.movielist=movielist;
+
+	String MovieDBaddress
+	String CinemaDBaddress;
+	String ShowtimeDBaddress;
+
+	public Cinema[] runCinemaSetting(String CineplexName, int size, String MovieDbaddress, String CinemaDBaddress, String ShowtimeDbaddress) {
+		this.MovieDBaddress= MovieDbaddress;
+		this.CinemaDBaddress=CinemaDBaddress;
+		this.ShowtimeDBaddress=ShowtimeDbaddress;
+
+		this.moviedata=new MovieDBcontrol(MovieDBaddress);
+		this.movielist=moviedata.GetMovieFromDB();
+
 		ListSize=size;
 		int sel=1;
 		do {
@@ -27,7 +45,7 @@ public class CinemaSettings{
 					break;
 				case(1):
 					//Call Create Cinema");
-					createCinema(movielist);
+					createCinema();
 					this.No_Cinema++;
 					break;
 				case(2):
@@ -51,10 +69,10 @@ public class CinemaSettings{
 		return Cinemalist;
 	}
 	
-	public Cinema createCinema(Movie[] movie) {
+	public Cinema createCinema() {
 		String name;
 		Cinema temp = new Cinema();
-		temp.setmovielist(movie);
+		temp.setmovielist(this.movielist);
 		System.out.println("Enter Cinema Name:");
 		name=sc.nextLine();
 		temp.setname(name);
@@ -102,7 +120,7 @@ public class CinemaSettings{
 				switch(choice) {
 					case(1):
 						//call Add time function
-						this.movielist[selectmovie-1].assignShowtime();
+						this.movielist[selectmovie-1].assignShowtime(showset.setshowtime());
 						this.movielist[selectmovie-1].printShowtime();
 						break;
 					case(2):
@@ -132,6 +150,11 @@ public class CinemaSettings{
 
 	public void RemoveCinemafromCineplex(String CineplexName){
 
+	}
+	public void printCinemalist(){
+		for (int x = 0; x<No_Cinema;x++){
+			System.out.println("Cinema #"+(x+1)+ " " + Cinemalist[x].getname());
+		}
 	}
 	public Cinema[] returncinemalist() {
 		return this.Cinemalist;

@@ -15,6 +15,11 @@ public class StaffMode {
 	Scanner sc = new Scanner(System.in);
 	Display UI = new Display(); //display UI messages
 
+	String MovieDBaddress = " ";
+	String CineplexDBaddress= " ";
+	String CinemaDBaddress=" ";
+	String ShowtimeDBaddress=" ";
+
 
 
 	public void Adminmode(Movie[] movielist, int size){

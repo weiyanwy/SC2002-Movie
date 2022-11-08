@@ -8,7 +8,7 @@ import java.io.ObjectOutputStream;
 
 
 /// Pass Movie data to database, read and write from database
-public class CineplexDBcontrol {
+class CineplexDBcontrol {
     //Store file Address
     private String FileAddress;
 
@@ -24,7 +24,7 @@ public class CineplexDBcontrol {
         this.FileAddress = fileAddress;
     }
 
-    public void InsertMovietoDB(String title, String Synopsis, String Director, String MainCast, String Genre,
+    public void InsertCineplextoDB(String title, String Synopsis, String Director, String MainCast, String Genre,
                                 int runtime, MovieStatus status, MovieRestriction movierestrict) throws IOException, ClassNotFoundException {
 
         FileOutputStream fileout = new FileOutputStream(this.FileAddress);
@@ -42,7 +42,7 @@ public class CineplexDBcontrol {
         }
     }
 
-    public Movie[] GetMovieFromDB() {
+    public Movie[] GetCineplexFromDB() {
         Movie[] newtemp = null;
         FileInputStream fis = null;
         ObjectInputStream in = null;
@@ -60,7 +60,7 @@ public class CineplexDBcontrol {
         return newtemp;
     }
     // replace the old file w new.
-    public void UpdateMovietoDB(Movie[] movielist) throws IOException, ClassNotFoundException{
+    public void UpdateCineplextoDB(Movie[] movielist) throws IOException, ClassNotFoundException{
         FileOutputStream fileout = new FileOutputStream(this.FileAddress);
         ObjectOutputStream Objout = new ObjectOutputStream(fileout);
         try {

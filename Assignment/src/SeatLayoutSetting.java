@@ -5,7 +5,6 @@ public class SeatsLayOut {
 	private Seat[][] layout;
 	private int row, column;
 	private int totalseats;
-	private Booking bookseat=new Booking();
 
 	Scanner sc = new Scanner(System.in);
 	
@@ -95,7 +94,9 @@ public class SeatsLayOut {
 		}
 
 	}
-	public void printSeatStatus() {
+	public void printSeatStatus(SeatLayout layout) {
+		int row=layout.getrow();
+		int col = layout.getcol();
 		String title="[SCREEN]";
 		String Status="[SEAT's STATUS]";
 		for(int x=0; x< this.row;x++) {

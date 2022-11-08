@@ -9,7 +9,7 @@ public class Cinema {
     private String name;
     private Movie[] movielist;
 
-    HashMap<String, <String, <String, Showtime[]>
+    private MovieDBcontrol moviedb;
     Scanner sc = new Scanner(System.in);
 
     //#------------------------
@@ -19,6 +19,7 @@ public class Cinema {
     }
     public void setname(String name) {
         this.name=name;
+
     }
     public String getname() {
         return this.name;

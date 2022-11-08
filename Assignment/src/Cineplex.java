@@ -13,7 +13,7 @@ public class Cineplex {
 	//PART 1: INITIALIZE RELEVANT VARIABLES
 	//
 	//1.1: Initialize objects init
-	private Cinema[] Cinemalist= new Cinema[30];
+	private Cinema[] Cinemalist= new Cinema[3];
 	private int Cinemalistsize=0;
 	public String name;							//name of cineplex
 											//list of cinemas within the cineplex
@@ -28,8 +28,18 @@ public class Cineplex {
 		return this.name;
 	}
 
-	public void assignCinemalist(Cinema[]){
+	public void assignCinemalist(Cinema[] Cinemalist){
+		this.Cinemalist=Cinemalist;
+	}
+	public void assigneCinematlistsize(int Size){
+		this.Cinemalistsize=Size;
+	}
+	public Cinema[] getCinemalist(){
 
+		return this.Cinemalist;
+	}
+	public int getCinemalistsize(){
+		return this.Cinemalistsize;
 	}
 
 	//##################################################################

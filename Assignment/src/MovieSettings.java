@@ -299,7 +299,7 @@ public class MovieSettings {
 				this.MovieList[loop] = this.MovieList[loop+1];
 			}
 			System.out.println("Removal was Successful");
-			this.Size--;
+			this.MovieSize--;
 		}
 	}
 	public void MovieRanking() {

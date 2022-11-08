@@ -6,13 +6,25 @@ public class CineplexSetting{
     private int MovieListSize;
     private Cineplex[] Cineplexlist = new Cineplex[3];
     private int No_Cineplex=0;
-    private HashMap<String, Cinema[]> CineplexCinema = new HashMap<>();
+    private Cinema[] Cinemalist;
+    private int Cinemalistsize;
+
+    CineplexDBcontrol CineplexDB;
     private CinemaSettings Cinemaset;
     Display UI = new Display();
     Scanner sc = new Scanner(System.in);
-    public void runCineplexSetting(int MovieListsize) {
+
+    String MovieDBaddress;
+    String CineplexDBaddress;
+    String CinemaDBaddress;
+    String ShowtimeDbAddress;
+    public void runCineplexSetting(int MovieListsize, String MovieDBaddres, String CineplexDB, String CinemaDB, String ShowtimeDB) {
 
         MovieListSize=MovieListsize;
+        this.MovieDBaddress = MovieDBaddres;
+        this.CineplexDBaddress=CineplexDB;
+        this.CinemaDBaddress=CinemaDB;
+        this.ShowtimeDbAddress=ShowtimeDB;
 
         int sel=1;
         do {
@@ -51,6 +63,7 @@ public class CineplexSetting{
                 System.out.println("Invalid Choice");
             }
         }while(sel!=0);
+        CineplexDB.
     }
 
     public void createCineplex() {
@@ -99,7 +112,10 @@ public class CineplexSetting{
         choice=selectCineplex();
         // run function if user dw to exit
         if(choice!=-1) {
-            Cinemaset.runCinemaSetting(Cineplexlist[choice].getCineplexName(), MovieListSize);
+            Cinemalist=Cinemaset.runCinemaSetting(Cineplexlist[choice].getCineplexName(), MovieListSize, MovieDBaddress, CinemaDBaddress, ShowtimeDbAddress);
+            Cinemalistsize=Cinemaset.returnCinemaSize();
+            Cineplexlist[choice].assignCinemalist(Cinemalist);
+            Cineplexlist[choice].assigneCinematlistsize(Cinemalistsize);
             // get new updated movielist n size
 
         }
@@ -122,6 +138,7 @@ public class CineplexSetting{
             System.out.println("#"+x+" "+ Cineplexlist[x-1].getCineplexName());
         }
     }
+
     public Cineplex[] returncineplexlist() {
         return this.Cineplexlist;
     }

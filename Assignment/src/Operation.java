@@ -13,6 +13,11 @@ public class Operation {
 	StaffLogin Staff = new StaffLogin();		//Initiate Staff here
 	 //Operation Op = new Operation();			//Constructor of Operator
 	Scanner sc = new Scanner(System.in);		//Scanner
+
+	String MovieDBaddress = " ";
+	String CineplexDBaddress= " ";
+	String CinemaDBaddress=" ";
+	String ShowtimeDBaddress=" ";
 	//#-----------------------------
 	int choice = 1;					//dummy variable to insert input
 
