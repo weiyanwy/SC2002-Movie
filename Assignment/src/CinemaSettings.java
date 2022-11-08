@@ -4,13 +4,13 @@ import java.util.Scanner;
 
 public class CinemaSettings{
 	private Movie[] movielist;
-	private int ListSize;
-
+	private int MovieListSize;
+	private CinemaType cinematype;
 	private Cinema[] Cinemalist = new Cinema[30];
 	private int No_Cinema=0;
 
 	private MovieDBcontrol moviedata;
-
+	private MovieSettings moviesetting;
 	private ShowTimeSetting showset;
 
 	Display UI = new Display();
@@ -22,15 +22,15 @@ public class CinemaSettings{
 	String CinemaDBaddress;
 	String ShowtimeDBaddress;
 
-	public Cinema[] runCinemaSetting(String CineplexName, int size, String MovieDbaddress, String CinemaDBaddress, String ShowtimeDbaddress) {
+	public Cinema[] runCinemaSetting(String CineplexName, int Movielistsize, String MovieDbaddress, String CinemaDBaddress, String ShowtimeDbaddress) {
 		this.MovieDBaddress= MovieDbaddress;
 		this.CinemaDBaddress=CinemaDBaddress;
 		this.ShowtimeDBaddress=ShowtimeDbaddress;
-
+		//extract movielist from database
 		this.moviedata=new MovieDBcontrol(MovieDBaddress);
 		this.movielist=moviedata.GetMovieFromDB();
 
-		ListSize=size;
+		this.MovieListSize=Movielistsize;
 		int sel=1;
 		do {
 			
@@ -70,12 +70,37 @@ public class CinemaSettings{
 	}
 	
 	public Cinema createCinema() {
+		boolean exit=true;
+		int sel;
 		String name;
 		Cinema temp = new Cinema();
-		temp.setmovielist(this.movielist);
+
 		System.out.println("Enter Cinema Name:");
 		name=sc.nextLine();
+		do{
+			System.out.println("Enter Cinema Type:");
+			System.out.println("1: STANDARD");
+			System.out.println("2: GOLD");
+			System.out.println("3: PLATINUM");
+			sel=Integer.parseInt(sc.nextLine());
+			switch(sel){
+				case 1:
+					cinematype=CinemaType.STANDARD;
+					exit = false;
+					break;
+				case 2:
+					cinematype=CinemaType.GOLD;
+					exit=false;
+					break;
+				case 3:
+					cinematype=CinemaType.PLATINUM;
+					break;
+				default:
+					System.out.println("Invalid Input");
+			}
+		}while(exit);
 		temp.setname(name);
+		temp.setCinematype(cinematype);
 		return temp;
 	}
 	
@@ -107,11 +132,18 @@ public class CinemaSettings{
 	
 	public void updateCinema(int sel) {
 		
-		int selectmovie;
+		int selectmovie=0;
 		int choice =1;
-		Cinemalist[sel].printmovietitles(ListSize);
-		System.out.println("Select Movie to update");
-		selectmovie= Integer.parseInt(sc.nextLine());
+		boolean exit = true;
+		moviesetting.printmovietitle(this.movielist, this.MovieListSize);
+		while(exit){
+			System.out.println("Select Movie to update");
+			selectmovie= Integer.parseInt(sc.nextLine());
+			if(selectmovie>0 && selectmovie<MovieListSize)
+				exit=false;
+			else
+				System.out.println("Invalid Input");
+		}
 		do {
 			try {
 				UI.cinemaupdatedisplay();
@@ -120,15 +152,14 @@ public class CinemaSettings{
 				switch(choice) {
 					case(1):
 						//call Add time function
-						this.movielist[selectmovie-1].assignShowtime(showset.setshowtime());
-						this.movielist[selectmovie-1].printShowtime();
+						this.showset.Createshowtime(Cinemalist[sel].getname(), movielist[selectmovie-1].getTitle());
 						break;
 					case(2):
-						this.movielist[selectmovie-1].updateshowtime();
+						this.showset.Updateshowtime(Cinemalist[sel].getname(), movielist[selectmovie-1].getTitle());
 						break;
 						//call Update time function
 					case(3):
-						this.movielist[selectmovie-1].removeshowtime();
+						this.showset.Removeshowtime(Cinemalist[sel].getname(), movielist[selectmovie-1].getTitle());
 						break;
 					case(4):
 						//update layout

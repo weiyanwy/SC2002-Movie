@@ -2,6 +2,7 @@ import java.util.Scanner;
 public class ShowtimeUI {
     Showtime[] showtime;
     private int Showtimelistsize;
+
     Scanner sc = new Scanner(System.in);
     public void runshowUI(Showtime[] Showtime, int Size){
         this.showtime= Showtime;

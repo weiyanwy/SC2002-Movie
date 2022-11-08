@@ -178,9 +178,9 @@ public void UpdateMovie(){
 	}while(choice!=0);
 }
 //generate the list of movie that is currently in spot
-public void printmovietitle() {
-	for(int x=0;x<this.Size;x++) {
-		System.out.println("["+(x+1)+"] "+MovieList[x].getTitle());
+public void printmovietitle(Movie[] movielist, int Movelistsize) {
+	for(int x=0;x<Movelistsize;x++) {
+		System.out.println("["+(x+1)+"] "+movielist[x].getTitle());
 	}
 }
 ////////////////////////////////////////////////

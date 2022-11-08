@@ -18,13 +18,12 @@ public class ShowTimeSetting {
     public	int sel = 0;
     Scanner sc = new Scanner(System.in);
     SimpleDateFormat dataform = new SimpleDateFormat("MM/dd HH:mm");
-    public Showtime setshowtime(){
+    public void Createshowtime(String CinemaName, String MovieName){
         updatetime();
         set3D();
-        return Showtime;
-
+        Show
     }
-    public void updatetime() {
+    public void uppdatetime(String CinemaName, String MovieName) {
         boolean check=true;
         do {
             try {

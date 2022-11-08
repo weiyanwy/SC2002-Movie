@@ -15,6 +15,23 @@ Relevant files:
 Very crucial files to care about!!!
 */
 
+/*
+Title: Move
+Use: create object movies with many variables to be taken into account
+
+Important variables:
+title (used for searching and booking)
+showStatus (affect whether it can be booked or not)
+ShowTime (extremely crucial, as it contains other variables within)
+ShowSize (following variable to ShowTime)
+isBlock (this affects the price)
+is3D (this also affects the price, both isBlock and this variable can be referred from the guide)
+
+-----------------------
+Relevant files:
+Very crucial files to care about!!!
+*/
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -23,7 +40,7 @@ import java.text.SimpleDateFormat;
 public class Movie implements Serializable {
 	//#-----------------------------
 	//Generating movies' variables
-	
+
 	////////////IMPORTANT VARIABLES////////////////
 
 	private String title;						//title of movie
@@ -49,7 +66,7 @@ public class Movie implements Serializable {
 	SimpleDateFormat Runtimeformat= new SimpleDateFormat("H hr mm");
 	Scanner sc = new Scanner(System.in);
 	//#-----------------------------
-	
+
 	//###########################################################################################
 	//FUNCTIONS START HERE
 	public Movie(String title, String Synopsis, String Director, String MainCast, String Genre,
@@ -68,7 +85,7 @@ public class Movie implements Serializable {
 	//
 	//PART 2: CONSTRUCTORS OF THE CLASS
 	//
-	
+
 	//////////SETTERS
 	// Title of movie
 	public void setTitle() {
@@ -78,7 +95,7 @@ public class Movie implements Serializable {
 		this.title = title;
 	}
 	// Status of movie
-	public void setStatus() {			
+	public void setStatus() {
 		int choice;
 		System.out.println("Enter Status of Movie: ");
 		System.out.println("[1] Coming Soon");
@@ -101,23 +118,12 @@ public class Movie implements Serializable {
 		if(choice == 1) this.isBlock = true;
 		if(choice == 2) this.isBlock = false;
 	}
-	
+
 	////////GETTERS
 	//Title
-	public String getTitle() {
-		return this.title;
-	}
-	//ShowStatus
-	public status getStatus() {
-		return this.ShowStatus;
-	}
-	//isBlock
-	public boolean getBlock() {
-		return this.isBlock;
-	}
-	
+
 	/////////NOT IMPORTANT SETUPS//////////////////////////////
-	
+
 	////setters
 	public void setSyn() {
 		String Inp;
@@ -177,7 +183,7 @@ public class Movie implements Serializable {
 	public String getTitle() {
 		return this.title;
 	}
-	public status getstatus(){
+	public MovieStatus getstatus(){
 		return this.ShowStatus;
 	}
 
@@ -190,9 +196,7 @@ public class Movie implements Serializable {
 	public String getCast() {
 		return this.MainCast;
 	}
-	public int getVotes() {
-		return this.numvotes;
-	}
+
 	public float getRating() {
 		return this.rating;
 	}
@@ -222,7 +226,7 @@ public class Movie implements Serializable {
 	//#################################################################################################
 	//this function is to display showtime when
 	//booking ticket, because they need to see the available time slots
-		
+
 	//variables relating to this function
 	//time[i] = variable containing ShowTime array
 	//time[i] includes (year, month, date/time.minute)
@@ -232,12 +236,12 @@ public class Movie implements Serializable {
 			System.out.print("Slot "+(i+1)+":" +time[i].gettime());
 		}
 	}
-		
+
 	//#################################################################################################
 	public int getShowlistSize() {
 		return this.ShowSize;
 	}
-	
+
 	public void assignShowtime(Showtime showtime){
 		this.time[ShowSize]=showtime;
 		this.ShowSize++;
@@ -261,43 +265,27 @@ public class Movie implements Serializable {
 	}
 	public void updateshowtime() {
 		int select;
-		boolean check=true;
-		if(ShowSize==0) {
+		boolean check = true;
+		if (ShowSize == 0) {
 			System.out.println("List is Empty");
-		}
-		else {
-			for(int x=0; x<this.ShowSize;x++) {
+		} else {
+			for (int x = 0; x < this.ShowSize; x++) {
 				System.out.println(time[x].gettime());
 			}
 			do {
 				try {
 					System.out.println("Enter index to update:");
-					select=Integer.parseInt(sc.nextLine());
-					if((select>0) && (select<=this.ShowSize)) {
-						time[select-1].updatetime();
-						check=false;
-					}
-					else {
+					select = Integer.parseInt(sc.nextLine());
+					if ((select > 0) && (select <= this.ShowSize)) {
+						time[select - 1].updatetime();
+						check = false;
+					} else {
 						System.out.println("Invalid Input");
 					}
-				}
-				catch(Exception e)
-				{
+				} catch (Exception e) {
 					System.out.println("Invalid Input");
 				}
-			}while(check);
-			}
-	}
-	public void printShowtime() {
-		System.out.println("Movie title: "+this.title);
-		for(int x=0;x<ShowSize;x++) {
-			System.out.println("#" + (x+1) +": " + this.time[x].gettime());// + "  Type: "+time[x].gettype());
+			} while (check);
 		}
-	}
-	public void printSeatStatus(int x) {
-		time[x].printSeatStatus();
-	}
-	public void printlayout(int x) {
-		time[x].printlayout();
 	}
 }
