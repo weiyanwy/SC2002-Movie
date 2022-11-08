@@ -127,7 +127,7 @@ public int checkprority(Movie movie){
 public void UpdateMovie(){
 	int choice, sel;
 	System.out.println("***List of movie you can choose to update***");
-	printmovietitle();
+	printmovietitle(this.MovieList, this.Size);
 	
 	System.out.println("Select Movie to update: ");
 	sel=Integer.parseInt(sc.nextLine());

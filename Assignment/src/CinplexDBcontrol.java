@@ -24,16 +24,14 @@ class CineplexDBcontrol {
         this.FileAddress = fileAddress;
     }
 
-    public void InsertCineplextoDB(String title, String Synopsis, String Director, String MainCast, String Genre,
-                                int runtime, MovieStatus status, MovieRestriction movierestrict) throws IOException, ClassNotFoundException {
+    public void InsertCineplextoDB(Cineplex[] Cineplexes)throws IOException {
 
         FileOutputStream fileout = new FileOutputStream(this.FileAddress);
         ObjectOutputStream Objout = new ObjectOutputStream(fileout);
-        Movie NewMovie = new Movie(title, Synopsis, Director, MainCast, Genre, runtime, status, movierestrict);
 
         try {
             //Write Object to datebase
-            Objout.writeObject(NewMovie);
+            Objout.writeObject(Cineplexes);
             Objout.close();
             fileout.close();
             System.out.println("Serialized data of Movie save in Movie.txt file");

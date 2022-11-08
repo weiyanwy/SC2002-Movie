@@ -24,16 +24,15 @@ public class CinemaDBcontrol {
         this.FileAddress = fileAddress;
     }
 
-    public void InsertCinematoDB(String title, String Synopsis, String Director, String MainCast, String Genre,
-                                int runtime, MovieStatus status, MovieRestriction movierestrict) throws IOException, ClassNotFoundException {
+    public void InsertCinematoDB(Cinema[] cinema) throws IOException, ClassNotFoundException {
 
         FileOutputStream fileout = new FileOutputStream(this.FileAddress);
         ObjectOutputStream Objout = new ObjectOutputStream(fileout);
-        Movie NewMovie = new Movie(title, Synopsis, Director, MainCast, Genre, runtime, status, movierestrict);
+
 
         try {
             //Write Object to datebase
-            Objout.writeObject(NewMovie);
+            Objout.writeObject(cinema);
             Objout.close();
             fileout.close();
             System.out.println("Serialized data of Movie save in Movie.txt file");
@@ -60,15 +59,15 @@ public class CinemaDBcontrol {
         return newtemp;
     }
     // replace the old file w new.
-    public void UpdateCinematoDB(Movie[] movielist) throws IOException, ClassNotFoundException{
+    public void UpdateCinematoDB(Cineplex[] cineplexes) throws IOException, ClassNotFoundException{
         FileOutputStream fileout = new FileOutputStream(this.FileAddress);
         ObjectOutputStream Objout = new ObjectOutputStream(fileout);
         try {
             //Write Object to datebase
-            Objout.writeObject(movielist);
+            Objout.writeObject(cineplexes);
             Objout.close();
             fileout.close();
-            System.out.println("Serialized data of Movie save in Movie.txt file");
+            System.out.println("Serialized data of Movie save in Cineplex.txt file");
         } catch (Exception e) {
             e.printStackTrace();
         }

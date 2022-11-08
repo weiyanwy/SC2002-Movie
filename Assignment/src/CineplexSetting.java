@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -8,23 +9,15 @@ public class CineplexSetting{
     private int No_Cineplex=0;
     private Cinema[] Cinemalist;
     private int Cinemalistsize;
-
-    CineplexDBcontrol CineplexDB;
+    private DBaddress address;
+    CineplexDBcontrol CineplexDB= new CineplexDBcontrol(address.getCineplexDBAddress());
     private CinemaSettings Cinemaset;
     Display UI = new Display();
     Scanner sc = new Scanner(System.in);
 
-    String MovieDBaddress;
-    String CineplexDBaddress;
-    String CinemaDBaddress;
-    String ShowtimeDbAddress;
-    public void runCineplexSetting(int MovieListsize, String MovieDBaddres, String CineplexDB, String CinemaDB, String ShowtimeDB) {
+    public void runCineplexSetting(int MovieListsize) throws IOException {
 
         MovieListSize=MovieListsize;
-        this.MovieDBaddress = MovieDBaddres;
-        this.CineplexDBaddress=CineplexDB;
-        this.CinemaDBaddress=CinemaDB;
-        this.ShowtimeDbAddress=ShowtimeDB;
 
         int sel=1;
         do {
@@ -63,7 +56,8 @@ public class CineplexSetting{
                 System.out.println("Invalid Choice");
             }
         }while(sel!=0);
-        CineplexDB.
+        CineplexDB.InsertCineplextoDB(Cineplexlist);
+
     }
 
     public void createCineplex() {
@@ -72,6 +66,7 @@ public class CineplexSetting{
         name=sc.nextLine();
         //Create new Cineplex class in list
         Cineplexlist[No_Cineplex] = new Cineplex(name);
+
         No_Cineplex++; //increment Cineplex count
     }
 
@@ -112,7 +107,7 @@ public class CineplexSetting{
         choice=selectCineplex();
         // run function if user dw to exit
         if(choice!=-1) {
-            Cinemalist=Cinemaset.runCinemaSetting(Cineplexlist[choice].getCineplexName(), MovieListSize, MovieDBaddress, CinemaDBaddress, ShowtimeDbAddress);
+            Cinemalist=Cinemaset.runCinemaSetting(Cineplexlist[choice].getCineplexName(), MovieListSize);
             Cinemalistsize=Cinemaset.returnCinemaSize();
             Cineplexlist[choice].assignCinemalist(Cinemalist);
             Cineplexlist[choice].assigneCinematlistsize(Cinemalistsize);
@@ -125,14 +120,16 @@ public class CineplexSetting{
         int choice;
         choice=selectCineplex();
         if(choice!=-1){
-            Cinemaset.RemoveCinemafromCineplex(Cineplexlist[choice].getCineplexName());
             for(int x=choice; x<No_Cineplex; x++){
             // Shift data to the left
                 Cineplexlist[x]=Cineplexlist[x+1];
             }
              No_Cineplex--;
             System.out.println("Removal Successful");
-    }}
+        }
+        else
+            System.out.println("Removal Unsuccessful");
+    }
     public void printCinplexlist(){
         for(int x=1; x<=No_Cineplex; x++){
             System.out.println("#"+x+" "+ Cineplexlist[x-1].getCineplexName());

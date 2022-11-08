@@ -11,19 +11,29 @@ public class ShowTimeSetting {
     public int hour;						//hour of slot
     public int minute;						//minute of slot
 
+
     private SeatsLayOut layout;
     public boolean is3D = false;						//check whether this slot shows 3D mode
 
+    DBaddress address;
+    private ShowtimeDB showtimeDbcontrol=new ShowtimeDB(address.getShowtimeDBAddress());
     boolean check=true;
     public	int sel = 0;
+    private ArrayList<Showtime> Showtimelist;
     Scanner sc = new Scanner(System.in);
     SimpleDateFormat dataform = new SimpleDateFormat("MM/dd HH:mm");
-    public void Createshowtime(String CinemaName, String MovieName){
-        updatetime();
-        set3D();
-        Show
+    public void runShowtimesetup(Movie movieclass, int movielistsize){
+        Showtimelist=showtimeDbcontrol.GetShowtimeFromDB();
+        int sel;
+
+        do{
+            try{
+                System.out.println();
+            }
+        }
+
     }
-    public void uppdatetime(String CinemaName, String MovieName) {
+    public void updatetime(String CinemaName, String MovieName) {
         boolean check=true;
         do {
             try {
