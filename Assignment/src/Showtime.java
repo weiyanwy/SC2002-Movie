@@ -12,7 +12,6 @@ public class Showtime {
 	public int date;                        //day of slot
 	public int hour;                        //hour of slot
 	public int minute;                        //minute of slot
-	private SeatsLayOut arrangement;
 	private SeatsLayOut layout = new SeatsLayOut();
 	private Movie movie;
 	private Cinema cinema;
@@ -37,6 +36,12 @@ public class Showtime {
 		this.layout = layout;
 		this.cinema = Cinema;
 		this.movie = movie;
+	}
+	public void setUpdateTime(int month, int date, int hour, int minute){
+		this.month = month;
+		this.date = date;
+		this.hour = hour;
+		this.minute = minute;
 	}
 
 	public void Setis3d(boolean is3d) {

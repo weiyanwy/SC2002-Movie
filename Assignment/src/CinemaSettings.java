@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -20,7 +21,8 @@ public class CinemaSettings{
 	public DBaddress address;
 	private String MovieDBaddress= address.getMovieDBAddress();
 	private String CinplexDBaddress= address.getCineplexDBAddress();
-	public Cinema[] runCinemaSetting(String CineplexName, int Movielistsize) {
+
+	public Cinema[] runCinemaSetting(int Movielistsize) {
 
 		//extract movielist from database
 		this.moviedata=new MovieDBcontrol(MovieDBaddress);
@@ -46,12 +48,12 @@ public class CinemaSettings{
 					break;
 				case(2):
 					//Call update cinema function
-					updateCinema(selectCinema());
+					updateCinema();
 					break;
 				case(3):
 					//Call remove cinema
 					System.out.println("Remove Cinema");
-					removeCinema(selectCinema());
+					removeCinema();
 					break;
 	
 				default:
@@ -131,7 +133,7 @@ public class CinemaSettings{
 		return -1;
 	}
 	
-	public void updateCinema() {
+	public void updateCinema() throws IOException, ClassNotFoundException {
 		int sel = selectCinema();
 		int selectmovie = 0;
 		int choice = 1;
@@ -146,7 +148,7 @@ public class CinemaSettings{
 				else
 					System.out.println("Invalid Input");
 			}
-			showset.runShowtimesetup(movielist[selectmovie-1], MovieListSize);
+			showset.runShowtimesetup(Cinemalist[sel],movielist[selectmovie-1], MovieListSize);
 
 		} else
 			System.out.println("List is empty");
@@ -174,9 +176,7 @@ public class CinemaSettings{
 			System.out.println("Cinema #"+(x+1)+ " " + Cinemalist[x].getname());
 		}
 	}
-	public Cinema[] returncinemalist() {
-		return this.Cinemalist;
-	}
+
 	public int returnCinemaSize() {
 		return this.No_Cinema;
 	}

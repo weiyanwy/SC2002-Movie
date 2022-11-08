@@ -30,19 +30,21 @@ public class ShowtimeDB {
 
             FileOutputStream fileout = new FileOutputStream(this.FileAddress);
             ObjectOutputStream Objout = new ObjectOutputStream(fileout);
-
+            File fpos = new File(FileAddress);
+            if(fpos.exists())
+                fpos.delete();
             try {
                 //Write Object to datebase
                 Objout.writeObject(showtime);
                 Objout.close();
                 fileout.close();
-                System.out.println("Serialized data of Movie save in Movie.txt file");
+                System.out.println("Serialized data of Movie save in Showtime.txt file");
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        public ArrayList<Showtime> GetShowtimeFromDB() {
+        public ArrayList<Showtime> GetShowtimeFromDB() throws IOException, ClassNotFoundException {
             ArrayList<Showtime> newtemp = null;
             FileInputStream fis = null;
             ObjectInputStream in = null;

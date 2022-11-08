@@ -45,21 +45,20 @@ public class Movie implements Serializable {
 
 	private String title;						//title of movie
 	private MovieStatus ShowStatus;					//status of movie (defined in enum above) (should be reviewed in the future)
-	private Showtime[] time= new Showtime[100];			//slots of movies
 	private int ShowSize =0;					//how many slots of movies have been created
 	public boolean isBlock = false;						//check whether this movie is a blockbuster
 	//public is3D = False;						//check whether this movie is a 3D
 	////////////NOT IMPORTANT VARIABLES////////////
 	private String Synopsis;
 	private String Director;
-	private String MainCast;
+	private ArrayList<String> MainCast;
 	private String Genre;
 	private float rating;
 	private MovieRestriction movieRestriction;
 
 
-	private int runtime;
-	private String[] reviews = new String[10];
+	private String runtime;
+	private ArrayList<String> reviews;
 	///
 	private int Reviewcount=0;
 
@@ -69,15 +68,15 @@ public class Movie implements Serializable {
 
 	//###########################################################################################
 	//FUNCTIONS START HERE
-	public Movie(String title, String Synopsis, String Director, String MainCast, String Genre,
+	public Movie(String title, String Synopsis, String Director, ArrayList<String> MainCast, String Genre,
 				 int runtime, MovieStatus status, MovieRestriction movierestrict){
 		this.title=title;
 		this.Synopsis=Synopsis;
 		this.Director=Director;
 		this.MainCast=MainCast;
 		this.Genre=Genre;
-		this.Runtime= Runtimeformat.format(runtime);
-		this.movieStatus=status;
+		this.runtime= Runtimeformat.format(runtime);
+		this.ShowStatus=status;
 		this.movieRestriction=movierestrict;
 
 	}
@@ -103,10 +102,10 @@ public class Movie implements Serializable {
 		System.out.println("[3] Now Showing");
 		System.out.println("[4] End of Showing");
 		choice = sc.nextInt();
-		if(choice == 1) this.ShowStatus = status.ComingSoon;
-		if(choice == 2) this.ShowStatus = status.Preview;
-		if(choice == 3) this.ShowStatus = status.NowShowing;
-		if(choice == 4) this.ShowStatus = status.EndofShowing;
+		if(choice == 1) this.ShowStatus = MovieStatus.Coming_Soon;
+		if(choice == 2) this.ShowStatus = MovieStatus.Preview;
+		if(choice == 3) this.ShowStatus = MovieStatus.Now_Showing;
+		if(choice == 4) this.ShowStatus = MovieStatus.End_Of_Showing;
 	}
 	// Is the movie a blockbuster?
 	public void setBlock() {
@@ -193,9 +192,7 @@ public class Movie implements Serializable {
 	public String getDirector() {
 		return this.Director;
 	}
-	public String getCast() {
-		return this.MainCast;
-	}
+
 
 	public float getRating() {
 		return this.rating;
@@ -223,69 +220,9 @@ public class Movie implements Serializable {
 		// get reviews
 
 	}
-	//#################################################################################################
-	//this function is to display showtime when
-	//booking ticket, because they need to see the available time slots
 
-	//variables relating to this function
-	//time[i] = variable containing ShowTime array
-	//time[i] includes (year, month, date/time.minute)
-	public void runShowtime(){
-		for(int i = 0; i<this.ShowSize;i++){
-			//gettime print show time HH/MM/ time
-			System.out.print("Slot "+(i+1)+":" +time[i].gettime());
-		}
 	}
 
-	//#################################################################################################
-	public int getShowlistSize() {
-		return this.ShowSize;
-	}
 
-	public void assignShowtime(Showtime showtime){
-		this.time[ShowSize]=showtime;
-		this.ShowSize++;
-	}
-	public void removeshowtime(){
 
-		int remove;
-		runShowtime();
-		System.out.println("Enter Index of Show time to be removed:");
-		remove=Integer.parseInt(sc.nextLine());
-		if(remove<0 && remove>ShowSize)
-			System.out.println("Removal was Unsuccessful");
-		else{
-			for(int loop=remove-1; loop<this.ShowSize; loop++){
-				//shift all elements forward
-				this.time[loop] = this.time[loop+1];
-			}
-			System.out.println("Removal was Successful");
-			this.ShowSize--;
-		}
-	}
-	public void updateshowtime() {
-		int select;
-		boolean check = true;
-		if (ShowSize == 0) {
-			System.out.println("List is Empty");
-		} else {
-			for (int x = 0; x < this.ShowSize; x++) {
-				System.out.println(time[x].gettime());
-			}
-			do {
-				try {
-					System.out.println("Enter index to update:");
-					select = Integer.parseInt(sc.nextLine());
-					if ((select > 0) && (select <= this.ShowSize)) {
-						time[select - 1].updatetime();
-						check = false;
-					} else {
-						System.out.println("Invalid Input");
-					}
-				} catch (Exception e) {
-					System.out.println("Invalid Input");
-				}
-			} while (check);
-		}
-	}
 }

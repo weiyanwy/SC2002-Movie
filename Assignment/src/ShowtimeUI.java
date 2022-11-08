@@ -19,7 +19,7 @@ public class ShowtimeUI {
                 break;
             }
             if((sel>0)&&(sel<=Showtimelistsize)){
-                layout.runshowUI(showtime[sel-1].getSeatlayout());
+                //layout.runshowUI(showtime[sel-1].getSeatlayout());
             }
             else
                 System.out.println("Invalid Input");

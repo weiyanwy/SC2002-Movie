@@ -107,7 +107,7 @@ public class CineplexSetting{
         choice=selectCineplex();
         // run function if user dw to exit
         if(choice!=-1) {
-            Cinemalist=Cinemaset.runCinemaSetting(Cineplexlist[choice].getCineplexName(), MovieListSize);
+            Cinemalist=Cinemaset.runCinemaSetting(MovieListSize);
             Cinemalistsize=Cinemaset.returnCinemaSize();
             Cineplexlist[choice].assignCinemalist(Cinemalist);
             Cineplexlist[choice].assigneCinematlistsize(Cinemalistsize);
