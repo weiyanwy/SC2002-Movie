@@ -1,91 +1,61 @@
 import java.util.Scanner;
-
 import java.util.InputMismatchException;
 public class MOBLIMA {
-	Display UI = new Display();
-
-	public static void main(String[] args)  {
-		
-		//+---------------------------------
-		// initialisation
-		Scanner sc = new Scanner(System.in);
+	//////////////////////////////////////////
+		// PART 1: INITIALIZE VARIABLES
+		// initialization of relevant objects
 		Display UI = new Display();
-		Operation Ops = new Operation();
-
-		SeatsLayOut hi= new SeatsLayOut();
-		Showtime time= new Showtime();
-
+		Scanner sc = new Scanner(System.in);				//scanner
+		Operation Ops = new Operation();					//maybe delete
+		Movie[] movies = new Movie[30];						//list of movie
+		int movieSize = 0;
+		Cineplex[] cineplex = new Cineplex[3];				//list of cineplex
+		int cineplexSize = 0;
+		Pricing ticketCalculator = new Pricing();			//ticket calculator
 		
+		StaffLogin Login = new StaffLogin();
+		StaffMode Staff = new StaffMode();
+		
+		CustMode cust = new CustMode();
+		int choice;											//user input
 		//SystemConfig config= new SystemConfig();
 		//create array of Movie to store
-		
-		int choice = 1;				//variable to check function input
-		int check;				// variable to check ???
 		//+----------------------------------
 			
-		// fucntions to apply
-		//login function
-
+		////////////////////////////////////////
+		// PART 2: FUNCTIONS IN LOGIN
+		//
+		//WHILE IN SYSTEM:
+		//Step 1: Login Display
+		//Step 2: Choose login as CUSTOMER/ STAFF
 		while(true){
-			UI.loginDisplay();
-			choice = Integer.parseInt(sc.nextLine());
-			switch(choice){
-				case 1:
-					System.out.println("Login as CUSTOMER");
-					//op.runCusLogin();			//this have not been implemented yet
+			
+		///////STEP 1////////////////
+		UI.loginDisplay();
 		
-
-					do {
-						try {
-						UI.Customerdisplay();
-						System.out.print("What is your choice:  ");
-						choice= Integer.parseInt(sc.nextLine());
-						//SeatsLayOut hi= new SeatsLayOut();
-			
-						switch(choice) {
-							//#############################
-							case 1:
-								Ops.viewMovie();		//view movie listing
-								break;
-								//#############################
-							case 2:
-								Ops.SearchMovie();		//search movie
-								break;
-								//#############################
-							case 3:
-								Ops.runCinema();		//View Show Time and Cinema
-								break;
-								//System.out.println("View Show Time and Cinema");
-								//##############################
-							case 4:					//View order history
-								System.out.println("Order History");
-								break;
-								//##############################
-							case 5:					//Exit application
-								System.out.println("Thanks for using MOBLIMA");
-								break;
-							default:
-								System.out.println("Wrong input");
-								break;
-							}}
-						catch(Exception e) {
-							System.out.println("Invalid Input");
-							}
-			
-					}while(choice!=5);
-					break;
-				case 2:
-					System.out.println("Login as STAFF");
-					Ops.runAdminLogin();			//runAdminLogin implemented in StaffMode and StaffLogin
-					break;
+		//////STEP 2/////////////////
+		choice = Integer.parseInt(sc.nextLine());
+		
+		switch(choice){
+		case 1:										//login as customer
+		System.out.println("*****Login as CUSTOMER*****");
+		//##############################################################
+		cust.CustomerMode(movies, movieSize);
+		break;
+		//##################################################################
+		case 2:									//login as staff
+		System.out.println("*****Login as STAFF*****");
+		if(Login.run(movies, movieSize)) {
+			Staff.Adminmode(movies, movieSize);
+		}
+		else System.out.println("***Login failed***");
+		break;
 
 		}
-		
-		
-		
-		
-	}}
-
+	}
+	}
+	
+	//#################################
 
 }
 
