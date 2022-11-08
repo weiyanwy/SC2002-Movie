@@ -64,60 +64,109 @@ public class Movie implements Serializable {
 		this.movieRestriction=movierestrict;
 
 	}
-	public void assignTitle(String Movietitle) {
-		this.title = Movietitle;
-		System.out.println("hello");
+	//#################################################################
+	//
+	//PART 2: CONSTRUCTORS OF THE CLASS
+	//
+	
+	//////////SETTERS
+	// Title of movie
+	public void setTitle() {
+		String title;
+		System.out.println("Enter the title of the movie: ");
+		title = sc.nextLine();
+		this.title = title;
 	}
-	public void assignStatus() {//this function needs review
-		int x;
-		System.out.println("Select Movie Status 1: Coming Soon, 2:Preview, 3:Now Showing, 4: End of Showing");
-		x = Integer.parseInt(sc.nextLine());
-		switch(x){
-			case 1:
-				this.ShowStatus=status.ComingSoon;
-				break;
-			case 2:
-				this.ShowStatus=status.Preview;
-				break;
-			case 3:
-				this.ShowStatus=status.NowShowing;
-				break;
-			case 4:
-				this.ShowStatus=status.EndofShowing;
-				break;
-			}
+	// Status of movie
+	public void setStatus() {			
+		int choice;
+		System.out.println("Enter Status of Movie: ");
+		System.out.println("[1] Coming Soon");
+		System.out.println("[2] Preview");
+		System.out.println("[3] Now Showing");
+		System.out.println("[4] End of Showing");
+		choice = sc.nextInt();
+		if(choice == 1) this.ShowStatus = status.ComingSoon;
+		if(choice == 2) this.ShowStatus = status.Preview;
+		if(choice == 3) this.ShowStatus = status.NowShowing;
+		if(choice == 4) this.ShowStatus = status.EndofShowing;
 	}
-	public void assignSyn(String Syns) {
-		this.Synopsis = Syns;
+	// Is the movie a blockbuster?
+	public void setBlock() {
+		int choice;
+		System.out.println("Blockbuster status of movie: ");
+		System.out.println("[1] Yes");
+		System.out.println("[2] No");
+		choice = sc.nextInt();
+		if(choice == 1) this.isBlock = true;
+		if(choice == 2) this.isBlock = false;
 	}
-	public void assignDirect(String Director) {
-		this.Director = Director;
+	
+	////////GETTERS
+	//Title
+	public String getTitle() {
+		return this.title;
 	}
-	// change to array easier to update
-	public void assignCast(String Cast) {
-		this.MainCast=Cast;
+	//ShowStatus
+	public status getStatus() {
+		return this.ShowStatus;
 	}
-	public void assignRate(float rating) {
-		this.rating=rating;
+	//isBlock
+	public boolean getBlock() {
+		return this.isBlock;
 	}
-	public void assignVotes(int numvotes) {
-		this.numvotes=numvotes;
+	
+	/////////NOT IMPORTANT SETUPS//////////////////////////////
+	
+	////setters
+	public void setSyn() {
+		String Inp;
+		System.out.println("Enter the Synopsis of the movie: ");
+		Inp = sc.nextLine();
+		this.Synopsis = Inp;
 	}
-	public void assignSales(int sales) {
-		this.totalsales= sales;
+	public void setDirector() {
+		String Inp;
+		System.out.println("Enter the Director of the movie: ");
+		Inp = sc.nextLine();
+		this.Director = Inp;
 	}
-	public void updateReview(String Review) {
-		reviews[this.Reviewcount]= Review;
-		this.Reviewcount+=1;
+	public void setCast() {
+		String Inp;
+		System.out.println("Enter the Cast of the movie: ");
+		Inp = sc.nextLine();
+		this.MainCast.add(Inp);
 	}
-	public void assignGenre(String Genre) {
-		this.Genre=Genre;
+	public void setRate() {
+		int Inp;
+		System.out.println("Enter the Ratings of the movie: ");
+		Inp = sc.nextInt();
+		this.rating=Inp;
 	}
-	public void assignRuntime(String Runtime) {
-		this.runtime=Runtime;
+	public void updateReview() {
+		String Inp;
+		System.out.println("Add a new review to the movie: ");
+		Inp = sc.nextLine();
+		this.reviews.add(Inp);
 	}
-	public void assignRestrict(String Restrict) {
-		this.MovieRestriction = Restrict;
+	public void setRuntime() {
+		String Inp;
+		System.out.println("Enter the Runtime of the movie: ");
+		Inp = sc.nextLine();
+		this.runtime=Inp;
+	}
+	public void setRestriction() {
+		int Inp;
+		System.out.println("Enter the Restriction of the movie: ");
+		System.out.println("[1] PG");
+		System.out.println("[1] R16");
+		System.out.println("[1] R18");
+		System.out.println("[1] R21");
+		Inp = sc.nextInt();
+		if(Inp == 1) this.MovieRestriction = Restriction.PG;
+		if(Inp == 2) this.MovieRestriction = Restriction.R16;
+		if(Inp == 3) this.MovieRestriction = Restriction.R18;
+		if(Inp == 4) this.MovieRestriction = Restriction.R21;
 	}
 	public void viewReviews() {
 		for (int x = 0; x<this.Reviewcount; x++) {
