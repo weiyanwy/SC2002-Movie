@@ -1,4 +1,4 @@
-import java.io.IOException;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,17 +16,14 @@ public class ShowTimeSetting {
     SeatLayout layout;
     SeatLayOutSetting SeatSetting;
 
-    DBaddress address;
-    private final ShowtimeDB showtimeDbcontrol=new ShowtimeDB(address.getShowtimeDBAddress());
-
     boolean check=true;
     public	int sel = 0;
     private ArrayList<Showtime> Showtimelist;
 
     Scanner sc = new Scanner(System.in);
     SimpleDateFormat dataform = new SimpleDateFormat("MM/dd HH:mm");
-    public void runShowtimesetup(Cinema cinema,Movie movieclass, int movielistsize) throws IOException, ClassNotFoundException {
-        Showtimelist=showtimeDbcontrol.GetShowtimeFromDB();
+    public ArrayList<Showtime> runShowtimesetup(Cinema cinema,Movie movieclass, ArrayList<Showtime> Showtimelists) {
+        this.Showtimelist=Showtimelists;
         int sel;
         boolean exit = true;
         do{
@@ -44,7 +41,6 @@ public class ShowTimeSetting {
                         layout=SeatSetting.SetSeatLayout();
                         Showtime temp = new Showtime(this.month, this.date, this.hour, this.minute, this.is3D, layout, cinema, movieclass);
                         Showtimelist.add(temp);
-                        showtimeDbcontrol.InsertShowtimetoDB(Showtimelist);
                     case 2:
                         ArrayList<Integer> storeindexpos = findshowtime(cinema.getname(), movieclass.getTitle());
                         if(storeindexpos.size()==0){
@@ -70,12 +66,11 @@ public class ShowTimeSetting {
                         exit=false;
                         break;
                 }
-            } catch (IOException | ClassNotFoundException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                System.out.println("Invalid Input");
             }
         }while(exit);
-        showtimeDbcontrol.InsertShowtimetoDB(Showtimelist);
-
+        return Showtimelist;
     }
 
 

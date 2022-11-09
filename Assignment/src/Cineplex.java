@@ -7,14 +7,17 @@
  */
 
 
-public class Cineplex {
+import java.io.Serializable;
+import java.util.ArrayList;
+
+public class Cineplex implements Serializable {
 	//#################################################################
 	//
 	//PART 1: INITIALIZE RELEVANT VARIABLES
 	//
 	//1.1: Initialize objects init
-	private Cinema[] Cinemalist= new Cinema[3];
-	private int Cinemalistsize=0;
+	private ArrayList<Cinema> Cinemalist;
+
 	public String name;							//name of cineplex
 											//list of cinemas within the cineplex
 
@@ -28,19 +31,13 @@ public class Cineplex {
 		return this.name;
 	}
 
-	public void assignCinemalist(Cinema[] Cinemalist){
+	public void assignCinemalist(ArrayList<Cinema> Cinemalist){
 		this.Cinemalist=Cinemalist;
 	}
-	public void assigneCinematlistsize(int Size){
-		this.Cinemalistsize=Size;
-	}
-	public Cinema[] getCinemalist(){
-
+	public ArrayList<Cinema> getCinemalist(){
 		return this.Cinemalist;
 	}
-	public int getCinemalistsize(){
-		return this.Cinemalistsize;
-	}
+
 
 	//##################################################################
 	//

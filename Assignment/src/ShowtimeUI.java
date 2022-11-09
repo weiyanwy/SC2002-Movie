@@ -28,11 +28,8 @@ public class ShowtimeUI {
     }
     public void printShowtimelist(){
         for(int x=1;x<=Showtimelistsize;x++){
-            System.out.println("Date and time:"+showtime[x-1].getTime()+" Type: "+ showtime[x-1].getype);
+            System.out.println("Date and time:"+showtime[x-1].getTime()+" Type: "+ showtime[x-1].getCinemaType());
         }
     }
 
-}
-
-    }
 }

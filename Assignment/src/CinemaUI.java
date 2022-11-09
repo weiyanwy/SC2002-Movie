@@ -19,7 +19,7 @@ public class CinemaUI {
                 break;
             }
             if((sel>0)&&(sel<=Cinemalistsize)){
-                showUI.runshowUI(Cinemalist[sel-1].getShowlist, Cinemalist[sel-1].getShowlistSize);
+                //showUI.runshowUI(Cinemalist[sel-1].getShow, Cinemalist[sel-1].getShowlistSize);
             }
             else
                 System.out.println("Invalid Input");

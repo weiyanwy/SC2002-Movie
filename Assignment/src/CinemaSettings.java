@@ -1,13 +1,13 @@
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 
 public class CinemaSettings{
-	private Movie[] movielist;
+	private ArrayList<Movie> movielist;
 	private int MovieListSize;
 	private CinemaType cinematype;
-	private Cinema[] Cinemalist = new Cinema[30];
+	private ArrayList<Cinema> Cinemalist;
 	private int No_Cinema=0;
 
 	private MovieDBcontrol moviedata;
@@ -22,13 +22,13 @@ public class CinemaSettings{
 	private String MovieDBaddress= address.getMovieDBAddress();
 	private String CinplexDBaddress= address.getCineplexDBAddress();
 
-	public Cinema[] runCinemaSetting(int Movielistsize) {
+	public ArrayList<Cinema> runCinemaSetting(ArrayList<Cinema> Cinemalist) {
 
 		//extract movielist from database
 		this.moviedata=new MovieDBcontrol(MovieDBaddress);
 		this.movielist=moviedata.GetMovieFromDB();
+		this.Cinemalist=Cinemalist;
 
-		this.MovieListSize=Movielistsize;
 		int sel=1;
 		do {
 			
@@ -43,16 +43,17 @@ public class CinemaSettings{
 					break;
 				case(1):
 					//Call Create Cinema");
-					createCinema();
-					this.No_Cinema++;
+					System.out.println("*****Create Cinema*****");
+					Cinemalist.add(createCinema());
 					break;
 				case(2):
 					//Call update cinema function
+					System.out.println("*****Update Cinema*****");
 					updateCinema();
 					break;
 				case(3):
 					//Call remove cinema
-					System.out.println("Remove Cinema");
+					System.out.println("*****Remove Cinema*****");
 					removeCinema();
 					break;
 	
@@ -106,20 +107,21 @@ public class CinemaSettings{
 	
 	public int selectCinema() {
 		int sel = 1;
-		if (No_Cinema != 0) {
+		if (Cinemalist.size() != 0) {
 			do {
 				try {
 					System.out.println("Select Cinema");
 					for (int x = 0; x < this.No_Cinema; x++) {
-						System.out.println("#" + (x + 1) + " " + Cinemalist[x].getname());
+						System.out.println("#" + (x + 1) + " " + Cinemalist.get(x).getname());
 					}
 					System.out.println("Enter 0 to exit:");
 					sel = Integer.parseInt(sc.nextLine());
 					if (sel == 0)
 						System.out.println("Exiting...");
-					else if ((sel > 0) && (sel <= this.No_Cinema)) {
+					else if ((sel > 0) && (sel <= Cinemalist.size())) {
 						return sel - 1;
-					} else {
+					}
+					else {
 						System.out.println("Invalid Input");
 					}
 				} catch (Exception e) {
@@ -127,9 +129,11 @@ public class CinemaSettings{
 				}
 
 			} while (sel != 0);
+			//return 0 if exit
 			return 0;
 		} else
 			System.out.println("Cinema List is Empty");
+		//return 1 if empty
 		return -1;
 	}
 	
@@ -139,7 +143,7 @@ public class CinemaSettings{
 		int choice = 1;
 		boolean exit = true;
 		if (sel != -1) {
-			moviesetting.printmovietitle(this.movielist, this.MovieListSize);
+			moviesetting.printmovietitle(this.movielist);
 			while (exit) {
 				System.out.println("Select Movie to update");
 				selectmovie = Integer.parseInt(sc.nextLine());
@@ -148,7 +152,8 @@ public class CinemaSettings{
 				else
 					System.out.println("Invalid Input");
 			}
-			showset.runShowtimesetup(Cinemalist[sel],movielist[selectmovie-1], MovieListSize);
+			Cinemalist.get(sel).assignShowtime(showset.runShowtimesetup(Cinemalist.get(sel),movielist.get(selectmovie-1),
+					Cinemalist.get(sel).getShowtimelist()));
 
 		} else
 			System.out.println("List is empty");
@@ -159,25 +164,12 @@ public class CinemaSettings{
 		int choice;
 		choice=selectCinema();
 		if(choice!=-1){
-			for(int x=choice; x<No_Cinema; x++){
-				// Shift data to the left
-				Cinemalist[x]=Cinemalist[x+1];
-			}
-			No_Cinema--;
+			Cinemalist.remove(choice);
 			System.out.println("Removal Successful");
 		}
 		else
-			System.out.println("List is empty and removal unsuccessful");
-
+			System.out.println("Removal unsuccessful");
 	}
 
-	public void printCinemalist(){
-		for (int x = 0; x<No_Cinema;x++){
-			System.out.println("Cinema #"+(x+1)+ " " + Cinemalist[x].getname());
-		}
-	}
 
-	public int returnCinemaSize() {
-		return this.No_Cinema;
-	}
 }

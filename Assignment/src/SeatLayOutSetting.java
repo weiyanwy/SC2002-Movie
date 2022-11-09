@@ -152,16 +152,17 @@ public class SeatLayOutSetting {
         printSeatStatus(seatlayout);
     }
     // change to return seat
-    public void selectseat(SeatLayout seatlayout) {
+    public void selectseat(Showtime showtime) {
 
+        SeatLayout layout=showtime.getSeatlayout();
         ArrayList<Integer> StoreSeatIndex = new ArrayList<>();
         boolean check=true;
-        Seat[][] seats=seatlayout.getSeats();
+        Seat[][] seats= layout.getSeats();
         int index;
         do {
 
             try {
-                printlayout(seatlayout.getRow(), seatlayout.getCol(), seatlayout);
+                printlayout(layout.getRow(), layout.getCol(), layout);
                 System.out.println("1: Select Index of Seat");
                 System.out.println("2: UnSelect Index of Seat");
                 System.out.println("3: Proceed to Payment");
@@ -173,7 +174,7 @@ public class SeatLayOutSetting {
                         index=Integer.parseInt(sc.nextLine());
                         //Convert index of seat to occupied
                         seats[index / 10][index% 10].SelectSeat();
-                        printlayout(seatlayout.getRow(), seatlayout.getCol(), seatlayout);
+                        printlayout(layout.getRow(), layout.getCol(), layout);
                         //Store seat index in array
                         StoreSeatIndex.add(index);
                         printseatselected(StoreSeatIndex);
@@ -191,10 +192,13 @@ public class SeatLayOutSetting {
                             System.out.println("Invalid Input");
                         break;
                     case(3):
+
+                        //payment
                         printseatselected(StoreSeatIndex);
 
                         break;
                     case(4):
+
                         check=false;
                         break;
                     default:
@@ -206,6 +210,7 @@ public class SeatLayOutSetting {
             }
         }while(check);
     }
+    //Print out all the seats user has selected
     public void printseatselected(ArrayList<Integer> list){
         String S="";
         for(int x = 0;x <list.size();x ++){
@@ -213,6 +218,7 @@ public class SeatLayOutSetting {
         }
         System.out.println("Seats Selected: "+S);
     }
+    //Check if Index is in Selected Seats
     public boolean CheckisinArray(ArrayList<Integer> list, int input){
         for(int x : list){
             if(x==input){
@@ -221,20 +227,17 @@ public class SeatLayOutSetting {
         }
         return false;
     }
+    //Remove Index from SelectedSeats
     public ArrayList<Integer> updateArray(ArrayList<Integer> list, int input){
-        ArrayList<Integer> temp= new ArrayList<>();
-        int y=0;
-        for(int x=0;x<list.size();x++){
-            if(list.get(x)==input){
-                list.remove(x);}
-        temp=list;
-
-        return temp;
+        for(int x=0;x<list.size();x++) {
+            if (list.get(x) == input) {
+                list.remove(x);
+            }
+        }
+        return list;
     }
-}
 
-
-}
 
 
 }
+

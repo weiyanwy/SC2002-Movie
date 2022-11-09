@@ -1,19 +1,13 @@
 public class DBaddress {
-    String MovieDBAddress=" ";
-    String CinplexDBAddress = " ";
-    String CinemaDBAddress = " ";
-    String ShowtimeDBAddress= " ";
+    String MovieDBAddress="C:\\Users\\weiya\\Documents\\NTU WORK\\Yr 2\\sc2002\\eclipse-workspace\\Cineplex.txt";
+    String CinplexDBAddress ="C:\\Users\\weiya\\Documents\\NTU WORK\\Yr 2\\sc2002\\eclipse-workspace\\Cineplex.txt";
+
 
     public String getMovieDBAddress(){
         return this.MovieDBAddress;
     }
     public String getCineplexDBAddress(){
-        return this.CinemaDBAddress;
+        return this.CinplexDBAddress;
     }
-    public String getCinemaDBAddress(){
-        return this.CinemaDBAddress;
-    }
-    public String getShowtimeDBAddress(){
-        return this.ShowtimeDBAddress;
-    }
+
 }

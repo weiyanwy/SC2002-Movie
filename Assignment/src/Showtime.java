@@ -12,7 +12,7 @@ public class Showtime {
 	public int date;                        //day of slot
 	public int hour;                        //hour of slot
 	public int minute;                        //minute of slot
-	private SeatsLayOut layout = new SeatsLayOut();
+	private SeatLayout layout;
 	private Movie movie;
 	private Cinema cinema;
 	public boolean is3D;                        //check whether this slot shows 3D mode
@@ -27,7 +27,7 @@ public class Showtime {
 
 	//////////// SETTERS
 
-	public Showtime(int month, int date, int hour, int minute, boolean is3D, SeatsLayOut layout, Cinema Cinema, Movie movie) {
+	public Showtime(int month, int date, int hour, int minute, boolean is3D, SeatLayout layout, Cinema Cinema, Movie movie) {
 		this.month = month;
 		this.date = date;
 		this.hour = hour;
@@ -48,7 +48,7 @@ public class Showtime {
 		this.is3D = is3d;
 	}
 
-	public void setLayout(SeatsLayOut layout) {
+	public void setLayout(SeatLayout layout) {
 		this.layout = layout;
 	}
 
@@ -80,7 +80,7 @@ public class Showtime {
 		return dataform.format(time.getTime());    //
 	}                                            //
 
-	public SeatsLayOut getSeatlayout() {
+	public SeatLayout getSeatlayout() {
 		return layout;
 	}
 
@@ -90,6 +90,9 @@ public class Showtime {
 	}
 	public String getCinemaname(){
 		return this.cinema.getname();
+	}
+	public CinemaType getCinemaType(){
+		return this.cinema.getCinematype();
 	}
 	public MovieStatus getMoviestatus(){
 		return this.movie.getstatus();

@@ -43,22 +43,22 @@ public class Movie implements Serializable {
 
 	////////////IMPORTANT VARIABLES////////////////
 
-	private String title;						//title of movie
-	private MovieStatus ShowStatus;					//status of movie (defined in enum above) (should be reviewed in the future)
-	private int ShowSize =0;					//how many slots of movies have been created
+	public String title;						//title of movie
+	public MovieStatus ShowStatus;					//status of movie (defined in enum above) (should be reviewed in the future)
+	public int ShowSize =0;					//how many slots of movies have been created
 	public boolean isBlock = false;						//check whether this movie is a blockbuster
 	//public is3D = False;						//check whether this movie is a 3D
 	////////////NOT IMPORTANT VARIABLES////////////
-	private String Synopsis;
-	private String Director;
-	private ArrayList<String> MainCast;
-	private String Genre;
-	private float rating;
-	private MovieRestriction movieRestriction;
+	public String Synopsis;
+	public String Director;
+	public String MainCast;
+	public String Genre;
+	public float rating;
+	public MovieRestriction movieRestriction;
 
 
-	private String runtime;
-	private ArrayList<String> reviews;
+	public String runtime;
+	public ArrayList<String> reviews;
 	///
 	private int Reviewcount=0;
 
@@ -68,18 +68,7 @@ public class Movie implements Serializable {
 
 	//###########################################################################################
 	//FUNCTIONS START HERE
-	public Movie(String title, String Synopsis, String Director, ArrayList<String> MainCast, String Genre,
-				 int runtime, MovieStatus status, MovieRestriction movierestrict){
-		this.title=title;
-		this.Synopsis=Synopsis;
-		this.Director=Director;
-		this.MainCast=MainCast;
-		this.Genre=Genre;
-		this.runtime= Runtimeformat.format(runtime);
-		this.ShowStatus=status;
-		this.movieRestriction=movierestrict;
 
-	}
 	//#################################################################
 	//
 	//PART 2: CONSTRUCTORS OF THE CLASS
@@ -140,7 +129,7 @@ public class Movie implements Serializable {
 		String Inp;
 		System.out.println("Enter the Cast of the movie: ");
 		Inp = sc.nextLine();
-		this.MainCast.add(Inp);
+		this.MainCast=Inp;
 	}
 	public void setRate() {
 		int Inp;
@@ -164,18 +153,22 @@ public class Movie implements Serializable {
 		int Inp;
 		System.out.println("Enter the Restriction of the movie: ");
 		System.out.println("[1] PG");
-		System.out.println("[1] R16");
-		System.out.println("[1] R18");
+		System.out.println("[1] NC16");
+		System.out.println("[1] M18");
 		System.out.println("[1] R21");
 		Inp = sc.nextInt();
-		if(Inp == 1) this.MovieRestriction = Restriction.PG;
-		if(Inp == 2) this.MovieRestriction = Restriction.R16;
-		if(Inp == 3) this.MovieRestriction = Restriction.R18;
-		if(Inp == 4) this.MovieRestriction = Restriction.R21;
+		if(Inp == 1) this.movieRestriction = MovieRestriction.PG13;
+		if(Inp == 2) this.movieRestriction = MovieRestriction.NC16;
+		if(Inp == 3) this.movieRestriction = MovieRestriction.M18;
+		if(Inp == 4) this.movieRestriction = MovieRestriction.R21;
 	}
 	public void viewReviews() {
+		if(reviews.size()>0){
 		for (int x = 0; x<this.Reviewcount; x++) {
-			System.out.println("Review #"+ (x+1) +" "+ this.reviews[x]);
+			System.out.println("Review #"+ (x+1) +" "+ this.reviews.get(x));
+		}}
+		else{
+			System.out.println("No Reviews");
 		}
 	}
 
@@ -193,12 +186,11 @@ public class Movie implements Serializable {
 		return this.Director;
 	}
 
-
 	public float getRating() {
 		return this.rating;
 	}
-	public String getMovieRest() {
-		return this.MovieRestriction;
+	public MovieRestriction getMovieRest() {
+		return this.movieRestriction;
 	}
 	public String getGenre() {
 		return this.Genre;
@@ -214,7 +206,8 @@ public class Movie implements Serializable {
 		System.out.println("Director "+ this.Director);
 		System.out.println("Main Cast "+ this.MainCast);
 		System.out.println("Movie rating "+this.rating);
-		System.out.println("Movie Restriction "+ this.MovieRestriction);
+		System.out.println("Movie Restriction "+ this.movieRestriction);
+		// Set condition if only review > 1 then show
 		System.out.println("Movie Reviews: ");
 		viewReviews();
 		// get reviews
@@ -222,7 +215,3 @@ public class Movie implements Serializable {
 	}
 
 	}
-
-
-
-}

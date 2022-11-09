@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -8,7 +9,7 @@ public class Cinema {
     private String name;
 
     private CinemaType cinematype;
-    private MovieDBcontrol moviedb;
+    private ArrayList<Showtime> Showtimelist;
     Scanner sc = new Scanner(System.in);
 
     //#------------------------
@@ -17,6 +18,12 @@ public class Cinema {
     public void setname(String name) {
         this.name=name;
 
+    }
+    public void assignShowtime(ArrayList<Showtime> Showtimelist){
+        this.Showtimelist=Showtimelist;
+    }
+    public ArrayList<Showtime> getShowtimelist(){
+        return this.Showtimelist;
     }
     public void setCinematype(CinemaType type){
         cinematype=type;

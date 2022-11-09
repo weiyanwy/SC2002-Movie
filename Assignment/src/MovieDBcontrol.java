@@ -4,7 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-
+import java.util.ArrayList;
 
 
 /// Pass Movie data to database, read and write from database
@@ -24,16 +24,15 @@ public class MovieDBcontrol {
         this.FileAddress = fileAddress;
     }
 
-    public void InsertMovietoDB(String title, String Synopsis, String Director, String MainCast, String Genre,
-                                int runtime, MovieStatus status, MovieRestriction movierestrict) throws IOException, ClassNotFoundException {
+    public void InsertMovietoDB(ArrayList<Movie> movie) throws IOException, ClassNotFoundException {
 
         FileOutputStream fileout = new FileOutputStream(this.FileAddress);
         ObjectOutputStream Objout = new ObjectOutputStream(fileout);
-        Movie NewMovie = new Movie(title, Synopsis, Director, MainCast, Genre, runtime, status, movierestrict);
+
 
         try {
             //Write Object to datebase
-            Objout.writeObject(NewMovie);
+            Objout.writeObject(movie);
             Objout.close();
             fileout.close();
             System.out.println("Serialized data of Movie save in Movie.txt file");
@@ -42,15 +41,15 @@ public class MovieDBcontrol {
         }
     }
 
-    public Movie[] GetMovieFromDB() {
-        Movie[] newtemp = null;
+    public ArrayList<Movie> GetMovieFromDB() {
+        ArrayList<Movie> newtemp = new ArrayList<>();
         FileInputStream fis = null;
         ObjectInputStream in = null;
 
         try {
             fis = new FileInputStream(FileAddress);
             in = new ObjectInputStream(fis);
-            newtemp = (Movie[]) in.readObject();
+            newtemp = (ArrayList<Movie>) in.readObject();
             in.close();
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -60,19 +59,5 @@ public class MovieDBcontrol {
         return newtemp;
     }
     // replace the old file w new.
-    public void UpdateMovietoDB(Movie[] movielist) throws IOException, ClassNotFoundException{
-        FileOutputStream fileout = new FileOutputStream(this.FileAddress);
-        ObjectOutputStream Objout = new ObjectOutputStream(fileout);
-        try {
-            //Write Object to datebase
-            Objout.writeObject(movielist);
-            Objout.close();
-            fileout.close();
-            System.out.println("Serialized data of Movie save in Movie.txt file");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 
 }

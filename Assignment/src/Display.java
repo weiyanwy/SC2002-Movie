@@ -18,9 +18,9 @@ public class Display {
 				"*****MOBILMA*****");
 		System.out.println("1: View Movie Listing");
 		System.out.println("2: Search Movie");
-		System.out.println("3: View Show Time and Cinema");
-		System.out.println("4: View Order History");
-		System.out.println("5: Book/Purchase Ticket");
+		System.out.println("3: Review Movie");
+		System.out.println("4: View Show Time and Cinema");
+		System.out.println("5: View Order History");
 		System.out.println("6: Exit Application");
 		System.out.println("Enter Choice:");
 	}

@@ -6,9 +6,8 @@ public class StaffLogin {
 	private String TempUser;
 	private String TempPass;
 	StaffMode staff= new StaffMode();
-	private Movie[] MovieList;
 
-	public void run(Movie[] movielist, int size) {
+	public boolean run() {
 		Scanner sc = new Scanner(System.in);
 		StaffLogin Login = new StaffLogin();
 		System.out.println("*****STAFF LOGIN*****");
@@ -18,11 +17,10 @@ public class StaffLogin {
 		System.out.println("Enter Password: ");
 		Login.InputPass(input=sc.nextLine());
 		if(Login.CheckLogin()) {
-
-			staff.Adminmode(movielist, size);
+			return true;
 		}
 		else {
-			System.out.println("Invalid Username or Password");
+			return false;
 		}
 	}
 	public void InputUser(String User) {
@@ -36,18 +34,5 @@ public class StaffLogin {
 			return true;
 		else
 			return false;
-	}
-	public Movie[] returnlist() {
-		return staff.ReturnList();
-
-	}
-	public int returnSize() {
-		return staff.ReturnSize();
-	}
-	public Cineplex[] returnCineplexList() {
-		return staff.getCineplexList();
-	}
-	public int returnCineplexSize() {
-		return staff.getCineplexSize();
 	}
 }
