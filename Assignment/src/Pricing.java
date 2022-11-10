@@ -57,7 +57,7 @@ public class Pricing{
 			}
 			totalPrice += priceCalc(Inp, showtime);
 		}	
-				
+		return totalPrice;	
 	}
 	public int calcDayinYear(int day, int month, int year){
 		//denoting the day of edit: 11/10/2022 (THU) and consider it as milestone of calculation
