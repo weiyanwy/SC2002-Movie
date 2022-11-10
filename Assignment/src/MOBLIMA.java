@@ -9,17 +9,13 @@ public class MOBLIMA {
 
 		Display UI = new Display();
 		Scanner sc = new Scanner(System.in);				//scanner
-							//maybe delete
-								//list of movie
-						//list of cineplex
 		int cineplexSize = 0;
 		Pricing ticketCalculator = new Pricing();			//ticket calculator
 		StaffLogin Login = new StaffLogin();
 		StaffMode Staff = new StaffMode();
 		CustMode cust = new CustMode();
-		int choice;											//user input
+		int choice;									
 		//SystemConfig config= new SystemConfig();
-		//create array of Movie to store
 		//+----------------------------------
 			
 		////////////////////////////////////////
@@ -38,10 +34,8 @@ public class MOBLIMA {
 		switch(choice){
 		case 1:										//login as customer
 		System.out.println("*****Login as CUSTOMER*****");
-		//##############################################################
 		cust.CustomerMode();
 		break;
-		//##################################################################
 		case 2:									//login as staff
 		System.out.println("*****Login as STAFF*****");
 		if(Login.run()) {
@@ -53,9 +47,6 @@ public class MOBLIMA {
 		}
 	}
 	}
-	
-	//#################################
-
 }
 
 
