@@ -125,6 +125,8 @@ public class Pricing{
 		
 		if(isBlock) totalPrice += this.changeBlockbuster;		//increase 1$ if being blockbuster
 		
+		if(showtime.cinema.getCinemaType() == CinemaType.GOLD) totalPrice *= rateGold;
+		if(showtime.cinema.getCinemaType() == CinemaType.PLATINUM) totalPrice *= ratePlatinum;
 		totalPrice *= rateGST;					//GST constant rate
 
 	}
