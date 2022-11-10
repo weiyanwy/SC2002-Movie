@@ -195,9 +195,6 @@ public class SeatLayOutSetting {
                     double totalPrice = 0.0;    
                         //payment
                     printseatselected(StoreSeatIndex);
-                    for(int i = 0;i<StoreSeatIndex.size();i++){
-                        
-                    }   
                     break;
                     case(4):
 
