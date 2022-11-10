@@ -55,7 +55,7 @@ public class Pricing{
 			if(Inp<0){
 			System.out.println("Invalid Input, please correct it);
 			}
-			totalPrice += priceCalc(Inp, showtime);
+			totalPrice += priceCalc(Inp, this.showtime);
 		}	
 		return totalPrice;	
 	}
