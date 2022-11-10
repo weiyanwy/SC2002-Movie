@@ -55,7 +55,7 @@ public class Pricing{
 			if(Inp<0){
 			System.out.println("Invalid Input, please correct it);
 			}
-			totalPrice += priceCalc(Inp);
+			totalPrice += priceCalc(Inp, showtime);
 		}	
 				
 	}
@@ -89,8 +89,23 @@ public class Pricing{
 		return code;
 	}
 	//##############################################	
-	public double priceCalc(int ageGoer){
+	public double priceCalc(int ageGoer, Showtime showtime){
 		//things to take into account
+		
+		int day,month, year, code;
+		DayOfWeek day;
+		day = showtime.day;
+		month = showtime.month;
+		year = showtime.year;
+		code = calcDayinYear(day,month,year);
+		
+		if(code==0) day = DayOfWeek.SAT;
+		if(code==1) day = DayOfWeek.SUN;
+		if(code==2) day = DayOfWeek.MON;
+		if(code==3) day = DayOfWeek.TUE;
+		if(code==4) day = DayOfWeek.WED;
+		if(code==5) day = DayOfWeek.THU;
+		if(code==6) day = DayOfWeek.FRI;
 		
 		double totalPrice = 0.0;
 		if(is3D){								//3D films has seperate rates of price
