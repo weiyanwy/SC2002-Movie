@@ -157,6 +157,7 @@ public class SeatLayOutSetting {
         SeatLayout layout=showtime.getSeatlayout();
         ArrayList<Integer> StoreSeatIndex = new ArrayList<>();
         boolean check=true;
+        Pricing ticketCalc = new Pricing(showtime, StoreSeatIndex);
         Seat[][] seats= layout.getSeats();
         int index;
         do {
@@ -195,6 +196,7 @@ public class SeatLayOutSetting {
                     double totalPrice = 0.0;    
                         //payment
                     printseatselected(StoreSeatIndex);
+                    totalPrice = ticketCalc.PricingUI();
                     break;
                     case(4):
 
