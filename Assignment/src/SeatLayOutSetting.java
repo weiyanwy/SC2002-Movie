@@ -157,16 +157,17 @@ public class SeatLayOutSetting {
         SeatLayout layout=showtime.getSeatlayout();
         ArrayList<Integer> StoreSeatIndex = new ArrayList<>();
         boolean check=true;
+        Pricing ticketCalc = new Pricing(showtime, StoreSeatIndex);
         Seat[][] seats= layout.getSeats();
         int index;
         do {
 
             try {
                 printlayout(layout.getRow(), layout.getCol(), layout);
-                System.out.println("1: Select Index of Seat");
-                System.out.println("2: UnSelect Index of Seat");
-                System.out.println("3: Proceed to Payment");
-                System.out.println("4: Exit;");
+                System.out.println("[1]: Select Index of Seat");
+                System.out.println("[2]: UnSelect Index of Seat");
+                System.out.println("[3]: Proceed to Payment");
+                System.out.println("[4]: Exit;");
                 int choice = Integer.parseInt(sc.nextLine());
                 switch(choice) {
                     case(1):
@@ -192,11 +193,13 @@ public class SeatLayOutSetting {
                             System.out.println("Invalid Input");
                         break;
                     case(3):
-
+                    double totalPrice = 0.0;    
                         //payment
-                        printseatselected(StoreSeatIndex);
-
-                        break;
+                    printseatselected(StoreSeatIndex);
+                    totalPrice = ticketCalc.PricingUI();
+                        
+                    TIDdisplayUI();    
+                    break;
                     case(4):
 
                         check=false;
