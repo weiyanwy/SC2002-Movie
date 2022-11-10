@@ -192,11 +192,13 @@ public class SeatLayOutSetting {
                             System.out.println("Invalid Input");
                         break;
                     case(3):
-
+                    double totalPrice = 0.0;    
                         //payment
-                        printseatselected(StoreSeatIndex);
-
-                        break;
+                    printseatselected(StoreSeatIndex);
+                    for(int i = 0;i<StoreSeatIndex.size();i++){
+                        
+                    }   
+                    break;
                     case(4):
 
                         check=false;
