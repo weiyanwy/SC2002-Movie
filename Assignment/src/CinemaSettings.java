@@ -25,7 +25,7 @@ public class CinemaSettings{
 	public ArrayList<Cinema> runCinemaSetting(ArrayList<Cinema> Cinemalist) {
 
 		//extract movielist from database
-		this.moviedata=new MovieDBcontrol(MovieDBaddress);
+		this.moviedata=new MovieDBcontrol();
 		this.movielist=moviedata.GetMovieFromDB();
 		this.Cinemalist=Cinemalist;
 

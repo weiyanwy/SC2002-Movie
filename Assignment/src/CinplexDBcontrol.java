@@ -10,52 +10,54 @@ import java.util.ArrayList;
 /// Pass Movie data to database, read and write from database
 class CineplexDBcontrol {
     //Store file Address
-    private String FileAddress;
+    String FileAddress= "Cineplex.txt";
+    /*public CineplexDBcontrol(){
+        this.FileAddress=address;
+    }*/
 
-    public CineplexDBcontrol(String FileAddress) {
-        this.FileAddress = FileAddress; //Input the directory where your .dat file is located
-    }
+    public void insertCineplexToDB(ArrayList<Cineplex> cineplex) throws IOException {
 
-    public String getFileAddress() {
-        return FileAddress;
-    }
-
-    public void setFileAddress(String fileAddress) {
-        this.FileAddress = fileAddress;
-    }
-
-    public void InsertCineplextoDB(ArrayList<Cineplex> Cineplexes)throws IOException {
-
-        FileOutputStream fileout = new FileOutputStream(this.FileAddress);
-        ObjectOutputStream Objout = new ObjectOutputStream(fileout);
+        FileOutputStream fos = null;
+        ObjectOutputStream out = null;
+        File f = new File(FileAddress);
+        if(f.exists())
+            f.delete();
+            System.out.println("File Cineplexlist.txt exists.");
+            System.out.println("Deleting old file.....");
+        if(f.createNewFile()) {
+            System.out.println("File: " + FileAddress + " does not exist");
+            System.out.println("Creating new DB");
+        }
 
         try {
-            //Write Object to datebase
-            Objout.writeObject(Cineplexes);
-            Objout.close();
-            fileout.close();
-            System.out.println("Serialized data of Movie save in Movie.txt file");
-        } catch (Exception e) {
-            e.printStackTrace();
+            fos = new FileOutputStream(FileAddress);
+            out = new ObjectOutputStream(fos);
+            out.writeObject(cineplex);
+            out.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 
     public ArrayList<Cineplex> GetCineplexFromDB() {
-        ArrayList<Cineplex> newtemp = null;
+        ArrayList<Cineplex> newtemp = new ArrayList<>();
+        File f = new File(FileAddress);
         FileInputStream fis = null;
         ObjectInputStream in = null;
-
-        try {
-            fis = new FileInputStream(FileAddress);
-            in = new ObjectInputStream(fis);
-            newtemp = (ArrayList<Cineplex>) in.readObject();
-            in.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
+        if(f.exists()) {
+            try {
+                fis = new FileInputStream(FileAddress);
+                in = new ObjectInputStream(fis);
+                newtemp = (ArrayList<Cineplex>) in.readObject();
+                in.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }
         }
         return newtemp;
     }
+
 
 }

@@ -10,54 +10,81 @@ import java.util.ArrayList;
 /// Pass Movie data to database, read and write from database
 public class MovieDBcontrol {
     //Store file Address
-    private String FileAddress;
+    private String filename="Movielist.txt";
 
-    public MovieDBcontrol(String FileAddress) {
-        this.FileAddress = FileAddress; //Input the directory where your .dat file is located
-    }
+
 
     public String getFileAddress() {
-        return FileAddress;
+        return filename;
     }
 
-    public void setFileAddress(String fileAddress) {
-        this.FileAddress = fileAddress;
+    public void setFileAddress(String filename) {
+        this.filename = filename;
     }
 
-    public void InsertMovietoDB(ArrayList<Movie> movie) throws IOException, ClassNotFoundException {
+    public void insertMovieToDB(ArrayList<Movie> Movielist) throws IOException {
 
-        FileOutputStream fileout = new FileOutputStream(this.FileAddress);
-        ObjectOutputStream Objout = new ObjectOutputStream(fileout);
+        FileOutputStream fos = null;
+        ObjectOutputStream out = null;
 
+            File f = new File(filename);
+            if (f.exists()) {
+                f.delete();
+                System.out.println("File Movielist.txt exists.");
+                System.out.println("Deleting old file.....");
+            }
+            if (f.createNewFile()) {
+                System.out.println("File created: " + filename);
+            }
 
         try {
-            //Write Object to datebase
-            Objout.writeObject(movie);
-            Objout.close();
-            fileout.close();
-            System.out.println("Serialized data of Movie save in Movie.txt file");
-        } catch (Exception e) {
-            e.printStackTrace();
+            fos = new FileOutputStream(filename);
+            out = new ObjectOutputStream(fos);
+            out.writeObject(Movielist);
+            out.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 
     public ArrayList<Movie> GetMovieFromDB() {
         ArrayList<Movie> newtemp = new ArrayList<>();
+        File f = new File(filename);
         FileInputStream fis = null;
         ObjectInputStream in = null;
-
-        try {
-            fis = new FileInputStream(FileAddress);
-            in = new ObjectInputStream(fis);
-            newtemp = (ArrayList<Movie>) in.readObject();
-            in.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        } catch (ClassNotFoundException ex) {
-            ex.printStackTrace();
+        if(f.exists()) {
+            try {
+                fis = new FileInputStream(filename);
+                in = new ObjectInputStream(fis);
+                newtemp = (ArrayList<Movie>) in.readObject();
+                in.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            } catch (ClassNotFoundException ex) {
+                ex.printStackTrace();
+            }
         }
         return newtemp;
     }
     // replace the old file w new.
+    public void updateExistingFile(ArrayList<Movie> newData) {
+        FileOutputStream fos = null;
+        ObjectOutputStream out = null;
+        File f = new File("Movielist.txt");
+        if(f.exists())
+            f.delete();
+        else
+            System.out.println("File: " + "Movielist.txt" + " does not exist");
+        try {
+            fos = new FileOutputStream("Movielist.txt");
+            out = new ObjectOutputStream(fos);
+            out.writeObject(newData);
+            out.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+
+        }
+
+    }
 
 }

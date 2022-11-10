@@ -1,6 +1,6 @@
 public class DBaddress {
-    String MovieDBAddress="C:\\Users\\weiya\\Documents\\NTU WORK\\Yr 2\\sc2002\\eclipse-workspace\\Cineplex.txt";
-    String CinplexDBAddress ="C:\\Users\\weiya\\Documents\\NTU WORK\\Yr 2\\sc2002\\eclipse-workspace\\Cineplex.txt";
+    String MovieDBAddress="Movielist.txt";
+    String CinplexDBAddress ="Cineplexlist.txt";
 
 
     public String getMovieDBAddress(){

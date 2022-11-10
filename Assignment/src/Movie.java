@@ -77,10 +77,8 @@ public class Movie implements Serializable {
 	//////////SETTERS
 	// Title of movie
 	public void setTitle() {
-		String title;
 		System.out.println("Enter the title of the movie: ");
-		title = sc.nextLine();
-		this.title = title;
+		this.title = sc.nextLine();
 	}
 	// Status of movie
 	public void setStatus() {
@@ -132,9 +130,9 @@ public class Movie implements Serializable {
 		this.MainCast=Inp;
 	}
 	public void setRate() {
-		int Inp;
+		float Inp;
 		System.out.println("Enter the Ratings of the movie: ");
-		Inp = sc.nextInt();
+		Inp = sc.nextFloat();
 		this.rating=Inp;
 	}
 	public void updateReview() {
@@ -156,7 +154,7 @@ public class Movie implements Serializable {
 		System.out.println("[1] NC16");
 		System.out.println("[1] M18");
 		System.out.println("[1] R21");
-		Inp = sc.nextInt();
+		Inp = Integer.parseInt(sc.nextLine());
 		if(Inp == 1) this.movieRestriction = MovieRestriction.PG13;
 		if(Inp == 2) this.movieRestriction = MovieRestriction.NC16;
 		if(Inp == 3) this.movieRestriction = MovieRestriction.M18;

@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class MovieSettings {
-	private int Size; // Size of content in movielist
-	private ArrayList<Movie> MovieList; //Create tempList to store and return
+
+	private ArrayList<Movie> MovieList = new ArrayList<>(); //Create tempList to store and return
 	Scanner sc = new Scanner(System.in);
 	Display UI = new Display(); //display UI messages
-	DBaddress address=new DBaddress();
-	MovieDBcontrol movieDB= new MovieDBcontrol(address.MovieDBAddress);
+
+	MovieDBcontrol movieDB = new MovieDBcontrol();
 	int choice;
 	//UI.staffdisplay();
 	
@@ -22,17 +22,18 @@ public class MovieSettings {
 // PART 3: FUNCTION STARTS HERE
 // 3.1 BIGGEST RUNNING FUNCTION IN THE FILE
 public void runMovieSetting() throws IOException, ClassNotFoundException {
+	if(movieDB.GetMovieFromDB() !=null)
 		this.MovieList=movieDB.GetMovieFromDB();
 	do {
 		try {
 		UI.moviesettingdisplay();
-	
 		choice = Integer.parseInt(sc.nextLine());
 		switch(choice) {
 			case(1):
 				System.out.println("*****Create Movie******");
-				this.MovieList.add(CreateMovie()); 			//run create movie method
-															//increment movielist size
+
+				CreateMovie(); 			//run create movie method
+										//increment movielist size
 				sortMovie(); 									//Show movie by status
 				break;
 			case(2):
@@ -61,7 +62,7 @@ public void runMovieSetting() throws IOException, ClassNotFoundException {
 		}
 
 	}while(choice!=0);
-	movieDB.InsertMovietoDB(MovieList);
+	movieDB.insertMovieToDB(MovieList);
 }
 
 
@@ -72,7 +73,8 @@ public void runMovieSetting() throws IOException, ClassNotFoundException {
 
 //////////////////////////////
 // Function [1]: Create Movie
-public Movie CreateMovie() {
+public void CreateMovie(){
+	System.out.println("hello");
 	Movie temp=new Movie();
 	temp.setTitle();								//function dedicated for setTitle (in Movie)
 	temp.setStatus();								//function setStatus
@@ -83,7 +85,7 @@ public Movie CreateMovie() {
 	temp.setRuntime();								//set runtime
 	temp.setSyn();									//set abstract
 	temp.setCast();									//set cast
-	return temp;
+	this.MovieList.add(temp);
 }
 //
 //Re-Sort movie by status
@@ -91,7 +93,7 @@ public Movie CreateMovie() {
 public void sortMovie(){
 	Movie temp;
 	// check if i =0 or 1
-	for(int i=0; i<Size; i++)
+	for(int i=0; i<MovieList.size(); i++)
 	{
 		for(int j=i; j>0; j--)
 		{
@@ -125,55 +127,59 @@ public int checkprority(Movie movie){
 public void UpdateMovie(){
 	int choice, sel;
 	System.out.println("***List of movie you can choose to update***");
-	printmovietitle(this.MovieList);
-	
-	System.out.println("Select Movie to update: ");
-	sel=Integer.parseInt(sc.nextLine());
-	
-	while(sel>this.Size || sel<0) {
-		System.out.println("Invalid Input");
+	if(MovieList.size()>0) {
+		printmovietitle(this.MovieList);
+
 		System.out.println("Select Movie to update: ");
-		sel=Integer.parseInt(sc.nextLine());
-	}
-	sel=sel-1;
-	do {
-	System.out.println("***Movie " + MovieList.get(sel).getTitle()+ " selected***");
-	UI.updatedisplay();
-	System.out.println("Enter the field you want to edit: ");
-	choice = Integer.parseInt(sc.nextLine());
-	switch(choice) {
-	case (1):
-		MovieList.get(sel).setTitle();
-		break;
-	case (2):
-		MovieList.get(sel).setSyn();
-		break;
-	case (3):
-		MovieList.get(sel).setDirector();
-		break;
-	case (4):
-		MovieList.get(sel).setCast();
-		break;
-	case (5):
-		MovieList.get(sel).setRestriction();
-		break;
-	case (6):
-		MovieList.get(sel).setRuntime();
-		break;
-	case (7):
-		MovieList.get(sel).setRate();
-		break;
-	case (8):
-		MovieList.get(sel).updateReview();
-		break;
-	case (9):
-		MovieList.get(sel).setBlock();
-		break;
-	default:
-		choice = 1;
-		break;
+		sel = Integer.parseInt(sc.nextLine());
+
+		while (sel > this.MovieList.size() || sel < 0) {
+			System.out.println("Invalid Input");
+			System.out.println("Select Movie to update: ");
+			sel = Integer.parseInt(sc.nextLine());
 		}
-	}while(choice!=0);
+		sel = sel - 1;
+		do {
+			System.out.println("***Movie " + MovieList.get(sel).getTitle() + " selected***");
+			UI.updatedisplay();
+			System.out.println("Enter the field you want to edit: ");
+			choice = Integer.parseInt(sc.nextLine());
+			switch (choice) {
+				case (1):
+					MovieList.get(sel).setTitle();
+					break;
+				case (2):
+					MovieList.get(sel).setSyn();
+					break;
+				case (3):
+					MovieList.get(sel).setDirector();
+					break;
+				case (4):
+					MovieList.get(sel).setCast();
+					break;
+				case (5):
+					MovieList.get(sel).setRestriction();
+					break;
+				case (6):
+					MovieList.get(sel).setRuntime();
+					break;
+				case (7):
+					MovieList.get(sel).setRate();
+					break;
+				case (8):
+					MovieList.get(sel).updateReview();
+					break;
+				case (9):
+					MovieList.get(sel).setBlock();
+					break;
+				default:
+					choice = 1;
+					break;
+			}
+		} while (choice != 0);
+	}
+	else
+		System.out.println("Movie List is empty");
 }
 //generate the list of movie that is currently in spot
 public void printmovietitle(ArrayList<Movie> movielist) {
@@ -186,7 +192,7 @@ public void printmovietitle(ArrayList<Movie> movielist) {
 //Function [3]: Remove movie
 public int searchMovie(String title) {
 	int count=0;
-	while(count<this.Size){
+	while(count<this.MovieList.size()){
 		if(this.MovieList.get(count).getTitle().equalsIgnoreCase(title)){
 			return count;
 		}
@@ -198,15 +204,19 @@ public int searchMovie(String title) {
 public void RemoveMovie() {
 	String name;
 	int remove;
-	System.out.println("Enter Movie name to be removed:");
-	remove=searchMovie(name=sc.nextLine());
-	if(remove<0)
-		System.out.println("Removal was Unsuccessful");
-	else{
-		MovieList.remove(remove);
-		System.out.println("Removal was Successful");
+	if(MovieList.size()>0) {
+		System.out.println("Enter Movie name to be removed:");
+		remove = searchMovie(name = sc.nextLine());
+		if (remove < 0)
+			System.out.println("Removal was Unsuccessful");
+		else {
+			MovieList.remove(remove);
+			System.out.println("Removal was Successful");
 
+		}
 	}
+	else
+		System.out.println("List is empty");
 }
 
 
@@ -218,31 +228,30 @@ public void MovieRanking() {
 	
 	//copy the content of the original Seat to tempSeat
 	//Sort TOP 5 rating
+	if(MovieList.size()>0) {
+		System.out.println("Before");
+		for (int a = 0; a < MovieList.size(); a++) {
+			System.out.println(MovieList.get(a).getTitle() + " rating" + MovieList.get(a).getRating());
+		}
 
-	System.out.println("Before");
-	for(int a=0; a<Size; a++) {
-		System.out.println(MovieList.get(a).getTitle() + " rating" + MovieList.get(a).getRating() );
-	}
-	
-	for(int i=1; i<Size; i++)
-	{
-		for(int j=i; j>0; j--)
-		{
-			if(MovieList.get(j).getRating() > MovieList.get(i).getRating())
-			{
-				//check element right is smaller than left
-				temp = MovieList.get(j);
-				MovieList.set(j, MovieList.get(j-1));
-				MovieList.set((j-1), temp);
+		for (int i = 1; i < MovieList.size(); i++) {
+			for (int j = i; j > 0; j--) {
+				if (MovieList.get(j).getRating() > MovieList.get(i).getRating()) {
+					//check element right is smaller than left
+					temp = MovieList.get(j);
+					MovieList.set(j, MovieList.get(j - 1));
+					MovieList.set((j - 1), temp);
+				} else
+					break;
 			}
-			else
-				break;
+		}
+		System.out.println("After");
+		for (int a = 0; a < MovieList.size(); a++) {
+			System.out.println(MovieList.get(a).getTitle() + " rating" + MovieList.get(a).getRating());
 		}
 	}
-	System.out.println("After");
-	for(int a=0; a<Size; a++) {
-		System.out.println(MovieList.get(a).getTitle() + " rating" + MovieList.get(a).getRating() );
-	}
+	else
+		System.out.println("Movie List is empty");
 	
 	
 }		

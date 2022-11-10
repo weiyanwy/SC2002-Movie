@@ -1,6 +1,6 @@
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
+
 import java.util.Scanner;
 
 
@@ -8,12 +8,7 @@ public class CineplexSetting{
     private ArrayList<Cineplex> Cineplexlist;
     private ArrayList<Cinema> Cinemalist;
     DBaddress address;
-    CineplexDBcontrol CineplexDB;
-
-    {
-        assert address != null;
-        CineplexDB = new CineplexDBcontrol(address.getCineplexDBAddress());
-    }
+    CineplexDBcontrol CineplexDB = new CineplexDBcontrol();
 
     private CinemaSettings Cinemaset;
     Display UI = new Display();
@@ -31,12 +26,12 @@ public class CineplexSetting{
                     case(0):
                         //Exit
                         System.out.println("Exit");
-                        sel=0;
                         break;
                     case(1):
                         System.out.println("******CREATE CINEPLEX******");
                         //Call Create Cineplex");
                         createCineplex();
+                        printCinplexlist();
                         break;
                     case(2):
                         //Call update cinema functio
@@ -48,21 +43,19 @@ public class CineplexSetting{
                         System.out.println("*****REMOVE CINEPLEX*****");
                         removeCineplex();
                         break;
-
                     default:
                         System.out.println("Invalid Choice");
                 }
             }
-
             catch(Exception e) {
                 System.out.println("Invalid Choice");
             }
         }while(sel!=0);
-        CineplexDB.InsertCineplextoDB(this.Cineplexlist);
+        CineplexDB.insertCineplexToDB(this.Cineplexlist);
 
     }
 
-    public void createCineplex() {
+    public void createCineplex() throws IOException {
         String name;
         System.out.println("Enter Cinema Name:");
         name=sc.nextLine();
@@ -127,8 +120,8 @@ public class CineplexSetting{
             System.out.println("Removal Unsuccessful");
     }
     public void printCinplexlist(){
-        for(int x=1; x<=Cineplexlist.size(); x++){
-            System.out.println("#"+x+" "+ Cineplexlist.get(x).getCineplexName());
+        for(int x=0; x<=Cineplexlist.size(); x++){
+            System.out.println("#"+(x+1)+" "+ Cineplexlist.get(x).getCineplexName());
         }
     }
 }

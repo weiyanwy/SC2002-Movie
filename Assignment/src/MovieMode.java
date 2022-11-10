@@ -3,11 +3,12 @@ import java.util.Scanner;
 
 public class MovieMode {
     DBaddress address;
-    MovieDBcontrol moviedb= new MovieDBcontrol(address.getMovieDBAddress());
-    ArrayList<Movie> movielist = moviedb.GetMovieFromDB();
+    MovieDBcontrol moviedb;//= new MovieDBcontrol(address.getMovieDBAddress());
+
     Scanner sc = new Scanner(System.in);
 
     public void viewMovie(){
+        ArrayList<Movie>movielist=moviedb.GetMovieFromDB();
         int sel;
         boolean exit = true;
         if(movielist.size()>0){
@@ -37,6 +38,7 @@ public class MovieMode {
         }
     }
     public boolean CheckinMovielist(int sel){
+        ArrayList<Movie>movielist=moviedb.GetMovieFromDB();
         if(sel>0 && sel<=movielist.size())
             return true;
         else
@@ -44,6 +46,7 @@ public class MovieMode {
     }
 
     public void SearchMovie(String MovieName){
+        ArrayList<Movie>movielist=moviedb.GetMovieFromDB();
         if(movielist.size()>0){
             for(int x=0; x<movielist.size(); x++){
                 if(movielist.get(x).getTitle().equalsIgnoreCase(MovieName)){
@@ -59,6 +62,7 @@ public class MovieMode {
     }
 
     public void updateMovieReview(){
+        ArrayList<Movie>movielist=moviedb.GetMovieFromDB();
         int sel;
         boolean exit = true;
         if(movielist.size()>0){
@@ -76,7 +80,7 @@ public class MovieMode {
                     }
                     if(CheckinMovielist(sel)) {
                         movielist.get(sel - 1).updateReview();
-                        moviedb.InsertMovietoDB(movielist);
+                        moviedb.updateExistingFile(movielist);
                     }
                 }
                 catch(Exception e){
