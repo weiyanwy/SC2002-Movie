@@ -86,7 +86,8 @@ public class SeatLayOutSetting {
 //		System.out.println("-------------DOOR-------------");
 //
 //	}
-
+    //###############################
+    // create Seats of a cinema
     public void initializeSeats(int row, int column) {
         this.row=row;
         this.column=column;
@@ -98,10 +99,10 @@ public class SeatLayOutSetting {
                 this.layout[x][y]=new Seat();
                 this.layout[x][y].setID((x*10)+y);
             }
-
         }
-
     }
+    //##############################
+    // print seat status
     public void printSeatStatus(SeatLayout layout) {
         int row=layout.getRow();
         int col = layout.getCol();
@@ -127,6 +128,8 @@ public class SeatLayOutSetting {
         }
         System.out.println("Legends A: Avaliable, O: Occupied");
     }
+    //############################
+    // print index
     public void printSeatIndex(int row, int column) {
         String title="[SCREEN]";
         for(int x=0; x< row;x++) {
@@ -150,6 +153,7 @@ public class SeatLayOutSetting {
         printSeatIndex(row, col);
         printSeatStatus(seatlayout);
     }
+    
     // change to return seat
     public void selectseat(Showtime showtime) {
 
