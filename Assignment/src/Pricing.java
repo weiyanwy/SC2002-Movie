@@ -49,16 +49,17 @@ public class Pricing{
 	public double PricingUI(){
 		int count=0, Inp;
 		double totalPrice = 0.0;
-		while(i<this.SelectedSeats.size())
+		while(i<this.SelectedSeats.size()){
 			System.out.println("Indicate the age of the #"+ (i+1) + " ticket holder:");
 			Inp = sc.nextInt();
 			if(Inp<0){
 			System.out.println("Invalid Input, please correct it);
 			}
 			totalPrice += priceCalc(Inp);
-		}
+		}	
+				
 	}
-		
+	//##############################################	
 	public double priceCalc(int ageGoer){
 		//things to take into account
 		
