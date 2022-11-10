@@ -59,6 +59,35 @@ public class Pricing{
 		}	
 				
 	}
+	public int calcDayinYear(int day, int month, int year){
+		//denoting the day of edit: 11/10/2022 (THU) and consider it as milestone of calculation
+		//assuming all data input needs to be more than 11/10/2022
+		//leap year = year%4 ==0
+		//denoting return code
+		//SAT = 0, SUN =1, MON = 2, TUE =3
+		//WED = 4, THU = 5, FRI = 6
+		int code, totalGap=0, i;
+		
+		int dayInMonth[] = {31,28,31,30,31,30,31,31,30,31,30,31};
+		if(year>2022){
+		for(i = 2022;i<(year-1);i++{
+			if((year%4)==0) totalGap += 366;
+			else totalGap += 365;
+		}
+		for(i=0;i<(month-1);i++){
+			totalGap+= dayInMonth[i];
+			if(i==3 && (year%4)==0) totalGap+=1; //if the date surpass Feb on leap year 
+		}
+		totalGap += day;
+		}
+		if(year ==2022){
+			if(month==11) totalGap += (day-11);
+			if(month==12) totalGap = totalGap + (30-11) + day;
+		}
+		
+		code = totalGap%7;
+		return code;
+	}
 	//##############################################	
 	public double priceCalc(int ageGoer){
 		//things to take into account
