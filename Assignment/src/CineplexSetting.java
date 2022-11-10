@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class CineplexSetting{
     private ArrayList<Cineplex> Cineplexlist;
     private ArrayList<Cinema> Cinemalist;
-    DBaddress address;
+
     CineplexDBcontrol CineplexDB = new CineplexDBcontrol();
 
     private CinemaSettings Cinemaset;
@@ -18,38 +18,39 @@ public class CineplexSetting{
         this.Cineplexlist=CineplexDB.GetCineplexFromDB();
         int sel=1;
         do {
-
+            UI.CineplexSettingDisplay();
+            sel=Integer.parseInt(sc.nextLine());
             try {
-                UI.CineplexSettingDisplay();
-                sel=Integer.parseInt(sc.nextLine());
-                switch(sel) {
-                    case(0):
+                switch (sel) {
+                    case (0):
                         //Exit
                         System.out.println("Exit");
                         break;
-                    case(1):
+                    case (1):
                         System.out.println("******CREATE CINEPLEX******");
                         //Call Create Cineplex");
                         createCineplex();
                         printCinplexlist();
                         break;
-                    case(2):
+                    case (2):
                         //Call update cinema functio
                         System.out.println("*****UPDATE CINEPLEX******");
                         updateCineplex();
                         break;
-                    case(3):
+                    case (3):
                         //Call remove cinema
                         System.out.println("*****REMOVE CINEPLEX*****");
                         removeCineplex();
                         break;
                     default:
-                        System.out.println("Invalid Choice");
+                        System.out.println("Invalid Input");
+                        break;
                 }
             }
-            catch(Exception e) {
-                System.out.println("Invalid Choice");
+            catch(Exception e){
+                System.out.println("Invalid Input");
             }
+
         }while(sel!=0);
         CineplexDB.insertCineplexToDB(this.Cineplexlist);
 
@@ -70,9 +71,6 @@ public class CineplexSetting{
             try {
                 printCinplexlist();
                 System.out.println("Select Cinema");
-                for(int x=0; x<Cineplexlist.size();x++) {
-                    System.out.println("#" +(x+1) + " " +Cineplexlist.get(x).getCineplexName());
-                }
                 System.out.println("Enter 0 to exit:");
                 sel=Integer.parseInt(sc.nextLine());
                 // check if user want to exit
@@ -120,7 +118,7 @@ public class CineplexSetting{
             System.out.println("Removal Unsuccessful");
     }
     public void printCinplexlist(){
-        for(int x=0; x<=Cineplexlist.size(); x++){
+        for(int x=0; x<Cineplexlist.size(); x++){
             System.out.println("#"+(x+1)+" "+ Cineplexlist.get(x).getCineplexName());
         }
     }

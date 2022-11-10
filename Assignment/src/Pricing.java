@@ -13,6 +13,7 @@ Age (Adult, Senior >=55, Kids)
 Relevant files: Operation
 */
 
+/*
 import java.util.Scanner;
 
 public class Pricing{
@@ -141,3 +142,4 @@ public class Pricing{
 
 
 
+*/

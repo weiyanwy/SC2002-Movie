@@ -79,7 +79,9 @@ public class MovieMode {
                         break;
                     }
                     if(CheckinMovielist(sel)) {
-                        movielist.get(sel - 1).updateReview();
+                        System.out.println("Enter review:");
+                        String newReview=sc.nextLine();
+                        movielist.get(sel - 1).updateReview(newReview);
                         moviedb.updateExistingFile(movielist);
                     }
                 }

@@ -50,9 +50,8 @@ public class Display {
 		System.out.println("6: Movie Restriciton");
 		System.out.println("7: Movie Run time");
 		System.out.println("8: Movie Rating");
-		System.out.println("9: Movie Votes");
 		System.out.println("10: Reviews");
-		System.out.println("11: Exit");
+		System.out.println("0: Exit");
 		System.out.println("Enter Choice:");
 	}
 	public void CineplexSettingDisplay(){

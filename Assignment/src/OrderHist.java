@@ -1,3 +1,4 @@
+/*import java.util.ArrayList;
 import java.util.Scanner;
 
 public class OrderHist(){
@@ -6,7 +7,7 @@ public class OrderHist(){
   // PART 1: Initialise variables
   public String cinemaName;
   public String movieName;
-  public String time;
+  public String time=" ";
   public double totalPrice;
   public ArrayList<Integer> selectedSeats;
   public String Username;
@@ -20,8 +21,8 @@ public class OrderHist(){
     this.movieName = showtime.getMoviename();
     this.totalPrice = totalPrice;
     this.selectedSeats = Seats;
-    this.time = (String)showtime.getYear()+ "-"+ (String)showtime.getMonth()
-                + "-" +(String)showtime.getDay() + "-" + (String)showtime.getHour()
+    this.time =  "-"+ (String)showtime.getmonth()
+                + "-" +(String)showtime.getDate() + "-" + (String)showtime.getHour()
                 + "-" +(String)showtime.getMinute();
   }
   
@@ -39,4 +40,4 @@ public class OrderHist(){
     totalString = 
     return ;
   }
-}
+}*/

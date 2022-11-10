@@ -31,11 +31,78 @@ is3D (this also affects the price, both isBlock and this variable can be referre
 Relevant files:
 Very crucial files to care about!!!
 */
+/*
+Title: Move
+Use: create object movies with many variables to be taken into account
+
+Important variables:
+title (used for searching and booking)
+showStatus (affect whether it can be booked or not)
+ShowTime (extremely crucial, as it contains other variables within)
+ShowSize (following variable to ShowTime)
+isBlock (this affects the price)
+is3D (this also affects the price, both isBlock and this variable can be referred from the guide)
+
+-----------------------
+Relevant files:
+Very crucial files to care about!!!
+*/
+
+/*
+Title: Move
+Use: create object movies with many variables to be taken into account
+
+Important variables:
+title (used for searching and booking)
+showStatus (affect whether it can be booked or not)
+ShowTime (extremely crucial, as it contains other variables within)
+ShowSize (following variable to ShowTime)
+isBlock (this affects the price)
+is3D (this also affects the price, both isBlock and this variable can be referred from the guide)
+
+-----------------------
+Relevant files:
+Very crucial files to care about!!!
+*/
+
+/*
+Title: Move
+Use: create object movies with many variables to be taken into account
+
+Important variables:
+title (used for searching and booking)
+showStatus (affect whether it can be booked or not)
+ShowTime (extremely crucial, as it contains other variables within)
+ShowSize (following variable to ShowTime)
+isBlock (this affects the price)
+is3D (this also affects the price, both isBlock and this variable can be referred from the guide)
+
+-----------------------
+Relevant files:
+Very crucial files to care about!!!
+*/
+
+/*
+Title: Move
+Use: create object movies with many variables to be taken into account
+
+Important variables:
+title (used for searching and booking)
+showStatus (affect whether it can be booked or not)
+ShowTime (extremely crucial, as it contains other variables within)
+ShowSize (following variable to ShowTime)
+isBlock (this affects the price)
+is3D (this also affects the price, both isBlock and this variable can be referred from the guide)
+
+-----------------------
+Relevant files:
+Very crucial files to care about!!!
+*/
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.text.SimpleDateFormat;
+
 
 public class Movie implements Serializable {
 	//#-----------------------------
@@ -53,16 +120,16 @@ public class Movie implements Serializable {
 	public String Director;
 	public String MainCast;
 	public String Genre;
-	public float rating;
+	public double rating;
 	public MovieRestriction movieRestriction;
 
 
 	public String runtime;
 	public ArrayList<String> reviews;
 	///
-	private int Reviewcount=0;
 
-	SimpleDateFormat Runtimeformat= new SimpleDateFormat("H hr mm");
+
+
 	Scanner sc = new Scanner(System.in);
 	//#-----------------------------
 
@@ -76,95 +143,52 @@ public class Movie implements Serializable {
 
 	//////////SETTERS
 	// Title of movie
-	public void setTitle() {
-		System.out.println("Enter the title of the movie: ");
-		this.title = sc.nextLine();
+	public void setTitle(String title) {
+		this.title=title;
 	}
 	// Status of movie
-	public void setStatus() {
-		int choice;
-		System.out.println("Enter Status of Movie: ");
-		System.out.println("[1] Coming Soon");
-		System.out.println("[2] Preview");
-		System.out.println("[3] Now Showing");
-		System.out.println("[4] End of Showing");
-		choice = sc.nextInt();
-		if(choice == 1) this.ShowStatus = MovieStatus.Coming_Soon;
-		if(choice == 2) this.ShowStatus = MovieStatus.Preview;
-		if(choice == 3) this.ShowStatus = MovieStatus.Now_Showing;
-		if(choice == 4) this.ShowStatus = MovieStatus.End_Of_Showing;
+	public void setStatus(MovieStatus status) {
+		this.ShowStatus=status;
+	}
+	public void setGenre(String genre){
+		this.Genre=genre;
 	}
 	// Is the movie a blockbuster?
-	public void setBlock() {
-		int choice;
-		System.out.println("Blockbuster status of movie: ");
-		System.out.println("[1] Yes");
-		System.out.println("[2] No");
-		choice = sc.nextInt();
-		if(choice == 1) this.isBlock = true;
-		if(choice == 2) this.isBlock = false;
+	public void setBlock(boolean block) {
+		this.isBlock=block;
+	}
+	public void setSyn(String Synopsis) {
+		this.Synopsis=Synopsis;
+	}
+	public void setDirector(String Director) {
+		this.Director=Director;
+	}
+	public void setCast(String cast) {
+		this.MainCast=cast;
+	}
+	public void setRate(double rating) {
+		this.rating=rating;
+	}
+	public void updateReview(String review) {
+		this.reviews.add(review);
+	}
+	public void setRuntime(int runtime) {
+		int hour=runtime/60;
+		int minute=runtime%60;
+
+		this.runtime= hour + " hr "+minute+ " min";
+	}
+	public void setRestriction(MovieRestriction restrict) {
+		this.movieRestriction=restrict;
 	}
 
-	////////GETTERS
-	//Title
 
-	/////////NOT IMPORTANT SETUPS//////////////////////////////
 
-	////setters
-	public void setSyn() {
-		String Inp;
-		System.out.println("Enter the Synopsis of the movie: ");
-		Inp = sc.nextLine();
-		this.Synopsis = Inp;
-	}
-	public void setDirector() {
-		String Inp;
-		System.out.println("Enter the Director of the movie: ");
-		Inp = sc.nextLine();
-		this.Director = Inp;
-	}
-	public void setCast() {
-		String Inp;
-		System.out.println("Enter the Cast of the movie: ");
-		Inp = sc.nextLine();
-		this.MainCast=Inp;
-	}
-	public void setRate() {
-		float Inp;
-		System.out.println("Enter the Ratings of the movie: ");
-		Inp = sc.nextFloat();
-		this.rating=Inp;
-	}
-	public void updateReview() {
-		String Inp;
-		System.out.println("Add a new review to the movie: ");
-		Inp = sc.nextLine();
-		this.reviews.add(Inp);
-	}
-	public void setRuntime() {
-		String Inp;
-		System.out.println("Enter the Runtime of the movie: ");
-		Inp = sc.nextLine();
-		this.runtime=Inp;
-	}
-	public void setRestriction() {
-		int Inp;
-		System.out.println("Enter the Restriction of the movie: ");
-		System.out.println("[1] PG");
-		System.out.println("[1] NC16");
-		System.out.println("[1] M18");
-		System.out.println("[1] R21");
-		Inp = Integer.parseInt(sc.nextLine());
-		if(Inp == 1) this.movieRestriction = MovieRestriction.PG13;
-		if(Inp == 2) this.movieRestriction = MovieRestriction.NC16;
-		if(Inp == 3) this.movieRestriction = MovieRestriction.M18;
-		if(Inp == 4) this.movieRestriction = MovieRestriction.R21;
-	}
 	public void viewReviews() {
 		if(reviews.size()>0){
-		for (int x = 0; x<this.Reviewcount; x++) {
-			System.out.println("Review #"+ (x+1) +" "+ this.reviews.get(x));
-		}}
+			for (int x = 0; x<this.reviews.size(); x++) {
+				System.out.println("Review #"+ (x+1) +" "+ this.reviews.get(x));
+			}}
 		else{
 			System.out.println("No Reviews");
 		}
@@ -184,7 +208,7 @@ public class Movie implements Serializable {
 		return this.Director;
 	}
 
-	public float getRating() {
+	public double getRating() {
 		return this.rating;
 	}
 	public MovieRestriction getMovieRest() {
@@ -212,4 +236,4 @@ public class Movie implements Serializable {
 
 	}
 
-	}
+}

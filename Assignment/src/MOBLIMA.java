@@ -13,7 +13,7 @@ public class MOBLIMA {
 								//list of movie
 						//list of cineplex
 		int cineplexSize = 0;
-		Pricing ticketCalculator = new Pricing();			//ticket calculator
+		//Pricing ticketCalculator = new Pricing();			//ticket calculator
 		StaffLogin Login = new StaffLogin();
 		StaffMode Staff = new StaffMode();
 		CustMode cust = new CustMode();
