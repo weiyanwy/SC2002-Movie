@@ -127,9 +127,12 @@ public class Pricing{
 		
 		if(showtime.cinema.getCinemaType() == CinemaType.GOLD) totalPrice *= rateGold;
 		if(showtime.cinema.getCinemaType() == CinemaType.PLATINUM) totalPrice *= ratePlatinum;
+		
+		//if(isHoliday) totalPrice *= rateHoliday;
+		
 		totalPrice *= rateGST;					//GST constant rate
-
-	}
+		
+		}
 		return totalPrice;
 		
 	//################################################
