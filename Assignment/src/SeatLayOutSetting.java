@@ -164,10 +164,10 @@ public class SeatLayOutSetting {
 
             try {
                 printlayout(layout.getRow(), layout.getCol(), layout);
-                System.out.println("1: Select Index of Seat");
-                System.out.println("2: UnSelect Index of Seat");
-                System.out.println("3: Proceed to Payment");
-                System.out.println("4: Exit;");
+                System.out.println("[1]: Select Index of Seat");
+                System.out.println("[2]: UnSelect Index of Seat");
+                System.out.println("[3]: Proceed to Payment");
+                System.out.println("[4]: Exit;");
                 int choice = Integer.parseInt(sc.nextLine());
                 switch(choice) {
                     case(1):
@@ -197,6 +197,8 @@ public class SeatLayOutSetting {
                         //payment
                     printseatselected(StoreSeatIndex);
                     totalPrice = ticketCalc.PricingUI();
+                        
+                    TIDdisplayUI();    
                     break;
                     case(4):
 
