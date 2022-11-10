@@ -30,7 +30,11 @@ public class Pricing{
 	public double rateHoliday = 1.5;			//fixed rate of Public Holiday
 		
 	//#----------------------
+	//Object related
+	public Showtime showtime = new Showtime();
 	//FUNCTION STARTS HERE
+	
+	public Pricing(
 	
 	//################################################
 	//function to calculate the price of a ticket
