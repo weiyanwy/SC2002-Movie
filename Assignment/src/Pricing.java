@@ -110,18 +110,18 @@ public class Pricing{
 		double totalPrice = 0.0;
 		if(is3D){								//3D films has seperate rates of price
 			totalPrice = 9.00;
-			if(day == DAY.MON || day == DAY.TUE || day == DAY.WED || day == DAY.THU)
+			if(day == DayOfWeek.MON || day == DayOfWeek.TUE || day == DayOfWeek.WED || day == DayOfWeek.THU)
 				totalPrice = 11.00;
-			if(day == DAY.FRI || day == DAY.SAT || day ==DAY.SUN) totalPrice = 15.00;
+			if(day == DayOfWeek.FRI || day == DayOfWeek.SAT || day == DayOfWeek.SUN) totalPrice = 15.00;
 		} else{
 			totalPrice = generalPrice;
 			if(ageGoer>=55) totalPrice += changeSenior;			//change for Senior
 			if(ageGoer<=18) totalPrice += changeStudent;			//change for Student
-			if(day == DAY.THU) totalPrice += changeNearWeekend;			//change for weekend days
-			if(day == DAY.FRI && hour <18) totalPrice += changeNearWeekend;	//
-			if(day == DAY.FRI && hour >=18) totalPrice += changeWeekend;	//
-			if(day == DAY.SAT || day == DAY.SUN
-			) totalPrice += changeWeekend;	// }
+			if(day == DayOfWeek.THU) totalPrice += changeNearWeekend;			//change for weekend days
+			if(day == DayOfWeek.FRI && hour <18) totalPrice += changeNearWeekend;	//
+			if(day == DayOfWeek.FRI && hour >=18) totalPrice += changeWeekend;	//
+			if(day == DayOfWeek.SAT || day == DayOfWeek.SUN) totalPrice += changeWeekend;	// 
+		}
 		
 		if(isBlock) totalPrice += this.changeBlockbuster;		//increase 1$ if being blockbuster
 		
