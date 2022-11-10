@@ -27,7 +27,7 @@ public class Cinema {
     }
     public void setCinematype(CinemaType type){
         cinematype=type;
-       }
+    }
 
     public String getname() {
         return this.name;
