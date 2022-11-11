@@ -10,81 +10,78 @@ import java.util.ArrayList;
 /// Pass Movie data to database, read and write from database
 public class MovieDBcontrol {
     //Store file Address
-    private String filename="Movielist.txt";
+    private String FILENAME="Movielist.txt";
 
 
 
     public String getFileAddress() {
-        return filename;
+        return FILENAME;
     }
 
     public void setFileAddress(String filename) {
-        this.filename = filename;
+        this.FILENAME = filename;
     }
 
-    public void insertMovieToDB(ArrayList<Movie> Movielist) throws IOException {
-
-        FileOutputStream fos = null;
-        ObjectOutputStream out = null;
-
-            File f = new File(filename);
-            if (f.exists()) {
-                f.delete();
-                System.out.println("File Movielist.txt exists.");
-                System.out.println("Deleting old file.....");
-            }
-            if (f.createNewFile()) {
-                System.out.println("File created: " + filename);
+    public void addMovie(Movie addmovie)  {
+        File data = new File(FILENAME);
+        ArrayList<Movie> movies = new ArrayList<>();
+        if(data.exists()){
+            movies = GetMovieFromDB();
+            if(movies.size()!=0){
+                for (Movie movie : movies) {
+                    if (movie.getTitle().equals(addmovie.getTitle())) {
+                        System.out.println("Movie Exist");
+                    }
+                }
             }
 
-        try {
-            fos = new FileOutputStream(filename);
-            out = new ObjectOutputStream(fos);
-            out.writeObject(Movielist);
-            out.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        }
+
+        Movie movieToBeAdded = addmovie;
+
+        try{
+            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(FILENAME));
+            movies.add(movieToBeAdded);
+            outputStream.writeObject(movies);
+            outputStream.flush();
+            outputStream.close();
+        } catch (IOException e) {
+            System.out.println("caught on add movie");
         }
     }
 
     public ArrayList<Movie> GetMovieFromDB() {
-        ArrayList<Movie> newtemp = new ArrayList<>();
-        File f = new File(filename);
+        ArrayList<Movie> MovieList;
+        File f = new File(FILENAME);
         FileInputStream fis = null;
         ObjectInputStream in = null;
-        if(f.exists()) {
-            try {
-                fis = new FileInputStream(filename);
-                in = new ObjectInputStream(fis);
-                newtemp = (ArrayList<Movie>) in.readObject();
-                in.close();
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            } catch (ClassNotFoundException ex) {
-                ex.printStackTrace();
-            }
+        System.out.println("i tried");
+        try {
+            fis = new FileInputStream(f);
+            in = new ObjectInputStream(fis);
+            MovieList = (ArrayList<Movie>) in.readObject();
+            in.close();
+            return MovieList;
+        } catch (IOException | ClassNotFoundException e) {
+            return new ArrayList<>();
         }
-        return newtemp;
+
     }
     // replace the old file w new.
-    public void updateExistingFile(ArrayList<Movie> newData) {
-        FileOutputStream fos = null;
-        ObjectOutputStream out = null;
-        File f = new File("Movielist.txt");
-        if(f.exists())
-            f.delete();
-        else
-            System.out.println("File: " + "Movielist.txt" + " does not exist");
-        try {
-            fos = new FileOutputStream("Movielist.txt");
-            out = new ObjectOutputStream(fos);
-            out.writeObject(newData);
-            out.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-
+    public void overwriteMovieList(ArrayList<Movie> data){
+        File temp = new File(FILENAME);
+        if(temp.exists()){
+            temp.delete();
+            System.out.println("file deleted");
         }
-
+        try{
+            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(FILENAME));
+            outputStream.writeObject(data);
+            outputStream.flush();
+            outputStream.close();
+        } catch (IOException e){
+            System.out.println("caught in moviecontroller");
+        }
     }
 
-}
+    }

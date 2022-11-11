@@ -14,7 +14,7 @@ public class CineplexSetting{
     Display UI = new Display();
     Scanner sc = new Scanner(System.in);
 
-    public void runCineplexSetting() throws IOException {
+    public void runCineplexSetting() {
         this.Cineplexlist=CineplexDB.GetCineplexFromDB();
         int sel=1;
         do {
@@ -29,8 +29,10 @@ public class CineplexSetting{
                     case (1):
                         System.out.println("******CREATE CINEPLEX******");
                         //Call Create Cineplex");
-                        createCineplex();
-                        printCinplexlist();
+                        Cineplex Temp=createCineplex();
+                        CineplexDB.insertCineplexToDB(Temp);
+                        this.Cineplexlist=CineplexDB.GetCineplexFromDB();
+                        printCinplexlist(this.Cineplexlist);
                         break;
                     case (2):
                         //Call update cinema functio
@@ -52,24 +54,24 @@ public class CineplexSetting{
             }
 
         }while(sel!=0);
-        CineplexDB.insertCineplexToDB(this.Cineplexlist);
+        CineplexDB.OverwriteFile(this.Cineplexlist);
 
     }
 
-    public void createCineplex() throws IOException {
+    public Cineplex createCineplex() throws IOException {
         String name;
         System.out.println("Enter Cinema Name:");
         name=sc.nextLine();
         //Create new Cineplex class in list
         Cineplex Temp = new Cineplex(name);
-        Cineplexlist.add(Temp);
+        return Temp;
     }
 
     public int selectCineplex() {
         int sel = 1;
         do {
             try {
-                printCinplexlist();
+                printCinplexlist(this.Cineplexlist);
                 System.out.println("Select Cinema");
                 System.out.println("Enter 0 to exit:");
                 sel=Integer.parseInt(sc.nextLine());
@@ -117,9 +119,9 @@ public class CineplexSetting{
         else
             System.out.println("Removal Unsuccessful");
     }
-    public void printCinplexlist(){
-        for(int x=0; x<Cineplexlist.size(); x++){
-            System.out.println("#"+(x+1)+" "+ Cineplexlist.get(x).getCineplexName());
+    public void printCinplexlist(ArrayList<Cineplex> Cineplexlists){
+        for(int x=0; x<Cineplexlists.size(); x++){
+            System.out.println("#"+(x+1)+" "+ Cineplexlists.get(x).getCineplexName());
         }
     }
 }

@@ -16,10 +16,10 @@ public class MovieSettings {
 //
 // PART 3: FUNCTION STARTS HERE
 // 3.1 BIGGEST RUNNING FUNCTION IN THE FILE
-	public void runMovieSetting() throws IOException, ClassNotFoundException {
+	public void runMovieSetting(){
 		int choice;
-		if(movieDB.GetMovieFromDB() !=null)
-			this.MovieList=movieDB.GetMovieFromDB();
+		//this.MovieList=movieDB.GetMovieFromDB();
+		printmovietitle(MovieList);
 		do {
 
 			UI.moviesettingdisplay();
@@ -28,7 +28,9 @@ public class MovieSettings {
 				case(1):
 					System.out.println("*****Create Movie******");
 					Movie Temp=CreateMovie();
-					MovieList.add(Temp);//run create movie method
+					movieDB.addMovie(Temp);
+					MovieList.add(Temp);
+					//MovieList.add(Temp);//run create movie method
 					//sortMovie(); 									//Show movie by status
 					break;
 				case(2):
@@ -53,7 +55,10 @@ public class MovieSettings {
 
 
 		}while(choice!=0);
-		movieDB.insertMovieToDB(MovieList);
+		ArrayList<Movie> templist = movieDB.GetMovieFromDB();
+		printmovietitle(templist);
+		movieDB.overwriteMovieList(MovieList);
+		//printmovietitle(MovieList);
 	}
 
 

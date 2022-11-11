@@ -143,6 +143,17 @@ public class Movie implements Serializable {
 
 	//////////SETTERS
 	// Title of movie
+	/*public Movie(String Title, String Synopsis, String Cast, String Director, MovieStatus status, boolean isBlock, String Genre, MovieRestriction restrict, double rating ){
+		this.title=Title;
+		this.Synopsis=Synopsis;
+		this.MainCast=Cast;
+		this.Director=Director;
+		this.ShowStatus=status;
+		this.isBlock=isBlock;
+		this.Genre=Genre;
+		this.movieRestriction=restrict;
+		this.rating=rating;
+	}*/
 	public void setTitle(String title) {
 		this.title=title;
 	}

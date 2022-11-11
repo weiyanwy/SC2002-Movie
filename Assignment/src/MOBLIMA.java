@@ -1,6 +1,6 @@
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.InputMismatchException;
+
 public class MOBLIMA {
 	//////////////////////////////////////////
 	public static void main(String[] args) throws IOException, ClassNotFoundException {

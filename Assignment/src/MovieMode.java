@@ -82,7 +82,7 @@ public class MovieMode {
                         System.out.println("Enter review:");
                         String newReview=sc.nextLine();
                         movielist.get(sel - 1).updateReview(newReview);
-                        moviedb.updateExistingFile(movielist);
+                        moviedb.overwriteMovieList(movielist);
                     }
                 }
                 catch(Exception e){
