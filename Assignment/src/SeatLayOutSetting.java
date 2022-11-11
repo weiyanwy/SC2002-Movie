@@ -17,39 +17,38 @@ public class SeatLayOutSetting {
     }
     public void SetRowAndColumn()
     {
-        int sel;
-        boolean check = true;
-        do {
-            try {
-                System.out.println("Select Layout");
-                System.out.println("1: 8x8");
-                System.out.println("2: 6x6");
-                System.out.println("3: 4x4");
-                sel = Integer.parseInt(sc.nextLine());
-                switch (sel) {
-                    case 1:
-                        this.row = 8;
-                        this.column = 8;
-                        check = false;
-                        break;
-                    case 2:
-                        this.row = 6;
-                        this.column = 8;
-
-                        check = false;
-                        break;
-                    case 3:
-                        this.row = 4;
-                        this.column = 4;
-                        check = false;
-                        break;
-                    default:
-                        System.out.println("Invalid Input");
-                }
-            } catch (Exception e) {
-                System.out.println("Invalid Input");
-            }
-        } while (check);
+    int sel;
+    boolean check = true;
+    do {
+    try {
+        System.out.println("Select Layout");
+        System.out.println("[1]: 8x8");
+        System.out.println("[2]: 6x6");
+        System.out.println("[3ư: 4x4");
+        sel = Integer.parseInt(sc.nextLine());
+        switch (sel) {
+        case 1:
+            this.row = 8;
+            this.column = 8;
+            check = false;
+            break;
+        case 2:
+            this.row = 6;
+            this.column = 8;
+            check = false;
+            break;
+        case 3:
+            this.row = 4;
+            this.column = 4;
+            check = false;
+            break;
+        default:
+            System.out.println("Invalid Input");
+        }
+    } catch (Exception e) {
+            System.out.println("Invalid Input");
+    }
+    } while (check);
     }
 
 //	public void Layout1(){
@@ -87,7 +86,8 @@ public class SeatLayOutSetting {
 //		System.out.println("-------------DOOR-------------");
 //
 //	}
-
+    //###############################
+    // create Seats of a cinema
     public void initializeSeats(int row, int column) {
         this.row=row;
         this.column=column;
@@ -99,10 +99,10 @@ public class SeatLayOutSetting {
                 this.layout[x][y]=new Seat();
                 this.layout[x][y].setID((x*10)+y);
             }
-
         }
-
     }
+    //##############################
+    // print seat status
     public void printSeatStatus(SeatLayout layout) {
         int row=layout.getRow();
         int col = layout.getCol();
@@ -128,6 +128,8 @@ public class SeatLayOutSetting {
         }
         System.out.println("Legends A: Avaliable, O: Occupied");
     }
+    //############################
+    // print index
     public void printSeatIndex(int row, int column) {
         String title="[SCREEN]";
         for(int x=0; x< row;x++) {
@@ -151,6 +153,7 @@ public class SeatLayOutSetting {
         printSeatIndex(row, col);
         printSeatStatus(seatlayout);
     }
+    
     // change to return seat
     public void selectseat(Showtime showtime) {
 

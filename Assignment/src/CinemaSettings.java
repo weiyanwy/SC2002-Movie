@@ -152,8 +152,12 @@ public class CinemaSettings{
 				else
 					System.out.println("Invalid Input");
 			}
+			if(movielist.get(selectmovie-1).getstatus() == status.NowShowing ||movielist.get(selectmovie-1).getstatus() == status.Preview){
 			Cinemalist.get(sel).assignShowtime(showset.runShowtimesetup(Cinemalist.get(sel),movielist.get(selectmovie-1),
 					Cinemalist.get(sel).getShowtimelist()));
+			} else{
+				System.out.println("This movie is not allowed to assign timeslot");
+			}
 
 		} else
 			System.out.println("List is empty");

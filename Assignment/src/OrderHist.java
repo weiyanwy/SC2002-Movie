@@ -37,7 +37,8 @@ public class OrderHist(){
   
   public String returnTID(){
     String totalString;
-    totalString = 
-    return ;
+    totalString = this.cinemaName.charAt(0) + this.cinemaName.charAt(1) +this.cinemaName.charAt(2) +
+                  + this.time;
+    return totalString;
   }
 }*/
