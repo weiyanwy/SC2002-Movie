@@ -1,10 +1,11 @@
+import java.io.Serializable;
 import java.util.Scanner;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class MovieSettings {
+public class MovieSettings implements Serializable {
 
-	private ArrayList<Movie> MovieList = new ArrayList<>(); //Create tempList to store and return
+	ArrayList<Movie> MovieList = new ArrayList<>(); //Create tempList to store and return
 	Scanner sc = new Scanner(System.in);
 	Display UI = new Display(); //display UI messages
 
@@ -16,10 +17,10 @@ public class MovieSettings {
 //
 // PART 3: FUNCTION STARTS HERE
 // 3.1 BIGGEST RUNNING FUNCTION IN THE FILE
-	public void runMovieSetting(){
+	public void runMovieSetting() throws IOException {
 		int choice;
-		//this.MovieList=movieDB.GetMovieFromDB();
-		printmovietitle(MovieList);
+		this.MovieList=movieDB.GetMovieFromDB();
+
 		do {
 
 			UI.moviesettingdisplay();
@@ -27,9 +28,8 @@ public class MovieSettings {
 			switch(choice) {
 				case(1):
 					System.out.println("*****Create Movie******");
-					Movie Temp=CreateMovie();
-					movieDB.addMovie(Temp);
-					MovieList.add(Temp);
+					movieDB.addMovie(CreateMovie());
+					this.MovieList= movieDB.GetMovieFromDB();
 					//MovieList.add(Temp);//run create movie method
 					//sortMovie(); 									//Show movie by status
 					break;
@@ -55,9 +55,7 @@ public class MovieSettings {
 
 
 		}while(choice!=0);
-		ArrayList<Movie> templist = movieDB.GetMovieFromDB();
-		printmovietitle(templist);
-		movieDB.overwriteMovieList(MovieList);
+		movieDB.overwriteMovieList(this.MovieList);
 		//printmovietitle(MovieList);
 	}
 
@@ -71,7 +69,7 @@ public class MovieSettings {
 // Function [1]: Create Movie
 	public Movie CreateMovie() {
 		boolean exit = true;
-		boolean isBlockuster = false;
+		boolean isBlockbuster = false;
 		int choice;
 		MovieStatus status = null;
 		MovieRestriction restrict=null;

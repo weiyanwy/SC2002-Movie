@@ -5,22 +5,23 @@ import java.util.Scanner;
 
 
 public class CineplexSetting{
-    private ArrayList<Cineplex> Cineplexlist;
-    private ArrayList<Cinema> Cinemalist;
+    public ArrayList<Cineplex> Cineplexlist=new ArrayList<>();
+    private ArrayList<Cinema> Cinemalist=new ArrayList<>();
 
     CineplexDBcontrol CineplexDB = new CineplexDBcontrol();
 
-    private CinemaSettings Cinemaset;
+    private CinemaSettings Cinemaset=new CinemaSettings();
     Display UI = new Display();
     Scanner sc = new Scanner(System.in);
 
     public void runCineplexSetting() {
+
         this.Cineplexlist=CineplexDB.GetCineplexFromDB();
         int sel=1;
         do {
-            UI.CineplexSettingDisplay();
-            sel=Integer.parseInt(sc.nextLine());
             try {
+                UI.CineplexSettingDisplay();
+                sel=Integer.parseInt(sc.nextLine());
                 switch (sel) {
                     case (0):
                         //Exit
@@ -29,15 +30,15 @@ public class CineplexSetting{
                     case (1):
                         System.out.println("******CREATE CINEPLEX******");
                         //Call Create Cineplex");
-                        Cineplex Temp=createCineplex();
-                        CineplexDB.insertCineplexToDB(Temp);
+                        CineplexDB.insertCineplexToDB(createCineplex());
                         this.Cineplexlist=CineplexDB.GetCineplexFromDB();
-                        printCinplexlist(this.Cineplexlist);
+
                         break;
                     case (2):
                         //Call update cinema functio
                         System.out.println("*****UPDATE CINEPLEX******");
                         updateCineplex();
+                        printCinema();
                         break;
                     case (3):
                         //Call remove cinema
@@ -57,10 +58,15 @@ public class CineplexSetting{
         CineplexDB.OverwriteFile(this.Cineplexlist);
 
     }
+    public void printCinema(){
+        for(int x=0; x<this.Cinemalist.size(); x++){
+            System.out.println("Cinema" + (x+1) + " "+ this.Cinemalist.get(x).getname());
+        }
+    }
 
     public Cineplex createCineplex() throws IOException {
         String name;
-        System.out.println("Enter Cinema Name:");
+        System.out.println("Enter Cineplex Name:");
         name=sc.nextLine();
         //Create new Cineplex class in list
         Cineplex Temp = new Cineplex(name);
@@ -68,19 +74,23 @@ public class CineplexSetting{
     }
 
     public int selectCineplex() {
-        int sel = 1;
+        int sel=1;
+        boolean exit=true;
         do {
             try {
                 printCinplexlist(this.Cineplexlist);
-                System.out.println("Select Cinema");
+                System.out.println("Select Cineplex");
                 System.out.println("Enter 0 to exit:");
                 sel=Integer.parseInt(sc.nextLine());
                 // check if user want to exit
-                if(sel==0)
+                if(sel==0) {
+                    exit=false;
                     System.out.println("Exiting....");
+                }
                 // if input < Cineplex List size run next function
-                else if((sel>0) && (sel<=Cineplexlist.size())) {
-                    return sel-1;
+                else if((sel>0) && (sel<=this.Cineplexlist.size())) {
+                    System.out.println("correct");
+                    exit=false;
                 }
                 else {
                     System.out.println("Invalid Input");
@@ -90,19 +100,20 @@ public class CineplexSetting{
                 System.out.println("Invalid Input");
             }
 
-        }while(sel!=0);
+        }while(exit);
         // return -1 if user wants to exit
-        return -1;
+        return (sel-1);
     }
 
     public void updateCineplex() {
 
         int choice;
         choice=selectCineplex();
+        System.out.println("No: " + choice);
         // run function if user dw to exit
-        if(choice!=-1) {
-            Cinemalist=Cinemaset.runCinemaSetting(Cineplexlist.get(choice).getCinemalist());
-            Cineplexlist.get(choice).assignCinemalist(Cinemalist);
+        if(choice>-1) {
+            this.Cinemalist=this.Cinemaset.runCinemaSetting(Cineplexlist.get(choice).getCinemalist());
+            this.Cineplexlist.get(choice).assignCinemalist(Cinemalist);
 
             // get new updated movielist n size
 

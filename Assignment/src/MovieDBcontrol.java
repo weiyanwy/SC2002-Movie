@@ -22,51 +22,57 @@ public class MovieDBcontrol {
         this.FILENAME = filename;
     }
 
-    public void addMovie(Movie addmovie)  {
+    public void addMovie(Movie newmovie) throws IOException {
+        FileOutputStream fos;
+        ObjectOutputStream out;
         File data = new File(FILENAME);
-        ArrayList<Movie> movies = new ArrayList<>();
-        if(data.exists()){
-            movies = GetMovieFromDB();
-            if(movies.size()!=0){
-                for (Movie movie : movies) {
-                    if (movie.getTitle().equals(addmovie.getTitle())) {
-                        System.out.println("Movie Exist");
-                    }
+        ArrayList<Movie> movieArrayList = new ArrayList<>();
+        if(data.exists()) {
+            System.out.println("File exist");
+            movieArrayList =this.GetMovieFromDB();
+        }
+        else if(data.createNewFile()){
+            System.out.println("creating new DB");
+        }
+        if(checkifexist(movieArrayList, newmovie)) {
+            System.out.println("hi");
+            movieArrayList.add(newmovie);
+            try {
+                fos = new FileOutputStream(FILENAME);
+                out = new ObjectOutputStream(fos);
+                out.writeObject(movieArrayList);
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    public boolean checkifexist(ArrayList<Movie> movielist, Movie newmovie) {
+
+        if (movielist.size() > 0) {
+            for (Movie movies : movielist) {
+                if (newmovie.getTitle().equalsIgnoreCase(movies.getTitle())) {
+                    System.out.println("Movie Name exists");
+                    return false;
                 }
             }
-
+            return true;
         }
-
-        Movie movieToBeAdded = addmovie;
-
-        try{
-            ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(FILENAME));
-            movies.add(movieToBeAdded);
-            outputStream.writeObject(movies);
-            outputStream.flush();
-            outputStream.close();
-        } catch (IOException e) {
-            System.out.println("caught on add movie");
-        }
+        return true;
     }
-
     public ArrayList<Movie> GetMovieFromDB() {
-        ArrayList<Movie> MovieList;
-        File f = new File(FILENAME);
-        FileInputStream fis = null;
-        ObjectInputStream in = null;
-        System.out.println("i tried");
         try {
-            fis = new FileInputStream(f);
-            in = new ObjectInputStream(fis);
-            MovieList = (ArrayList<Movie>) in.readObject();
+            ObjectInputStream in = new ObjectInputStream(new FileInputStream(FILENAME));
+            ArrayList<Movie> MovieList = (ArrayList<Movie>) in.readObject();
             in.close();
             return MovieList;
-        } catch (IOException | ClassNotFoundException e) {
-            return new ArrayList<>();
+        } catch (ClassNotFoundException | IOException e) {
+            //
         }
-
+        return new ArrayList<Movie>();
     }
+
+
     // replace the old file w new.
     public void overwriteMovieList(ArrayList<Movie> data){
         File temp = new File(FILENAME);
