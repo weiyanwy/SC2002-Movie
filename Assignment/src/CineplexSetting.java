@@ -76,31 +76,33 @@ public class CineplexSetting{
     public int selectCineplex() {
         int sel=1;
         boolean exit=true;
-        do {
-            try {
-                printCinplexlist(this.Cineplexlist);
-                System.out.println("Select Cineplex");
-                System.out.println("Enter 0 to exit:");
-                sel=Integer.parseInt(sc.nextLine());
-                // check if user want to exit
-                if(sel==0) {
-                    exit=false;
-                    System.out.println("Exiting....");
-                }
-                // if input < Cineplex List size run next function
-                else if((sel>0) && (sel<=this.Cineplexlist.size())) {
-                    System.out.println("correct");
-                    exit=false;
-                }
-                else {
+        if(Cineplexlist.size()>0) {
+            do {
+                try {
+                    printCinplexlist(this.Cineplexlist);
+                    System.out.println("Select Cineplex");
+                    System.out.println("Enter 0 to exit:");
+                    sel = Integer.parseInt(sc.nextLine());
+                    // check if user want to exit
+                    if (sel == 0) {
+                        exit = false;
+                        System.out.println("Exiting....");
+                    }
+                    // if input < Cineplex List size run next function
+                    else if ((sel > 0) && (sel <= this.Cineplexlist.size())) {
+
+                        exit = false;
+                    } else {
+                        System.out.println("Invalid Input");
+                    }
+                } catch (Exception e) {
                     System.out.println("Invalid Input");
                 }
-            }
-            catch(Exception e) {
-                System.out.println("Invalid Input");
-            }
 
-        }while(exit);
+            } while (exit);
+        }
+        else
+            System.out.println("Cineplex List is Empty");
         // return -1 if user wants to exit
         return (sel-1);
     }
@@ -109,11 +111,9 @@ public class CineplexSetting{
 
         int choice;
         choice=selectCineplex();
-        System.out.println("No: " + choice);
         // run function if user dw to exit
         if(choice>-1) {
-            this.Cinemalist=this.Cinemaset.runCinemaSetting(Cineplexlist.get(choice).getCinemalist());
-            this.Cineplexlist.get(choice).assignCinemalist(Cinemalist);
+            this.Cineplexlist.get(choice).assignCinemalist(this.Cinemaset.runCinemaSetting(Cineplexlist.get(choice).getCinemalist()));
 
             // get new updated movielist n size
 

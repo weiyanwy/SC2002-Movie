@@ -1,4 +1,6 @@
-public class Seat {
+import java.io.Serializable;
+
+public class Seat implements Serializable {
 	
 	private int seatID;
 	private boolean IsOccupied;

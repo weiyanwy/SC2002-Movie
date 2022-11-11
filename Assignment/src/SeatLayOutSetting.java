@@ -6,13 +6,13 @@ public class SeatLayOutSetting {
 
     private Seat[][] layout;
     private int row, column;
-    SeatLayout Showtimelayout;
+    private SeatLayout Showtimelayout;
     Scanner sc = new Scanner(System.in);
 
     public SeatLayout SetSeatLayout(){
         SetRowAndColumn();
         initializeSeats(this.row,this.column);
-        Showtimelayout=new SeatLayout(this.row, this.column, layout);
+        this.Showtimelayout=new SeatLayout(this.row, this.column, this.layout);
         return Showtimelayout;
     }
     public void SetRowAndColumn()
@@ -24,7 +24,7 @@ public class SeatLayOutSetting {
         System.out.println("Select Layout");
         System.out.println("[1]: 8x8");
         System.out.println("[2]: 6x6");
-        System.out.println("[3ư: 4x4");
+        System.out.println("[3]: 4x4");
         sel = Integer.parseInt(sc.nextLine());
         switch (sel) {
         case 1:
@@ -34,7 +34,7 @@ public class SeatLayOutSetting {
             break;
         case 2:
             this.row = 6;
-            this.column = 8;
+            this.column = 6;
             check = false;
             break;
         case 3:
@@ -104,7 +104,7 @@ public class SeatLayOutSetting {
     //##############################
     // print seat status
     public void printSeatStatus(SeatLayout layout) {
-        int row=layout.getRow();
+        int row= layout.getRow();
         int col = layout.getCol();
         Seat[][] seatstatus=layout.getSeats();
         String title="[SCREEN]";

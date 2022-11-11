@@ -6,65 +6,74 @@ import java.util.Scanner;
 public class ShowTimeSetting {
 
     public Calendar time = Calendar.getInstance();
-    public int year;						//year of showing
-    public int month;						//month of slot
-    public int date;						//day of slot
-    public int hour;						//hour of slot
-    public int minute;						//minute of slot
-    public boolean is3D = false;						//check whether this slot shows 3D mode
+    private int year;						//year of showing
+    private int month;						//month of slot
+    private int date;						//day of slot
+    private  int hour;						//hour of slot
+    private  int minute;						//minute of slot
+    private  boolean is3D = false;						//check whether this slot shows 3D mode
 
-    SeatLayout layout;
-    SeatLayOutSetting SeatSetting;
+    private SeatLayout layout;
+    private SeatLayOutSetting Showtimelayout=new SeatLayOutSetting();
 
-    boolean check=true;
+
+
     public	int sel = 0;
-    private ArrayList<Showtime> Showtimelist;
+    private ArrayList<Showtime> Showtimelist=new ArrayList<>();
 
     Scanner sc = new Scanner(System.in);
-    SimpleDateFormat dataform = new SimpleDateFormat("MM/dd HH:mm");
-    public ArrayList<Showtime> runShowtimesetup(Cinema cinema,Movie movieclass, ArrayList<Showtime> Showtimelists) {
-        this.Showtimelist=Showtimelists;
-        int sel;
+    public ArrayList<Showtime> runShowtimesetup(Cinema cinema,Movie addmovie, ArrayList<Showtime> Showtimelists) {
+        if(Showtimelists.size()>0)
+            this.Showtimelist=Showtimelists;
         boolean exit = true;
         do{
             try{
-                System.out.println("*****Show time Setting*****");
-                System.out.println("[0]: Exit");
-                System.out.println("[1]: Create Show time and seat layout");
-                System.out.println("[2]: Update Show time");
-                System.out.println("[3]: Delete Show time");
+                System.out.println("-----Show time Setting-----");
+                System.out.println("1:Create Show time and seat layout");
+                System.out.println("2:Update Show time");
+                System.out.println("3:Delete Show time");
+                System.out.println("4:View Show time");
+                System.out.println("0:Exit");
                 sel=Integer.parseInt(sc.nextLine());
                 switch(sel){
                     case 1:
                         Settime();
                         set3D();
-                        layout=SeatSetting.SetSeatLayout();
-                        Showtime temp = new Showtime(this.month, this.date, this.hour, this.minute, this.is3D, layout, cinema, movieclass);
-                        Showtimelist.add(temp);
+                        Showtimelist.add(new Showtime(this.year, this.month,this.date,this.hour,this.minute,this.is3D,Showtimelayout.SetSeatLayout(), cinema, addmovie));
+                        printshowtime();
+                        break;
+
                     case 2:
-                        ArrayList<Integer> storeindexpos = findshowtime(cinema.getname(), movieclass.getTitle());
+                        ArrayList<Integer> storeindexpos = findshowtime(cinema.getname(), addmovie.getTitle());
                         if(storeindexpos.size()==0){
-                            System.out.println("Cinema "+cinema.getname() + " Movie: "+movieclass.getTitle());
+                            System.out.println("Cinema "+cinema.getname() + " Movie: "+addmovie.getTitle());
                             System.out.println("No Show time");
                         }
                         else{
                             int position=SelectShowtime(storeindexpos);
                             updatetime(position);
                         }
+                        break;
                     case 3:
-                        storeindexpos =findshowtime(cinema.getname(), movieclass.getTitle());
+                        storeindexpos =findshowtime(cinema.getname(), addmovie.getTitle());
                         if(storeindexpos.size()==0){
-                            System.out.println("Cinema "+cinema.getname() + " Movie: "+movieclass.getTitle());
+                            System.out.println("Cinema "+cinema.getname() + " Movie: "+addmovie.getTitle());
                             System.out.println("No Show time");
                         }
                         else{
                             int position=SelectShowtime(storeindexpos);
                             Showtimelist.remove(position);
                         }
+                        break;
                     case 4:
+                        printshowtime();
+                        break;
+                    case 0:
                         System.out.println("Exiting Show time Setting....");
                         exit=false;
                         break;
+                    default:
+                        System.out.println("Invalid Input");
                 }
             } catch (Exception e) {
                 System.out.println("Invalid Input");
@@ -73,7 +82,12 @@ public class ShowTimeSetting {
         return Showtimelist;
     }
 
-
+    public void printshowtime(){
+        for(int x=0;x<this.Showtimelist.size();x++){
+            System.out.println("Cinema: "+ this.Showtimelist.get(x).getCinemaname() + " Movie: "+this.Showtimelist.get(x).getMoviename());
+            System.out.println((x+1) + " "+ this.Showtimelist.get(x).getTime() + " Type: "+ this.Showtimelist.get(x).getType());
+        }
+    }
 
     // find showtime w the same cinema name movie tile and store index of its position.
     public ArrayList<Integer> findshowtime(String CinemaName, String Movietitle){
@@ -109,6 +123,8 @@ public class ShowTimeSetting {
         boolean check=true;
         do {
             try {
+                System.out.println("Enter Year:");
+                this.year=Integer.parseInt(sc.nextLine());
                 System.out.println("Enter Month numerical(1-12, jan-dec):");
                 // jan starts from 0
                 this.month = Integer.parseInt(sc.nextLine())-1;
@@ -119,7 +135,6 @@ public class ShowTimeSetting {
                 System.out.println("Enter mintue of day");
                 this.minute=Integer.parseInt(sc.nextLine());;
                 check=false;
-                break;
             }
             catch(Exception a) {
                 System.out.println("Invalid input");
@@ -129,13 +144,16 @@ public class ShowTimeSetting {
 
 
     public void updatetime(int index) {
-
+        boolean check=true;
+        int tempyear;
         int tempmonth;
         int tempdate;
         int temphour;
         int tempminute;
-        while (true)
+        while (check)
             try {
+                System.out.println("Enter year");
+                tempyear = Integer.parseInt(sc.nextLine());
                 System.out.println("Enter Month numerical(1-12, jan-dec):");
                 // jan starts from 0
                 tempmonth = Integer.parseInt(sc.nextLine()) - 1;
@@ -145,7 +163,7 @@ public class ShowTimeSetting {
                 temphour = Integer.parseInt(sc.nextLine());
                 System.out.println("Enter mintue of day");
                 tempminute = Integer.parseInt(sc.nextLine());
-                Showtimelist.get(index).setUpdateTime(tempmonth, tempdate, temphour, tempminute);
+                Showtimelist.get(index).setUpdateTime(tempyear,tempmonth, tempdate, temphour, tempminute);
                 check = false;
                 break;
             } catch (Exception a) {
@@ -158,7 +176,7 @@ public class ShowTimeSetting {
     //////////////////////////////////////////////////////////////////
     //This function set whether the timeslot has 3D mode
     public void set3D(){
-
+        boolean check=true;
         System.out.println("Enter whether this slot is shown in 3D\n");
         System.out.println("[1] Yes");
         System.out.println("[2] No");
@@ -167,15 +185,17 @@ public class ShowTimeSetting {
                 System.out.println("Enter Choice:");
                 sel=Integer.parseInt(sc.nextLine());
                 switch (sel) {
-                    case (1) -> {
+                    case (1):
                         this.is3D = true;
                         check = false;
-                    }
-                    case (2) -> {
+                        break;
+
+                    case (2):
                         this.is3D = false;
                         check = false;
-                    }
-                    default -> System.out.println("Invalid Input");
+                        break;
+                    default:
+                        System.out.println("Invalid Input");
                 }
             }
             catch(Exception e) {
