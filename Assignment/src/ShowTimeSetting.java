@@ -28,11 +28,11 @@ public class ShowTimeSetting {
         boolean exit = true;
         do{
             try{
-                System.out.println("-----Show time Setting-----");
-                System.out.println("1:Create Show time and seat layout");
-                System.out.println("2:Update Show time");
-                System.out.println("2:Delete Show time");
-                System.out.println("3:Exit");
+                System.out.println("*****Show time Setting*****");
+                System.out.println("[0]: Exit");
+                System.out.println("[1]: Create Show time and seat layout");
+                System.out.println("[2]: Update Show time");
+                System.out.println("[3]: Delete Show time");
                 sel=Integer.parseInt(sc.nextLine());
                 switch(sel){
                     case 1:
