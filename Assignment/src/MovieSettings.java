@@ -69,7 +69,7 @@ public class MovieSettings implements Serializable {
 // Function [1]: Create Movie
 	public Movie CreateMovie() {
 		boolean exit = true;
-		boolean isBlockbuster = false;
+		
 		int choice;
 		MovieStatus status = null;
 		MovieRestriction restrict=null;
@@ -79,7 +79,7 @@ public class MovieSettings implements Serializable {
 		System.out.println("Enter Movie Title:");
 		String title = sc.nextLine();
 		temp.setTitle(title);
-		/*System.out.println("Enter Genre:");
+		System.out.println("Enter Genre:");
 		String Genre=sc.nextLine();
 		temp.setGenre(Genre);
 
@@ -117,6 +117,7 @@ public class MovieSettings implements Serializable {
 		}while(exit);
 		temp.setStatus(status);
 
+		boolean isBlockuster = false;
 		do{
 			exit=true;
 			System.out.println("Enter is Movie Blockbuster?");
@@ -195,14 +196,14 @@ public class MovieSettings implements Serializable {
 			}
 		}while(exit);
 
-		temp.setRestriction(restrict);*/
+		temp.setRestriction(restrict);
 
 		return temp;
 	}
 	//
 //Re-Sort movie by status
 //Each time a new movie is added, the list is sorted again
-	public void sortMovie(){
+	/*public void sortMovie(){
 		Movie temp;
 		// check if i =0 or 1
 		for(int i=0; i<MovieList.size(); i++)
@@ -220,7 +221,7 @@ public class MovieSettings implements Serializable {
 					break;
 			}
 		}
-	}
+	}*/
 	//assign priority to Now showing, preview, coming soon, end of show
 	public int checkprority(Movie movie){
 		if(movie.getstatus().equals(MovieStatus.Now_Showing))
@@ -371,7 +372,7 @@ public class MovieSettings implements Serializable {
 	//generate the list of movie that is currently in spot
 	public void printmovietitle(ArrayList<Movie> movielist) {
 		for(int x=0;x<movielist.size();x++) {
-			System.out.println("["+(x+1)+"] "+movielist.get(x).getTitle());
+			System.out.println("#"+(x+1)+" "+movielist.get(x).getTitle() + ", Show Status: "+ movielist.get(x).getstatus() + " "+ movielist.get(x).getMovieRest());
 		}
 	}
 	////////////////////////////////////////////////

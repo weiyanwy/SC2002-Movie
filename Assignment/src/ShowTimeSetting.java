@@ -1,8 +1,7 @@
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Scanner;
+import java.util.*;
+
 public class ShowTimeSetting {
 
     public Calendar time = Calendar.getInstance();
@@ -22,7 +21,7 @@ public class ShowTimeSetting {
     private ArrayList<Showtime> Showtimelist=new ArrayList<>();
 
     Scanner sc = new Scanner(System.in);
-    public ArrayList<Showtime> runShowtimesetup(Cinema cinema,Movie addmovie, ArrayList<Showtime> Showtimelists) {
+    public ArrayList<Showtime> runShowtimesetup(Cineplex cinplx, Cinema cinema,Movie addmovie, ArrayList<Showtime> Showtimelists) {
         if(Showtimelists.size()>0)
             this.Showtimelist=Showtimelists;
         boolean exit = true;
@@ -39,14 +38,15 @@ public class ShowTimeSetting {
                     case 1:
                         Settime();
                         set3D();
-                        Showtimelist.add(new Showtime(this.year, this.month,this.date,this.hour,this.minute,this.is3D,Showtimelayout.SetSeatLayout(), cinema, addmovie));
+                        Showtimelist.add(new Showtime(this.year, this.month,this.date,this.hour,this.minute,this.is3D,Showtimelayout.SetSeatLayout(),cinplx, cinema, addmovie));
                         printshowtime();
+                        //Collections.sort(Showtimelist, Collections.min());
                         break;
 
                     case 2:
                         ArrayList<Integer> storeindexpos = findshowtime(cinema.getname(), addmovie.getTitle());
                         if(storeindexpos.size()==0){
-                            System.out.println("Cinema "+cinema.getname() + " Movie: "+addmovie.getTitle());
+                            System.out.println("Cinema: "+cinema.getname() + " Movie: "+addmovie.getTitle());
                             System.out.println("No Show time");
                         }
                         else{
@@ -84,7 +84,7 @@ public class ShowTimeSetting {
 
     public void printshowtime(){
         for(int x=0;x<this.Showtimelist.size();x++){
-            System.out.println("Cinema: "+ this.Showtimelist.get(x).getCinemaname() + " Movie: "+this.Showtimelist.get(x).getMoviename());
+            System.out.println("Cineplex: "+this.Showtimelist.get(x).getCineplexname() +   " , Cinema: "+ this.Showtimelist.get(x).getCinemaname() + " , Movie: "+this.Showtimelist.get(x).getMoviename());
             System.out.println((x+1) + " "+ this.Showtimelist.get(x).getTime() + " Type: "+ this.Showtimelist.get(x).getType());
         }
     }
@@ -203,6 +203,15 @@ public class ShowTimeSetting {
             }
         }while(check);
     }
+
+   /* public void sortShowtime(ArrayList<Showtime> showtimelist){
+        Showtime temp;
+        for(int i=0; i<showtimelist.size();i++){
+            for(int j=i+1; j>0; j--){
+                if()
+            }
+        }
+    }*/
 
 
 }

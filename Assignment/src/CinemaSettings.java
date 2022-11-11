@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.sql.Array;
 import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -13,26 +14,24 @@ public class CinemaSettings{
 	private MovieSettings moviesetting= new MovieSettings();
 	private ShowTimeSetting showset= new ShowTimeSetting();
 	private ArrayList<Movie> movielist= moviedata.GetMovieFromDB();
-
+	private Cineplex cineplex= new Cineplex();
 	private ArrayList<Showtime> Showtimelist = new ArrayList<>();
 
 	Display UI = new Display();
 	Scanner sc = new Scanner(System.in);
 
 
-	public DBaddress address;
-
-
-	public ArrayList<Cinema> runCinemaSetting(ArrayList<Cinema> Cinemalists) {
+	public ArrayList<Cinema> runCinemaSetting(Cineplex cinplx, ArrayList<Cinema> Cinemalists) {
 
 		//extract movielist from database
+		this.cineplex= cinplx;
 		this.moviedata=new MovieDBcontrol();
 		this.movielist=moviedata.GetMovieFromDB();
 		boolean exit=true;
 		if(Cinemalists!=null)
 			this.Cinemalist=Cinemalists;
 
-		System.out.println("****Cinema setting******");
+
 		int sel;
 		do {
 			UI.CinemaSettingdisplay();
@@ -49,11 +48,11 @@ public class CinemaSettings{
 					//Call Create Cinema");
 					System.out.println("*****Create Cinema*****");
 					this.Cinemalist.add(createCinema());
-					printCinema();
+					printCinema(cineplex.getCineplexName(), Cinemalist);
 					break;
 				case(2):
 					//Call update cinema function
-					System.out.println("*****Update Cinema*****");
+					System.out.println("*****Set Show time*****");
 					updateCinema();
 					break;
 				case(3):
@@ -73,9 +72,9 @@ public class CinemaSettings{
 
 		return this.Cinemalist;
 	}
-	public void printCinema(){
-		for(int x=0; x<this.Cinemalist.size(); x++){
-			System.out.println("Cinema " + (x+1) + " "+ this.Cinemalist.get(x).getname()+ "Type: " + this.Cinemalist.get(x).getCinematype());
+	public void printCinema(String CineplexName, ArrayList<Cinema>Cinemalist){
+		for(int x=0; x<Cinemalist.size(); x++){
+			System.out.println("Cineplex: " + CineplexName+", Cinema " + (x+1) + ": "+ Cinemalist.get(x).getname()+ ",  Type: " + Cinemalist.get(x).getCinematype());
 		}
 	}
 	
@@ -118,13 +117,13 @@ public class CinemaSettings{
 	}
 	
 	public int selectCinema() {
-		int sel=1;
+		int sel=-1;
 		boolean exit=true;
 		if (Cinemalist.size()> 0) {
 			do {
 				try {
 						for(int x = 0; x < this.Cinemalist.size(); x++) {
-						System.out.println("#" + (x + 1) + " " + Cinemalist.get(x).getname());
+						System.out.println("Cinema #" + (x + 1) + " " + Cinemalist.get(x).getname());
 					}
 					System.out.println("Select Cinema");
 					System.out.println("Enter 0 to exit:");
@@ -162,22 +161,23 @@ public class CinemaSettings{
 				System.out.println("Select Movie to update");
 				System.out.println("Enter 0 to Exit:");
 				selectmovie = Integer.parseInt(sc.nextLine());
-				if(selectmovie==0){
+				if (selectmovie == 0) {
 					System.out.println("Exiting....");
-					exit=false;
-				}
-				else if ((selectmovie > 0) && (selectmovie <=this.movielist.size())) {
+					exit = false;
+				} else if ((selectmovie > 0) && (selectmovie <= this.movielist.size())) {
+					if (movielist.get(selectmovie - 1).getstatus().equals(MovieStatus.Now_Showing) || movielist.get(selectmovie - 1).getstatus().equals(MovieStatus.Preview)) {
 
-					//pass in cinema class, movie class and show time arraylist
-					this.Showtimelist = showset.runShowtimesetup(Cinemalist.get(sel), movielist.get(selectmovie-1), Showtimelist);
-					Cinemalist.get(sel).assignShowtime(this.Showtimelist);
-				}
-				else
+						//pass in cinema class, movie class and show time arraylist
+						this.Showtimelist = showset.runShowtimesetup(cineplex, Cinemalist.get(sel), movielist.get(selectmovie - 1), Showtimelist);
+						Cinemalist.get(sel).assignShowtime(this.Showtimelist);
+					} else
+						System.out.println("Only Now Showing and Preview can set show time");
+
+				} else
 					System.out.println("Invalid Input");
 			}
 
-		} else
-			System.out.println("List is empty");
+		}
 	}
 
 

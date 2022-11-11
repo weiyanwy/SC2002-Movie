@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class CineplexSetting{
     public ArrayList<Cineplex> Cineplexlist=new ArrayList<>();
-    private ArrayList<Cinema> Cinemalist=new ArrayList<>();
+
 
     CineplexDBcontrol CineplexDB = new CineplexDBcontrol();
 
@@ -38,7 +38,8 @@ public class CineplexSetting{
                         //Call update cinema functio
                         System.out.println("*****UPDATE CINEPLEX******");
                         updateCineplex();
-                        printCinema();
+                        CineplexDB.OverwriteFile(this.Cineplexlist);
+
                         break;
                     case (3):
                         //Call remove cinema
@@ -58,10 +59,14 @@ public class CineplexSetting{
         CineplexDB.OverwriteFile(this.Cineplexlist);
 
     }
-    public void printCinema(){
-        for(int x=0; x<this.Cinemalist.size(); x++){
-            System.out.println("Cinema" + (x+1) + " "+ this.Cinemalist.get(x).getname());
-        }
+    public void printCinema(Cineplex cinpx, ArrayList<Cinema> Cinemalist){
+        System.out.println("Cineplex: "+ cinpx.getCineplexName());
+        if(Cinemalist.size()>0){
+        for(int x=0; x<Cinemalist.size(); x++){
+            System.out.println("Cinema " + (x+1) + " "+ Cinemalist.get(x).getname());
+        }}
+        else
+            System.out.println("Cinema List Empty");
     }
 
     public Cineplex createCineplex() throws IOException {
@@ -69,7 +74,8 @@ public class CineplexSetting{
         System.out.println("Enter Cineplex Name:");
         name=sc.nextLine();
         //Create new Cineplex class in list
-        Cineplex Temp = new Cineplex(name);
+        Cineplex Temp =new Cineplex();
+        Temp.setCineplexname(name);
         return Temp;
     }
 
@@ -90,11 +96,10 @@ public class CineplexSetting{
                     }
                     // if input < Cineplex List size run next function
                     else if ((sel > 0) && (sel <= this.Cineplexlist.size())) {
-
                         exit = false;
-                    } else {
-                        System.out.println("Invalid Input");
                     }
+                    else
+                        System.out.println("Invalid Input");
                 } catch (Exception e) {
                     System.out.println("Invalid Input");
                 }
@@ -113,7 +118,10 @@ public class CineplexSetting{
         choice=selectCineplex();
         // run function if user dw to exit
         if(choice>-1) {
-            this.Cineplexlist.get(choice).assignCinemalist(this.Cinemaset.runCinemaSetting(Cineplexlist.get(choice).getCinemalist()));
+            //printCinema(Cineplexlist.get(choice), Cineplexlist.get(choice).getCinemalist());
+            System.out.println("*****Cineplex "+Cineplexlist.get(choice).getCineplexName()+"******");
+            this.Cineplexlist.get(choice).assignCinemalist(this.Cinemaset.runCinemaSetting(Cineplexlist.get(choice), Cineplexlist.get(choice).getCinemalist()));
+            //printCinema(Cineplexlist.get(choice), Cineplexlist.get(choice).getCinemalist());
 
             // get new updated movielist n size
 

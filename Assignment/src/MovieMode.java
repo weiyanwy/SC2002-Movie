@@ -2,41 +2,37 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class MovieMode {
-    DBaddress address;
-    MovieDBcontrol moviedb;//= new MovieDBcontrol(address.getMovieDBAddress());
 
+    MovieDBcontrol moviedb = new MovieDBcontrol();//= new MovieDBcontrol(address.getMovieDBAddress());
+    MovieSettings movieSettings = new MovieSettings();
     Scanner sc = new Scanner(System.in);
 
-    public void viewMovie(){
-        ArrayList<Movie>movielist=moviedb.GetMovieFromDB();
+    public void viewMovie() {
+        ArrayList<Movie> movielist = moviedb.GetMovieFromDB();
+        System.out.println("hello");
         int sel;
         boolean exit = true;
-        if(movielist.size()>0){
-            for(int x=0; x<movielist.size(); x++){
-                System.out.println("#"+(x+1)+ " "+ movielist.get(x).getTitle());
-        }
-            while(exit){
+        if (movielist.size() > 0) {
+            while (exit) {
+                movieSettings.printmovietitle(movielist);
                 try {
                     System.out.println("Enter Movie Index to view details:");
                     System.out.println("Enter 0 to exit");
                     sel = Integer.parseInt(sc.nextLine());
-                    if(sel==0){
+                    if (sel == 0) {
                         System.out.println("Exiting View Movie....");
-                        exit=false;
                         break;
                     }
-                    if(CheckinMovielist(sel))
-                        movielist.get(sel-1).rundetails();
-                }
-                catch(Exception e){
+                    if (CheckinMovielist(sel))
+                        movielist.get(sel - 1).rundetails();
+                } catch (Exception e) {
                     System.out.println("Invalid input");
                 }
             }
-        }
-        else{
+        } else
             System.out.println("Movie List is Empty");
-        }
     }
+
     public boolean CheckinMovielist(int sel){
         ArrayList<Movie>movielist=moviedb.GetMovieFromDB();
         if(sel>0 && sel<=movielist.size())
@@ -61,34 +57,37 @@ public class MovieMode {
             System.out.println("Movie List is Empty");
     }
 
+
     public void updateMovieReview(){
         ArrayList<Movie>movielist=moviedb.GetMovieFromDB();
+
         int sel;
-        boolean exit = true;
         if(movielist.size()>0){
-            for(int x=0; x<movielist.size(); x++){
-                System.out.println("#"+(x+1)+ " "+ movielist.get(x).getTitle());
-            }
+        boolean exit = true;
             while(exit){
+                movieSettings.printmovietitle(movielist);
                 try {
                     System.out.println("Enter Movie Index to add review:");
                     System.out.println("Enter 0 to exit");
                     sel = Integer.parseInt(sc.nextLine());
                     if(sel==0){
                         System.out.println("Exiting Movie Reviews....");
+                        exit=false;
                         break;
                     }
                     if(CheckinMovielist(sel)) {
                         System.out.println("Enter review:");
                         String newReview=sc.nextLine();
                         movielist.get(sel - 1).updateReview(newReview);
-                        moviedb.overwriteMovieList(movielist);
+                        movielist.get(sel-1).viewReviews();
+
                     }
                 }
                 catch(Exception e){
                     System.out.println("Invalid input");
                 }
             }
+            moviedb.overwriteMovieList(movielist);
         }
         else{
             System.out.println("Movie List is Empty");

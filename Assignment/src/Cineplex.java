@@ -16,7 +16,7 @@ public class Cineplex implements Serializable {
 	//PART 1: INITIALIZE RELEVANT VARIABLES
 	//
 	//1.1: Initialize objects init
-	private ArrayList<Cinema> Cinemalist;
+	private ArrayList<Cinema> Cinemalist=new ArrayList<>();
 
 	public String name;							//name of cineplex
 											//list of cinemas within the cineplex
@@ -24,7 +24,7 @@ public class Cineplex implements Serializable {
 	//#################################################################
 	//
 	//PART 2: CONSTRUCTORS OF THE CLASS
-	public Cineplex(String name){
+	public void setCineplexname(String name){
 		this.name=name;
 	}
 	public String getCineplexName() {
