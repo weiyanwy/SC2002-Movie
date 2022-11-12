@@ -9,6 +9,9 @@ public class Seat implements Serializable {
 		this.seatID= seatID;
 		this.IsOccupied=false;
 	}
+	public boolean isOccupied(){
+		return this.IsOccupied;
+	}
 	public int getID() {
 		return this.seatID;
 	}

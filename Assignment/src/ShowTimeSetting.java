@@ -96,8 +96,7 @@ public class ShowTimeSetting {
         ArrayList<Integer> storeindex = new ArrayList<>();
         for(int x=0; x<Showtimelist.size();x++){
             if(Showtimelist.get(x).getMoviename().equalsIgnoreCase(Movietitle)){// && Showtimelist.get(x).getCinemaname().equalsIgnoreCase(CinemaName)){
-                System.out.println(Showtimelist.get(x).getTime());
-                // store index of showtime w same vmore name
+                // store index of showtime w same Movie name
                 storeindex.add(x);
             }
         }
@@ -106,7 +105,7 @@ public class ShowTimeSetting {
     public int SelectShowtime(ArrayList<Integer> indexlist, ArrayList<Showtime>Showtimelist){
         int select=0;
         for(int x=0; x<indexlist.size();x++){
-            System.out.println("#"+(x+1) +" "+ Showtimelist.get(indexlist.get(x)).getTime());
+            System.out.println("#"+(x+1) +" Movie: "+Showtimelist.get(x).getMoviename()+ " Time:" + Showtimelist.get(indexlist.get(x)).getTime());
         }
         while(true){
             System.out.println("Enter Index of Show time:");

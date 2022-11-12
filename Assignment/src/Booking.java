@@ -12,8 +12,6 @@ public class Booking{
     ShowTimeSetting ShowtimeControl = new ShowTimeSetting();
     MovieSettings MovieControl = new MovieSettings();
     SeatLayOutSetting SeatControl = new SeatLayOutSetting();
-    MovieMode MovieModeControl = new MovieMode();
-
     CineplexDBcontrol CinplexDB = new CineplexDBcontrol();
     MovieDBcontrol MovieDB = new MovieDBcontrol();
 
@@ -21,7 +19,7 @@ public class Booking{
     Payment paymentControl = new Payment();
     OrderHistoryDB orderDb= new OrderHistoryDB();
     private ArrayList<Movie> MovieList = new ArrayList<>();
-
+    private int CustAge;
     Scanner input = new Scanner(System.in);
     public void runBooking() throws IOException {
         boolean exit=true;
@@ -34,6 +32,7 @@ public class Booking{
                 cineplexList.get(sel).assignCinemalist(printnSelectCinema(cineplexList.get(sel).getCinemalist()));
                 //update database w new cineplexlist
                 this.CinplexDB.OverwriteFile(cineplexList);
+                exit=false;
             }
             else
                 exit=false;
@@ -50,10 +49,12 @@ public class Booking{
                 System.out.println("Cinema " + Cinemalist.get(sel).getname() + " Selected");
                 MovieIndex = printnSelectMovie();
                 if (MovieIndex > -1) {
+                    // find list of movie title showtime
                     System.out.println("Movie " + MovieList.get(MovieIndex).getTitle() + " Selected");
-                    if (Cinemalist.get(sel).getShowtimelist().size()>0)
+                    ArrayList<Integer>StoreIndex=ShowtimeControl.findshowtime(MovieList.get(MovieIndex).getTitle(), Cinemalist.get(sel).getShowtimelist());
+                    if (StoreIndex.size()>0)
                     //return new Showtime array to cinema
-                        Cinemalist.get(sel).assignShowtime(printnSelectShowtime(MovieList.get(MovieIndex), Cinemalist.get(sel).getShowtimelist()));
+                        Cinemalist.get(sel).assignShowtime(printnSelectShowtime(StoreIndex, Cinemalist.get(sel).getShowtimelist()));
                     else
                         System.out.println("No Show time");
                 }
@@ -91,16 +92,26 @@ public class Booking{
         return -1;
     }
 
-    public ArrayList<Showtime> printnSelectShowtime(Movie movie, ArrayList<Showtime> showtimelist) throws IOException {
-        ArrayList<Integer>StoreIndex=new ArrayList<>();
+    public ArrayList<Showtime> printnSelectShowtime(ArrayList<Integer> StoreIndex, ArrayList<Showtime> showtimelist) throws IOException {
+
         int select;
-        StoreIndex=ShowtimeControl.findshowtime(movie.getTitle(), showtimelist);
-        System.out.println("ok");
         select=ShowtimeControl.SelectShowtime(StoreIndex, showtimelist);
-        System.out.println("no " + select);
+
         //replace new showtime at index
         showtimelist.set(select,(selectseat(showtimelist.get(select))));
         return showtimelist;
+    }
+    public boolean CheckIfLegal(Showtime showtime) {
+        System.out.println("Enter your Age: ");
+        this.CustAge=Integer.parseInt(input.nextLine());
+        if(showtime.getMovieRestrict().equals(MovieRestriction.R21) && CustAge<21)
+            return false;
+        if(showtime.getMovieRestrict().equals(MovieRestriction.M18) && CustAge<18)
+            return false;
+        if(showtime.getMovieRestrict().equals(MovieRestriction.NC16)&& CustAge<16)
+            return false;
+
+        return true;
     }
 
     public Showtime selectseat(Showtime showtime) throws IOException {
@@ -111,68 +122,75 @@ public class Booking{
         ArrayList<Integer> StoreSeatIndex = new ArrayList<>();
         boolean check=true;
         // Pricing ticketCalc = new Pricing(showtime, StoreSeatIndex);
+        if(CheckIfLegal(showtime)) {
+            int index;
+            do {
 
-        int index;
-        do {
 
+                try {
+                    SeatControl.printlayout(layout.getRow(), layout.getCol(), layout);
 
-           // try{
-                SeatControl.printlayout(layout.getRow(), layout.getCol(), layout);
+                    System.out.println("[1]: Select Index of Seat");
+                    System.out.println("[2]: UnSelect Index of Seat");
+                    System.out.println("[3]: Proceed to Payment");
+                    System.out.println("[4]: Exit;");
+                    int choice = Integer.parseInt(input.nextLine());
+                    switch (choice) {
 
-                System.out.println("[1]: Select Index of Seat");
-                System.out.println("[2]: UnSelect Index of Seat");
-                System.out.println("[3]: Proceed to Payment");
-                System.out.println("[4]: Exit;");
-                int choice = Integer.parseInt(input.nextLine());
-                switch(choice) {
-                    case(1):
-                        System.out.println("Enter Seat Index: ");
-                        index=Integer.parseInt(input.nextLine());
-                        //check if there is space between seats
-                        if(checkifsidebyside(StoreSeatIndex, index)){
-                        //Convert index of seat to occupied
-                        layout.getSeats()[index / 10][index% 10].SelectSeat();
-                        SeatControl.printlayout(layout.getRow(), layout.getCol(), layout);
-                        //Store seat index in array
-                        StoreSeatIndex.add(index);
-                        printseatselected(StoreSeatIndex);
-                        }
-                        break;
-                    case(2):
-                        System.out.println("Enter Seat Index to Unselect: ");
-                        index=Integer.parseInt(input.nextLine());
-                        if(CheckisinArray(StoreSeatIndex, index)){
-                            StoreSeatIndex=updateArray(StoreSeatIndex, index);
-                            layout.getSeats()[index / 10][index% 10].UnSelectSeat();
-                            printseatselected(StoreSeatIndex);
-                        }
-                        else
-                            System.out.println("Invalid Input");
-                        break;
-                    case(3):
+                        case (1):
+                            System.out.println("Enter Seat Index: ");
+                            index = Integer.parseInt(input.nextLine());
+                            //check if seat is occupied
+                            if (layout.getSeats()[index / 10][index % 10].isOccupied())
+                                System.out.println("Seat is Occupied.");
+                                //check if there is space between seats
+                            else {
+                                if (checkifsidebyside(StoreSeatIndex, index)) {
+                                    //Convert index of seat to occupied
+                                    layout.getSeats()[index / 10][index % 10].SelectSeat();
+                                    SeatControl.printlayout(layout.getRow(), layout.getCol(), layout);
+                                    //Store seat index in array
+                                    StoreSeatIndex.add(index);
+                                    printseatselected(StoreSeatIndex);
+                                }
+                            }
+                            break;
+                        case (2):
+                            // UNselect Seat
+                            System.out.println("Enter Seat Index to Unselect: ");
+                            index = Integer.parseInt(input.nextLine());
+                            if (CheckisinArray(StoreSeatIndex, index)) {
+                                StoreSeatIndex = updateArray(StoreSeatIndex, index);
+                                // check seat status back to Available
+                                layout.getSeats()[index / 10][index % 10].UnSelectSeat();
+                                printseatselected(StoreSeatIndex);
+                            } else
+                                System.out.println("Invalid Input");
+                            break;
+                        case (3):
 
-                        //check if payment is successfull
-                        if(paymentControl.runPayment(showtime, StoreSeatIndex)){
-                            //update new seatstatus to layout
+                            //check if payment is successfull
+                            paymentControl.runPayment(showtime, StoreSeatIndex, this.CustAge);
+                                //update new seatstatus to layout
                             layout.updateSeatsStatus(layout.getSeats());
-                            //insert new layout to showtime
+                                //insert new layout to showtime
                             showtime.setLayout(layout);
-                            //return new showtime w new layout
+                                //return new showtime w new layout
                             return showtime;
-                        }
-
-                        break;
-                    case(4):
-                        check=false;
-                        break;
-                    default:
-                        System.out.println("Invalid Input");
+                        case (4):
+                            check = false;
+                            break;
+                        default:
+                            System.out.println("Invalid Input");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Invalid Input");
                 }
-          // }
-           /* catch(Exception e) {
-                System.out.println("Invalid bbbbInput");
-            }*/
-        }while(check);
+            } while (check);
+            return showtime;
+        }
+        System.out.println("You Have Not Met The Legal Age To Watch This Movie.");
+        System.out.println("Movie: "+ showtime.getMoviename()+", Restriction: "+showtime.getMovieRestrict());
         return showtime;
     }
     public boolean checkifsidebyside(ArrayList<Integer> SelectedSeats, int newSeatIndex){
@@ -198,6 +216,7 @@ public class Booking{
         }
         System.out.println("Seats Selected: "+S);
     }
+    // check if selected seats exist in Selected array
     public boolean CheckisinArray(ArrayList<Integer> list, int input){
         for(int x : list){
             if(x==input){

@@ -15,8 +15,7 @@ Relevant files: Operation
 
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Scanner;
+
 
 public class Pricing {
 
@@ -29,16 +28,47 @@ public class Pricing {
 	public double rateGST = 1.07;            //fixed rate of GST of 7%
 	public double changeNearWeekend = 1.0;        //fixed change rate of near weekend;
 	public double changeWeekend = 2.5;        //fixed change rate of weekend
-
+	public double priceWeekend3D;
+	public double priceWeekday3D;
 	public double rateGold = 1.1;
 	public double ratePlatinum = 1.2;            //fixed rate of luxurious class cinema
 	public double rateHoliday = 1.5;            //fixed rate of Public Holiday
 
-	DecimalFormat priceformat = new DecimalFormat("#.#");
+
 	//#----------------------
 	//Object related
 
-	public ArrayList<Integer> SelectedSeats;
+	public void setPricing(double generalprice, double SeniorDis, double StudentDis, double Block, double Gst, double nearweekend, double weekend, double weekend3d,
+				   double weekday3d, double rategold, double rateplat, double ratePH){
+		this.generalPrice=generalprice;
+		this.changeSenior=SeniorDis;
+		this.changeStudent=StudentDis;
+		this.changeBlockbuster=Block;
+		this.rateGST=Gst;
+		this.changeNearWeekend=nearweekend;
+		this.changeWeekend=weekend;
+		this.priceWeekend3D=weekend3d;
+		this.priceWeekday3D=weekday3d;
+		this.rateGold=rategold;
+		this.ratePlatinum=rateplat;
+		this.rateHoliday=ratePH;
+
+	}
+	/*public void printrate(){
+		System.out.println("General"+this.generalPrice);
+		System.out.println("Senior Dis"+this.changeSenior);
+		System.out.println("Stu Dis"+this.changeStudent);
+		System.out.println("blk Dis"+this.changeBlockbuster);
+		System.out.println("gstr Dis"+this.rateGST);
+		System.out.println("nearweeked Dis"+this.changeNearWeekend);
+		System.out.println("weekenm"+this.changeWeekend);
+		System.out.println("3de "+this.priceWeekend3D);
+		System.out.println("3dd "+this.priceWeekday3D);
+		System.out.println("Senior gold "+this.rateGold);
+		System.out.println("rate plat "+ this.ratePlatinum);
+		System.out.println("Ph rateL " + this.rateHoliday);
+
+	}*/
 	//FUNCTION STARTS HERE
 
 	//################################################
@@ -51,9 +81,9 @@ public class Pricing {
 		if (showtime.get3D()) {//3D films has seperate rates of price
 			// check if movie on the Fri-sun
 			if (showtime.getDayofWeek() > 4)
-				totalPrice = 15.0;
+				totalPrice = priceWeekend3D;
 			else {
-				totalPrice = 11.0;
+				totalPrice = priceWeekday3D;
 				// check if moviegoer is a student;
 				if (ageGoer <= 18)
 					totalPrice += changeStudent;
@@ -80,7 +110,7 @@ public class Pricing {
 		if(showtime.getisPH()) totalPrice *= rateHoliday;
 
 		totalPrice *= rateGST;
-
+		totalPrice = Math.round(totalPrice*100)/100.0;
 
 		return totalPrice;//GST constant rate
 	}

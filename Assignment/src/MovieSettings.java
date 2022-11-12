@@ -372,7 +372,7 @@ public class MovieSettings implements Serializable {
 	//generate the list of movie that is currently in spot
 	public void printmovietitle(ArrayList<Movie> movielist) {
 		for(int x=0;x<movielist.size();x++) {
-			System.out.println("#"+(x+1)+" "+movielist.get(x).getTitle() + ", Show Status: "+ movielist.get(x).getstatus() + ", "+ movielist.get(x).getMovieRest());
+			System.out.println("#"+(x+1)+" Movie: "+movielist.get(x).getTitle() + ", Show Status: "+ movielist.get(x).getstatus() + ", "+ movielist.get(x).getMovieRest());
 		}
 	}
 	////////////////////////////////////////////////

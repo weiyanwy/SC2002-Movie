@@ -9,7 +9,6 @@ public class MovieMode {
 
     public void viewMovie() {
         ArrayList<Movie> movielist = moviedb.GetMovieFromDB();
-        System.out.println("hello");
         int sel;
         boolean exit = true;
         if (movielist.size() > 0) {

@@ -35,13 +35,13 @@ public class MovieDBcontrol {
             System.out.println("creating new DB");
         }
         if(checkifexist(movieArrayList, newmovie)) {
-            System.out.println("hi");
             movieArrayList.add(newmovie);
             try {
                 fos = new FileOutputStream(FILENAME);
                 out = new ObjectOutputStream(fos);
                 out.writeObject(movieArrayList);
                 out.close();
+                System.out.println("Movie: "+newmovie.getTitle()+" inserted to DataBase");
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -78,7 +78,7 @@ public class MovieDBcontrol {
         File temp = new File(FILENAME);
         if(temp.exists()){
             temp.delete();
-            System.out.println("file deleted");
+            //System.out.println("file deleted");
         }
         try{
             ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(FILENAME));

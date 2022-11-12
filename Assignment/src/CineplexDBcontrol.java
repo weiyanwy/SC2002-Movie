@@ -68,7 +68,7 @@ public class CineplexDBcontrol {
         File f = new File(FileAddress);
         if (f.exists()) {
             f.delete();
-            System.out.println("Replace with new file");
+            //System.out.println("Replace with new file");
         }
         try {
             fos = new FileOutputStream(FileAddress);

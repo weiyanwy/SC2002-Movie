@@ -8,9 +8,9 @@ public class StaffMode {
 	//######## Create CINEPLEX SETTING CLASS
 	CineplexSetting CineplexSet= new CineplexSetting();
 	MovieSettings movieset = new MovieSettings();
+	PriceSetting PriceSet = new PriceSetting();
 	Scanner sc = new Scanner(System.in);
 	Display UI = new Display(); //display UI messages
-
 
 	public void Adminmode() throws IOException, ClassNotFoundException {
 
@@ -29,7 +29,9 @@ public class StaffMode {
 					break;
 				case(2):
 					CineplexSet.runCineplexSetting();
-
+					break;
+				case(3):
+					PriceSet.RunPriceSetup();
 					break;
 				case(0):
 					System.out.println("Exit Admin Mode");
