@@ -29,7 +29,6 @@ public class Payment {
     public void runPayment(Showtime showtime, ArrayList<Integer> SelectedSeats, int CustAge) throws IOException {
 
         GetPrice=priceDB.GetPriceFromDB();
-        GetPrice.printrate();
 
         insertInfo();
 

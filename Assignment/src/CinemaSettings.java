@@ -158,7 +158,7 @@ public class CinemaSettings{
 	
 	public void updateCinema() throws IOException, ClassNotFoundException {
 		int sel = selectCinema(this.Cinemalist);
-		int selectmovie = 0;
+		int selectmovie;
 		boolean exit = true;
 		if (sel > -1) {
 			while (exit) {
@@ -170,16 +170,18 @@ public class CinemaSettings{
 				if (selectmovie == 0) {
 					System.out.println("Exiting....");
 					exit = false;
-				} else if ((selectmovie > 0) && (selectmovie <= this.movielist.size())) {
-					if (movielist.get(selectmovie - 1).getstatus().equals(MovieStatus.Now_Showing) || movielist.get(selectmovie - 1).getstatus().equals(MovieStatus.Preview)) {
-
+				}
+				else if ((selectmovie > 0) && (selectmovie <= this.movielist.size())) {
+					if (this.movielist.get(selectmovie - 1).getstatus().equals(MovieStatus.Now_Showing) || this.movielist.get(selectmovie - 1).getstatus().equals(MovieStatus.Preview)) {
 						//pass in cinema class, movie class and show time arraylist
-						this.Showtimelist = showset.runShowtimesetup(cineplex, Cinemalist.get(sel), movielist.get(selectmovie - 1), Showtimelist);
-						Cinemalist.get(sel).assignShowtime(this.Showtimelist);
+						System.out.println("****Movie Selected: "+movielist.get(selectmovie-1).getTitle() + " ****");
+						this.Showtimelist = showset.runShowtimesetup(this.cineplex, this.Cinemalist.get(sel), this.movielist.get(selectmovie - 1), this.Showtimelist);
+						this.Cinemalist.get(sel).assignShowtime(this.Showtimelist);
 					} else
 						System.out.println("Only Now Showing and Preview can set show time");
 
-				} else
+				}
+				else
 					System.out.println("Invalid Input");
 			}
 

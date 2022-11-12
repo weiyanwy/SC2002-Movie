@@ -28,7 +28,6 @@ public class MovieDBcontrol {
         File data = new File(FILENAME);
         ArrayList<Movie> movieArrayList = new ArrayList<>();
         if(data.exists()) {
-            System.out.println("File exist");
             movieArrayList =this.GetMovieFromDB();
         }
         else if(data.createNewFile()){

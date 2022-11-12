@@ -23,6 +23,7 @@ public class ShowTimeSetting {
 
     Scanner sc = new Scanner(System.in);
     public ArrayList<Showtime> runShowtimesetup(Cineplex cinplx, Cinema cinema,Movie addmovie, ArrayList<Showtime> Showtimelists) {
+
         if(Showtimelists.size()>0)
             this.Showtimelist=Showtimelists;
         boolean exit = true;
@@ -46,6 +47,7 @@ public class ShowTimeSetting {
                         break;
 
                     case 2:
+
                         ArrayList<Integer> storeindexpos = findshowtime(addmovie.getTitle(),this.Showtimelist);
                         if(storeindexpos.size()==0){
                             System.out.println("Cinema: "+cinema.getname() + " Movie: "+addmovie.getTitle());
@@ -53,18 +55,21 @@ public class ShowTimeSetting {
                         }
                         else{
                             int position=SelectShowtime(storeindexpos, this.Showtimelist);
-                            updatetime(position);
+                            if(position>-1)
+                                updatetime(position);
                         }
                         break;
                     case 3:
-                        storeindexpos =findshowtime(addmovie.getTitle(),this.Showtimelist);
-                        if(storeindexpos.size()==0){
+
+                        ArrayList<Integer> storeindex =findshowtime(addmovie.getTitle(),this.Showtimelist);
+                        if(storeindex.size()==0){
                             System.out.println("Cinema "+cinema.getname() + " Movie: "+addmovie.getTitle());
                             System.out.println("No Show time");
                         }
                         else{
-                            int position=SelectShowtime(storeindexpos,this.Showtimelist);
-                            Showtimelist.remove(position);
+                            int position=SelectShowtime(storeindex,this.Showtimelist);
+                            if(position>-1)
+                                Showtimelist.remove(position);
                         }
                         break;
                     case 4:
@@ -85,17 +90,20 @@ public class ShowTimeSetting {
     }
 
     public void printshowtime(){
+        if(this.Showtimelist.size()>0){
         for(int x=0;x<this.Showtimelist.size();x++){
             System.out.println("Cineplex: "+this.Showtimelist.get(x).getCineplexname() +   " , Cinema: "+ this.Showtimelist.get(x).getCinemaname() + " , Movie: "+this.Showtimelist.get(x).getMoviename());
-            System.out.println((x+1) + " "+ this.Showtimelist.get(x).getTime() + " Type: "+ this.Showtimelist.get(x).getType());
-        }
+            System.out.println("#"+(x+1) + " "+ this.Showtimelist.get(x).getTime() + " Type: "+ this.Showtimelist.get(x).getType());
+        }}
+        else
+            System.out.println("Show time list is empty");
     }
 
     // find showtime w the same cinema name movie tile and store index of its position.
     public ArrayList<Integer> findshowtime(String Movietitle, ArrayList<Showtime> Showtimelist){
         ArrayList<Integer> storeindex = new ArrayList<>();
         for(int x=0; x<Showtimelist.size();x++){
-            if(Showtimelist.get(x).getMoviename().equalsIgnoreCase(Movietitle)){// && Showtimelist.get(x).getCinemaname().equalsIgnoreCase(CinemaName)){
+            if((Showtimelist.get(x).getMoviename()).equals(Movietitle)){// && Showtimelist.get(x).getCinemaname().equalsIgnoreCase(CinemaName)){
                 // store index of showtime w same Movie name
                 storeindex.add(x);
             }
@@ -103,14 +111,18 @@ public class ShowTimeSetting {
         return storeindex;
     }
     public int SelectShowtime(ArrayList<Integer> indexlist, ArrayList<Showtime>Showtimelist){
+
         int select=0;
         for(int x=0; x<indexlist.size();x++){
-            System.out.println("#"+(x+1) +" Movie: "+Showtimelist.get(x).getMoviename()+ " Time:" + Showtimelist.get(indexlist.get(x)).getTime());
+            System.out.println("#"+(x+1) +" Movie: "+Showtimelist.get(indexlist.get(x)).getMoviename()+ " Time:" + Showtimelist.get(indexlist.get(x)).getTime());
         }
         while(true){
             System.out.println("Enter Index of Show time:");
+            System.out.println("Enter 0 to exit:");
             select=Integer.parseInt(sc.nextLine());
-            if(select>0 && select<=indexlist.size()){
+            if(select==0)
+                return -1;
+            else if(select>0 && select<=indexlist.size()){
                 break;
             }
             else{
@@ -165,7 +177,7 @@ public class ShowTimeSetting {
                 temphour = Integer.parseInt(sc.nextLine());
                 System.out.println("Enter mintue of day");
                 tempminute = Integer.parseInt(sc.nextLine());
-                Showtimelist.get(index).setUpdateTime(tempyear,tempmonth, tempdate, temphour, tempminute);
+                this.Showtimelist.get(index).setUpdateTime(tempyear,tempmonth, tempdate, temphour, tempminute);
                 check = false;
                 break;
             } catch (Exception a) {

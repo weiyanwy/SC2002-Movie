@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class MovieMode {
@@ -90,6 +91,34 @@ public class MovieMode {
         }
         else{
             System.out.println("Movie List is Empty");
+        }
+    }
+    public void listByReviews() {
+        ArrayList<Movie> movielist = moviedb.GetMovieFromDB();
+        movielist.sort(new SortbyRating());
+        int top5 = 0;
+        if (movielist.size() < 5) {
+            top5 = movielist.size();
+        }
+        else {
+            top5= 5;
+        }
+        for (int i = 0; i < top5; i++) {
+            System.out.println("#"+(i+1)+ " Movie: "+movielist.get(i).getTitle() + " rating: "+ movielist.get(i).getRating());
+        }
+    }
+    public class SortbyRating implements Comparator<Movie> {
+        public int compare(Movie x, Movie y) {
+            double x_rating=x.getRating();
+            double y_rating=y.getRating();
+            double dif = x_rating - y_rating;
+            if (dif > 0) {
+                return -1;
+            }
+            if (dif < 0) {
+                return 1;
+            }
+            return 0;
         }
     }
 }

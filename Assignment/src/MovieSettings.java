@@ -44,6 +44,10 @@ public class MovieSettings implements Serializable {
 					System.out.println("*****Change Movie Ranking*****");
 					MovieRanking();
 					break;
+				case(5):
+					System.out.println("****Movie List*****");
+					printmovietitle(this.MovieList);
+					break;
 				case(0):
 					System.out.println("Exit Movie Settings");
 					choice =0;
@@ -85,34 +89,38 @@ public class MovieSettings implements Serializable {
 
 		temp.setTitle(title);
 		do {
-			System.out.println("Enter Show Status:");
-			System.out.println("1: Now Showing");
-			System.out.println("2: Preview");
-			System.out.println("3: Coming Soon");
-			System.out.println("4: End of Showing");
-			System.out.println("Enter choice:");
-			choice =Integer.parseInt(sc.nextLine());
-			switch(choice){
-				case 1:
-					status=MovieStatus.Now_Showing;
-					exit = false;
-					break;
-				case 2:
-					status=MovieStatus.Preview;
-					exit = false;
-					break;
-				case 3:
-					status=MovieStatus.Coming_Soon;
-					exit = false;
-					break;
-				case 4:
-					status=MovieStatus.End_Of_Showing;
-					exit = false;
-					break;
-				default:
-					System.out.println("Invalid Input");
-
+			try {
+				System.out.println("Enter Show Status:");
+				System.out.println("1: Now Showing");
+				System.out.println("2: Preview");
+				System.out.println("3: Coming Soon");
+				System.out.println("4: End of Showing");
+				System.out.println("Enter choice:");
+				choice = Integer.parseInt(sc.nextLine());
+				switch (choice) {
+					case 1:
+						status = MovieStatus.Now_Showing;
+						exit = false;
+						break;
+					case 2:
+						status = MovieStatus.Preview;
+						exit = false;
+						break;
+					case 3:
+						status = MovieStatus.Coming_Soon;
+						exit = false;
+						break;
+					case 4:
+						status = MovieStatus.End_Of_Showing;
+						exit = false;
+						break;
+					default:
+						System.out.println("Invalid Input");
+				}
 			}
+			catch(Exception e){
+					System.out.println("Invalid Input");
+				}
 			//set cast
 		}while(exit);
 		temp.setStatus(status);
@@ -125,18 +133,23 @@ public class MovieSettings implements Serializable {
 			System.out.println("2: False");
 			System.out.println("Enter choice:");
 			choice =Integer.parseInt(sc.nextLine());
-			switch(choice){
-				case 1:
-					isBlockuster=true;
-					exit=false;
-					break;
+			try {
+				switch (choice) {
+					case 1:
+						isBlockuster = true;
+						exit = false;
+						break;
 
-				case 2:
-					isBlockuster=false;
-					exit=false;
-					break;
-				default:
-					System.out.println("Invalid Input:");
+					case 2:
+						isBlockuster = false;
+						exit = false;
+						break;
+					default:
+						System.out.println("Invalid Input:");
+				}
+			}
+			catch(Exception e){
+				System.out.println("Invalid Input");
 			}
 		}while(exit);
 
@@ -201,38 +214,7 @@ public class MovieSettings implements Serializable {
 		return temp;
 	}
 	//
-//Re-Sort movie by status
-//Each time a new movie is added, the list is sorted again
-	/*public void sortMovie(){
-		Movie temp;
-		// check if i =0 or 1
-		for(int i=0; i<MovieList.size(); i++)
-		{
-			for(int j=i; j>0; j--)
-			{
-				if(checkprority(MovieList.get(j))> checkprority(MovieList.get(i)))
-				{
-					//check element right is smaller than left
-					temp = MovieList.get(j);
-					MovieList.set(j, MovieList.get(j-1));
-					MovieList.set((j-1), temp);
-				}
-				else
-					break;
-			}
-		}
-	}*/
-	//assign priority to Now showing, preview, coming soon, end of show
-/*	public int checkprority(Movie movie){
-		if(movie.getstatus().equals(MovieStatus.Now_Showing))
-			return 4;
-		else if(movie.getstatus().equals(MovieStatus.Preview))
-			return 3;
-		else if(movie.getstatus().equals(MovieStatus.Coming_Soon))
-			return 2;
-		else
-			return 1;
-	}*/
+
 ///////////////////////////////////////////////////////////////////////
 //
 //Function [2]: Update Movie
@@ -372,7 +354,8 @@ public class MovieSettings implements Serializable {
 	//generate the list of movie that is currently in spot
 	public void printmovietitle(ArrayList<Movie> movielist) {
 		for(int x=0;x<movielist.size();x++) {
-			System.out.println("#"+(x+1)+" Movie: "+movielist.get(x).getTitle() + ", Show Status: "+ movielist.get(x).getstatus() + ", "+ movielist.get(x).getMovieRest());
+			System.out.println("#"+(x+1)+" Movie: "+movielist.get(x).getTitle() + ", Show Status: "+ movielist.get(x).getstatus()
+					+ ", "+ movielist.get(x).getMovieRest() +", "+movielist.get(x).getRating() );
 		}
 	}
 	////////////////////////////////////////////////
@@ -412,14 +395,14 @@ public class MovieSettings implements Serializable {
 //
 //Function [4]: Movie Ranking (have not understood yet)
 	public void MovieRanking() {
-		Movie temp;
+		Movie temp=new Movie();
 
 		//copy the content of the original Seat to tempSeat
 		//Sort TOP 5 rating
 		if(MovieList.size()>0) {
 			System.out.println("Before");
 			for (int a = 0; a < MovieList.size(); a++) {
-				System.out.println(MovieList.get(a).getTitle() + " rating" + MovieList.get(a).getRating());
+				System.out.println("#" + (a+1)+ " Movie: " +MovieList.get(a).getTitle() + " rating: " + MovieList.get(a).getRating());
 			}
 
 			for (int i = 1; i < MovieList.size(); i++) {
@@ -435,7 +418,7 @@ public class MovieSettings implements Serializable {
 			}
 			System.out.println("After");
 			for (int a = 0; a < MovieList.size(); a++) {
-				System.out.println(MovieList.get(a).getTitle() + " rating" + MovieList.get(a).getRating());
+				System.out.println("#" + (a+1)+ " Movie: " +MovieList.get(a).getTitle() + " rating: " + MovieList.get(a).getRating());
 			}
 		}
 		else
