@@ -11,6 +11,7 @@ public class ShowTimeSetting {
     private  int hour;						//hour of slot
     private  int minute;						//minute of slot
     private  boolean is3D = false;						//check whether this slot shows 3D mode
+    private boolean isPH=false;
 
     private SeatLayout layout;
     private SeatLayOutSetting Showtimelayout=new SeatLayOutSetting();
@@ -38,30 +39,31 @@ public class ShowTimeSetting {
                     case 1:
                         Settime();
                         set3D();
-                        Showtimelist.add(new Showtime(this.year, this.month,this.date,this.hour,this.minute,this.is3D,Showtimelayout.SetSeatLayout(),cinplx, cinema, addmovie));
+                        setPH();
+                        Showtimelist.add(new Showtime(this.year, this.month,this.date,this.hour,this.minute,this.is3D,this.isPH,Showtimelayout.SetSeatLayout(),cinplx, cinema, addmovie));
                         printshowtime();
                         //Collections.sort(Showtimelist, Collections.min());
                         break;
 
                     case 2:
-                        ArrayList<Integer> storeindexpos = findshowtime(cinema.getname(), addmovie.getTitle());
+                        ArrayList<Integer> storeindexpos = findshowtime(addmovie.getTitle(),this.Showtimelist);
                         if(storeindexpos.size()==0){
                             System.out.println("Cinema: "+cinema.getname() + " Movie: "+addmovie.getTitle());
                             System.out.println("No Show time");
                         }
                         else{
-                            int position=SelectShowtime(storeindexpos);
+                            int position=SelectShowtime(storeindexpos, this.Showtimelist);
                             updatetime(position);
                         }
                         break;
                     case 3:
-                        storeindexpos =findshowtime(cinema.getname(), addmovie.getTitle());
+                        storeindexpos =findshowtime(addmovie.getTitle(),this.Showtimelist);
                         if(storeindexpos.size()==0){
                             System.out.println("Cinema "+cinema.getname() + " Movie: "+addmovie.getTitle());
                             System.out.println("No Show time");
                         }
                         else{
-                            int position=SelectShowtime(storeindexpos);
+                            int position=SelectShowtime(storeindexpos,this.Showtimelist);
                             Showtimelist.remove(position);
                         }
                         break;
@@ -90,10 +92,10 @@ public class ShowTimeSetting {
     }
 
     // find showtime w the same cinema name movie tile and store index of its position.
-    public ArrayList<Integer> findshowtime(String CinemaName, String Movietitle){
+    public ArrayList<Integer> findshowtime(String Movietitle, ArrayList<Showtime> Showtimelist){
         ArrayList<Integer> storeindex = new ArrayList<>();
         for(int x=0; x<Showtimelist.size();x++){
-            if(Showtimelist.get(x).getMoviename().equalsIgnoreCase(Movietitle) && Showtimelist.get(x).getCinemaname().equalsIgnoreCase(CinemaName)){
+            if(Showtimelist.get(x).getMoviename().equalsIgnoreCase(Movietitle)){// && Showtimelist.get(x).getCinemaname().equalsIgnoreCase(CinemaName)){
                 System.out.println(Showtimelist.get(x).getTime());
                 // store index of showtime w same vmore name
                 storeindex.add(x);
@@ -101,10 +103,10 @@ public class ShowTimeSetting {
         }
         return storeindex;
     }
-    public int SelectShowtime(ArrayList<Integer> indexlist){
+    public int SelectShowtime(ArrayList<Integer> indexlist, ArrayList<Showtime>Showtimelist){
         int select=0;
         for(int x=0; x<indexlist.size();x++){
-            System.out.println("#"+(x+1) + Showtimelist.get(indexlist.get(x)).getTime());
+            System.out.println("#"+(x+1) +" "+ Showtimelist.get(indexlist.get(x)).getTime());
         }
         while(true){
             System.out.println("Enter Index of Show time:");
@@ -116,6 +118,7 @@ public class ShowTimeSetting {
                 System.out.println("Invalid Input");
             }
         }
+
         return select-1;
     }
     //Set up time for show time
@@ -192,6 +195,34 @@ public class ShowTimeSetting {
 
                     case (2):
                         this.is3D = false;
+                        check = false;
+                        break;
+                    default:
+                        System.out.println("Invalid Input");
+                }
+            }
+            catch(Exception e) {
+                System.out.println("Invalid Input");
+            }
+        }while(check);
+    }
+    public void setPH(){
+        boolean check=true;
+        System.out.println("Enter whether this Show time is on a Public Holiday\n");
+        System.out.println("[1] Yes");
+        System.out.println("[2] No");
+        do {
+            try {
+                System.out.println("Enter Choice:");
+                sel=Integer.parseInt(sc.nextLine());
+                switch (sel) {
+                    case (1):
+                        this.isPH = true;
+                        check = false;
+                        break;
+
+                    case (2):
+                        this.isPH = false;
                         check = false;
                         break;
                     default:

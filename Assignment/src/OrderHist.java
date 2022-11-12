@@ -1,44 +1,45 @@
-/*import java.util.ArrayList;
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Scanner;
 
-public class OrderHist(){
+public class OrderHist implements Serializable {
   
   /////////////////////////////////
   // PART 1: Initialise variables
-  public String cinemaName;
-  public String movieName;
-  public String time=" ";
-  public double totalPrice;
-  public ArrayList<Integer> selectedSeats;
-  public String Username;
-  public String email;
-  
-  Scanner sc = new Scanner(System.in);
-  ////////////////////////////////
-  // PART 2: Constructors 
-  public OrderHist(Showtime showtime, double totalPrice, ArrayList<Integer> Seats){
-    this.cinemaName = showtime.getCinemaname();
-    this.movieName = showtime.getMoviename();
-    this.totalPrice = totalPrice;
-    this.selectedSeats = Seats;
-    this.time =  "-"+ (String)showtime.getmonth()
-                + "-" +(String)showtime.getDate() + "-" + (String)showtime.getHour()
-                + "-" +(String)showtime.getMinute();
+  private String CineplexName;
+  private String cinemaName;
+  private String movieName;
+  private String time="";
+  private double totalPrice;
+  private String TransactionID;
+  private ArrayList<Integer> selectedSeats;
+  private String Username;
+  private String email;
+
+  public OrderHist(String cineplexname, String cinemaname, String moviename, String time, double totalprice, String transactionid, ArrayList<Integer>selectedSeats,
+                   String custname, String custemail){
+    this.CineplexName=cineplexname;
+    this.cinemaName=cinemaname;
+    this.movieName=moviename;
+    this.time=time;
+    this.totalPrice=totalprice;
+    this.TransactionID=transactionid;
+    this.selectedSeats=selectedSeats;
+    this.Username=custname;
+    this.email=custemail;
   }
-  
-  ///////////////////////////////
-  // PART 3: Functions
-  public void insertInfo(){
-    System.out.println("Please indicate your name:");
-    this.Username = sc.nextLine();
-    System.out.println("Please Indicate your e-mail");
-    this.email = sc.nextLine();
+
+  public void printOrderDetails(){
+    System.out.println("Transaction ID: "+this.TransactionID);
+    System.out.println("Cineplex: "+this.CineplexName+ ", Cinema: "+this.cinemaName);
+    System.out.println("Show time: "+this.time);
+    System.out.println("Seats: "+ printSeatselected());
   }
-  
-  public String returnTID(){
-    String totalString;
-    totalString = this.cinemaName.charAt(0) + this.cinemaName.charAt(1) +this.cinemaName.charAt(2) +
-                  + this.time;
-    return totalString;
+  public String printSeatselected(){
+    StringBuilder s = new StringBuilder();
+    for (Integer selectedSeat : selectedSeats) {
+      s.append(selectedSeat).append(", ");
+    }
+    return s.toString();
   }
-}*/
+}

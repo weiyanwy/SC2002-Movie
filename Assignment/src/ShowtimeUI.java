@@ -1,12 +1,12 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class ShowtimeUI {
-    Showtime[] showtime;
-    private int Showtimelistsize;
 
+
+    ArrayList<Showtime> Showtimelist= new ArrayList<>();
     Scanner sc = new Scanner(System.in);
-    public void runshowUI(Showtime[] Showtime, int Size){
-        this.showtime= Showtime;
-        this.Showtimelistsize=Size;
+    public void runshowUI(ArrayList<Showtime> ShowList){
+        Showtimelist=ShowList;
         int sel;
         boolean exit=true;
         while(exit) {
@@ -18,7 +18,7 @@ public class ShowtimeUI {
                 System.out.println("Exiting....");
                 break;
             }
-            if((sel>0)&&(sel<=Showtimelistsize)){
+            if((sel>0)&&(sel<=Showtimelist.size())){
                 //layout.runshowUI(showtime[sel-1].getSeatlayout());
             }
             else
@@ -27,8 +27,8 @@ public class ShowtimeUI {
         }
     }
     public void printShowtimelist(){
-        for(int x=1;x<=Showtimelistsize;x++){
-            System.out.println("Date and time:"+showtime[x-1].getTime()+" Type: "+ showtime[x-1].getCinemaType());
+        for(int x=0;x<=Showtimelist.size();x++){
+            System.out.println("Date and time:"+Showtimelist.get(x).getTime()+" Type: "+ Showtimelist.get(x).getCinemaType());
         }
     }
 

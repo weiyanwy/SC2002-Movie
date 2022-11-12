@@ -12,7 +12,8 @@ public class SeatLayOutSetting {
     public SeatLayout SetSeatLayout(){
         SetRowAndColumn();
         initializeSeats(this.row,this.column);
-        this.Showtimelayout=new SeatLayout(this.row, this.column, this.layout);
+        this.Showtimelayout=new SeatLayout();
+        this.Showtimelayout.setSeatLayout(this.row, this.column, this.layout);
         return Showtimelayout;
     }
     public void SetRowAndColumn()
@@ -130,7 +131,7 @@ public class SeatLayOutSetting {
     }
     //############################
     // print index
-    public void printSeatIndex(int row, int column) {
+    public void printSeatIndex(int row, int column, Seat[][] layout) {
         String title="[SCREEN]";
         for(int x=0; x< row;x++) {
             String S ="";
@@ -150,98 +151,13 @@ public class SeatLayOutSetting {
         }
     }
     public void printlayout(int row, int col, SeatLayout seatlayout) {
-        printSeatIndex(row, col);
+        printSeatIndex(row, col, seatlayout.getSeats());
         printSeatStatus(seatlayout);
     }
     
     // change to return seat
-    public void selectseat(Showtime showtime) {
 
-        SeatLayout layout=showtime.getSeatlayout();
-        ArrayList<Integer> StoreSeatIndex = new ArrayList<>();
-        boolean check=true;
-       // Pricing ticketCalc = new Pricing(showtime, StoreSeatIndex);
-        Seat[][] seats= layout.getSeats();
-        int index;
-        do {
-
-            try {
-                printlayout(layout.getRow(), layout.getCol(), layout);
-                System.out.println("[1]: Select Index of Seat");
-                System.out.println("[2]: UnSelect Index of Seat");
-                System.out.println("[3]: Proceed to Payment");
-                System.out.println("[4]: Exit;");
-                int choice = Integer.parseInt(sc.nextLine());
-                switch(choice) {
-                    case(1):
-                        System.out.println("Enter Seat Index: ");
-                        index=Integer.parseInt(sc.nextLine());
-                        //Convert index of seat to occupied
-                        seats[index / 10][index% 10].SelectSeat();
-                        printlayout(layout.getRow(), layout.getCol(), layout);
-                        //Store seat index in array
-                        StoreSeatIndex.add(index);
-                        printseatselected(StoreSeatIndex);
-                        break;
-                    case(2):
-                        System.out.println("Enter Seat Index to Unselect: ");
-                        index=Integer.parseInt(sc.nextLine());
-                        if(CheckisinArray(StoreSeatIndex, index)){
-                            StoreSeatIndex=updateArray(StoreSeatIndex, index);
-
-                            this.layout[index / 10][index% 10].UnSelectSeat();
-                            printseatselected(StoreSeatIndex);
-                        }
-                        else
-                            System.out.println("Invalid Input");
-                        break;
-                    case(3):
-                    double totalPrice = 0.0;    
-                        //payment
-                    printseatselected(StoreSeatIndex);
-                  //  totalPrice = ticketCalc.PricingUI();
-                        
-                   // TIDdisplayUI();
-                    break;
-                    case(4):
-
-                        check=false;
-                        break;
-                    default:
-                        System.out.println("Invalid Input");
-                }
-            }
-            catch(Exception e) {
-                System.out.println("Invalid Input");
-            }
-        }while(check);
-    }
-    //Print out all the seats user has selected
-    public void printseatselected(ArrayList<Integer> list){
-        String S="";
-        for(int x = 0;x <list.size();x ++){
-            S = S + list.get(x)+" ";
-        }
-        System.out.println("Seats Selected: "+S);
-    }
     //Check if Index is in Selected Seats
-    public boolean CheckisinArray(ArrayList<Integer> list, int input){
-        for(int x : list){
-            if(x==input){
-                return true;
-            }
-        }
-        return false;
-    }
-    //Remove Index from SelectedSeats
-    public ArrayList<Integer> updateArray(ArrayList<Integer> list, int input){
-        for(int x=0;x<list.size();x++) {
-            if (list.get(x) == input) {
-                list.remove(x);
-            }
-        }
-        return list;
-    }
 
 
 

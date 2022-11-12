@@ -79,13 +79,13 @@ public class CineplexSetting{
         return Temp;
     }
 
-    public int selectCineplex() {
+    public int selectCineplex(ArrayList<Cineplex> Cineplexlist) {
         int sel=1;
         boolean exit=true;
         if(Cineplexlist.size()>0) {
             do {
                 try {
-                    printCinplexlist(this.Cineplexlist);
+                    printCinplexlist(Cineplexlist);
                     System.out.println("Select Cineplex");
                     System.out.println("Enter 0 to exit:");
                     sel = Integer.parseInt(sc.nextLine());
@@ -93,9 +93,10 @@ public class CineplexSetting{
                     if (sel == 0) {
                         exit = false;
                         System.out.println("Exiting....");
+                        return -1;
                     }
                     // if input < Cineplex List size run next function
-                    else if ((sel > 0) && (sel <= this.Cineplexlist.size())) {
+                    else if ((sel > 0) && (sel <= Cineplexlist.size())) {
                         exit = false;
                     }
                     else
@@ -106,8 +107,10 @@ public class CineplexSetting{
 
             } while (exit);
         }
-        else
+        else {
             System.out.println("Cineplex List is Empty");
+            return -1;
+        }
         // return -1 if user wants to exit
         return (sel-1);
     }
@@ -115,7 +118,7 @@ public class CineplexSetting{
     public void updateCineplex() {
 
         int choice;
-        choice=selectCineplex();
+        choice=selectCineplex(this.Cineplexlist);
         // run function if user dw to exit
         if(choice>-1) {
             //printCinema(Cineplexlist.get(choice), Cineplexlist.get(choice).getCinemalist());
@@ -130,7 +133,7 @@ public class CineplexSetting{
     }
     public void removeCineplex(){
         int choice;
-        choice=selectCineplex();
+        choice=selectCineplex(this.Cineplexlist);
         if(choice!=-1){
             Cineplexlist.remove(choice);
             System.out.println("Removal Successful");

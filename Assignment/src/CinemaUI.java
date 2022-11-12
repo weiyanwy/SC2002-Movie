@@ -1,34 +1,27 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 public class CinemaUI {
-    private ShowtimeUI showUI;
-    private Cinema[] Cinemalist;
-    int Cinemalistsize;
+    private ShowtimeUI showUI=new ShowtimeUI();
+    CinemaSettings cinemaset= new CinemaSettings();
+    ArrayList<Cinema> CinemaList= new ArrayList<>();
     Scanner sc = new Scanner(System.in);
-    public void runCinema(Cinema[] Cinemalist, int cinemalistsize){
-        Cinemalist=Cinemalist;
-        this.Cinemalistsize=cinemalistsize;
+    public void runCinema(ArrayList<Cinema> Cinemalist){
+        CinemaList=Cinemalist;
+
         int sel;
         boolean exit=true;
         while(exit) {
-            printCinemalist();
-            System.out.println("Enter 0 to exit");
-            System.out.println("Select Index of Cinema to view");
-            sel = Integer.parseInt(sc.nextLine());
+            sel=cinemaset.selectCinema(CinemaList);
             if (sel==0){
                 System.out.println("Exiting....");
                 break;
             }
-            if((sel>0)&&(sel<=Cinemalistsize)){
-                //showUI.runshowUI(Cinemalist[sel-1].getShow, Cinemalist[sel-1].getShowlistSize);
+            else if((sel>0)&&(sel<=CinemaList.size())) {
+                showUI.runshowUI(Cinemalist.get(sel - 1).getShowtimelist());
             }
             else
                 System.out.println("Invalid Input");
 
-        }
-    }
-    public void printCinemalist(){
-        for(int x=1;x<=Cinemalistsize;x++){
-            System.out.println("Cinema #"+x+" "+Cinemalist[x-1].getname());
         }
     }
 

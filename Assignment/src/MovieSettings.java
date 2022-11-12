@@ -223,7 +223,7 @@ public class MovieSettings implements Serializable {
 		}
 	}*/
 	//assign priority to Now showing, preview, coming soon, end of show
-	public int checkprority(Movie movie){
+/*	public int checkprority(Movie movie){
 		if(movie.getstatus().equals(MovieStatus.Now_Showing))
 			return 4;
 		else if(movie.getstatus().equals(MovieStatus.Preview))
@@ -232,7 +232,7 @@ public class MovieSettings implements Serializable {
 			return 2;
 		else
 			return 1;
-	}
+	}*/
 ///////////////////////////////////////////////////////////////////////
 //
 //Function [2]: Update Movie
@@ -372,7 +372,7 @@ public class MovieSettings implements Serializable {
 	//generate the list of movie that is currently in spot
 	public void printmovietitle(ArrayList<Movie> movielist) {
 		for(int x=0;x<movielist.size();x++) {
-			System.out.println("#"+(x+1)+" "+movielist.get(x).getTitle() + ", Show Status: "+ movielist.get(x).getstatus() + " "+ movielist.get(x).getMovieRest());
+			System.out.println("#"+(x+1)+" "+movielist.get(x).getTitle() + ", Show Status: "+ movielist.get(x).getstatus() + ", "+ movielist.get(x).getMovieRest());
 		}
 	}
 	////////////////////////////////////////////////

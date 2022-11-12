@@ -48,7 +48,7 @@ public class CinemaSettings{
 					//Call Create Cinema");
 					System.out.println("*****Create Cinema*****");
 					this.Cinemalist.add(createCinema());
-					printCinema(cineplex.getCineplexName(), Cinemalist);
+					printCinema(this.Cinemalist);
 					break;
 				case(2):
 					//Call update cinema function
@@ -72,9 +72,9 @@ public class CinemaSettings{
 
 		return this.Cinemalist;
 	}
-	public void printCinema(String CineplexName, ArrayList<Cinema>Cinemalist){
+	public void printCinema(ArrayList<Cinema>Cinemalist){
 		for(int x=0; x<Cinemalist.size(); x++){
-			System.out.println("Cineplex: " + CineplexName+", Cinema " + (x+1) + ": "+ Cinemalist.get(x).getname()+ ",  Type: " + Cinemalist.get(x).getCinematype());
+			System.out.println("Cinema " + (x+1) + ": "+ Cinemalist.get(x).getname()+ ",  Type: " + Cinemalist.get(x).getCinematype());
 		}
 	}
 	
@@ -82,10 +82,13 @@ public class CinemaSettings{
 		boolean exit=true;
 		int sel;
 		String name;
+		String Code;
 		Cinema temp = new Cinema();
 
 		System.out.println("Enter Cinema Name:");
 		name=sc.nextLine();
+		System.out.println("Enter Cinema Code (3 Letters)");
+		Code=sc.nextLine().toUpperCase();
 		do{
 			System.out.println("Enter Cinema Type:");
 			System.out.println("1: STANDARD");
@@ -110,19 +113,19 @@ public class CinemaSettings{
 					System.out.println("Invalid Input");
 			}
 		}while(exit);
-		temp.setname(name);
+		temp.setNameCode(name,Code);
 		temp.setCinematype(cinematype);
 
 		return temp;
 	}
 	
-	public int selectCinema() {
+	public int selectCinema(ArrayList<Cinema> Cinemalist) {
 		int sel=-1;
 		boolean exit=true;
 		if (Cinemalist.size()> 0) {
 			do {
 				try {
-						for(int x = 0; x < this.Cinemalist.size(); x++) {
+						for(int x = 0; x < Cinemalist.size(); x++) {
 						System.out.println("Cinema #" + (x + 1) + " " + Cinemalist.get(x).getname());
 					}
 					System.out.println("Select Cinema");
@@ -131,8 +134,9 @@ public class CinemaSettings{
 					if (sel == 0) {
 						exit = false;
 						System.out.println("Exiting...");
+						return -1;
 					}
-					else if ((sel > 0) && (sel <= this.Cinemalist.size())) {
+					else if ((sel > 0) && (sel <= Cinemalist.size())) {
 						exit= false;
 					}
 					else {
@@ -144,14 +148,16 @@ public class CinemaSettings{
 
 			} while (exit);
 			//return 0 if exit
-		} else
+		} else{
 			System.out.println("Cinema List is Empty");
+			return -1;
+		}
 		//return 1 if empty
 		return (sel-1);
 	}
 	
 	public void updateCinema() throws IOException, ClassNotFoundException {
-		int sel = selectCinema();
+		int sel = selectCinema(this.Cinemalist);
 		int selectmovie = 0;
 		boolean exit = true;
 		if (sel > -1) {
@@ -183,7 +189,7 @@ public class CinemaSettings{
 
 	public void removeCinema(){
 		int choice;
-		choice=selectCinema();
+		choice=selectCinema(this.Cinemalist);
 		if(choice!=-1){
 			Cinemalist.remove(choice);
 			System.out.println("Removal Successful");
