@@ -32,7 +32,7 @@ public class PriceSetting {
         double PH= Double.parseDouble(sc.nextLine());
         Pricing temp = new Pricing();
         temp.setPricing(Generalprice, SeniorDiscount, StudentDiscount, Blockbuster, GST, NearWeekend, weekend, weekday3D, weekend3D, rateGold, ratePlat,PH);
-        temp.printrate();
+
         priceDB.insertPriceToDB(temp);
     }
 }
