@@ -1,41 +1,27 @@
 package Entity;
 import java.util.Scanner;
-import Controller.*;
-import Settings.*;
 
 public class StaffLogin {
-	private  final String Username= "1";
-	private  final String Password="1";
-	private String TempUser;
-	private String TempPass;
-	StaffMode staff= new StaffMode();
-
-	public boolean run() {
-		Scanner sc = new Scanner(System.in);
-		StaffLogin Login = new StaffLogin();
-		System.out.println("*****STAFF LOGIN*****");
-		String input;
-		System.out.println("Enter Username: ");
-		Login.InputUser(input= sc.nextLine());
-		System.out.println("Enter Password: ");
-		Login.InputPass(input=sc.nextLine());
-		if(Login.CheckLogin()) {
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	public void InputUser(String User) {
-		this.TempUser=User;
-	}
-	public void InputPass(String Pass) {
-		this.TempPass=Pass;
-	}
-	public boolean CheckLogin() {
-		if(TempUser.equals(Username) && TempPass.equals(Password))
-			return true;
-		else
-			return false;
-	}
+    private String tempuser;
+    private String temppass;
+    Scanner sc= new Scanner(System.in);
+    public boolean runStafflogin() {
+        System.out.println("*****STAFF LOGIN*****");
+        System.out.println("Enter Username: ");
+        InputUser(sc.nextLine());
+        System.out.println("Enter Password: ");
+        InputPass(sc.nextLine());
+        return CheckLogin();
+    }
+    public void InputUser(String User) {
+        this.tempuser=User;
+    }
+    public void InputPass(String Pass) {
+        this.temppass=Pass;
+    }
+    public boolean CheckLogin() {
+        String username = "1";
+        String password = "1";
+        return this.tempuser.equals(username) && this.temppass.equals(password);
+    }
 }
