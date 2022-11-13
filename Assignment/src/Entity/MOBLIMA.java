@@ -40,7 +40,7 @@ public class MOBLIMA {
 		break;
 		case 2:									//login as staff
 		System.out.println("*****Login as STAFF*****");
-		if(Login.run()) {
+		if(Login.runStafflogin()) {
 			Staff.Adminmode();
 		}
 		else System.out.println("***Login failed***");
